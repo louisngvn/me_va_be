@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Góc Chuyên Gia - Vi Chất Cho Mẹ và Bé</title>
+    
+    <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #d4a574 0%, #b8860b 25%, #cd853f 50%, #daa520 75%, #f4a460 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-glass {
+            background-color: rgba(205, 133, 63, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Style cho nội dung bài viết */
+        .article-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem; color: #fff; }
+        .article-content h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; border-left: 3px solid #FFDDC1; padding-left: 0.75rem; color: #FFF8E1;}
+        .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+        .article-content li { margin-bottom: 0.5rem; }
+        .article-content blockquote { border-left: 4px solid rgba(255,255,255,0.3); padding-left: 1rem; margin: 1rem 0; font-style: italic; color: #FFF5E1; }
+        .article-content strong { color: #FFECB3; }
+    </style>
+</head>
+<body class="text-white/90">
+
+    <!-- Header -->
+    <header class="header-glass sticky top-0 z-50 border-b border-white/20">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-amber-600 to-yellow-700 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold text-white">
+                        Vi Chất Cho Mẹ và Bé
+                    </h1>
+                </div>
+                <a href="index.html" class="px-4 py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300">
+                    ← Quay lại trang so sánh
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 md:p-8">
+        <div class="glass-effect p-6 md:p-10 rounded-3xl">
+            <article id="expert-content" class="article-content max-w-4xl mx-auto">
+                <h2>Vitamin K2: Chìa Khóa Vàng Cho Xương Chắc Khỏe và Sức Khỏe Toàn Diện</h2>
+                <p class="mb-4">Trong những năm gần đây, vai trò của các vitamin, đặc biệt là Vitamin D, trong quá trình chuyển hóa xương đã được nghiên cứu kỹ lưỡng. Tuy nhiên, để Vitamin D có thể phát huy tối đa tác dụng, chúng ta cần một "người bạn đồng hành" không thể thiếu: <strong>Vitamin K2</strong>.</p>
+                
+                <h3>1. Vitamin D và K2: Bộ Đôi Hoàn Hảo</h3>
+                <p class="mb-4">Vitamin D đóng vai trò quan trọng trong việc hấp thu canxi từ thức ăn và đưa canxi vào cơ thể. Tuy nhiên, để canxi được sử dụng đúng cách – tức là được tích hợp vào xương và không lắng đọng ở những nơi không mong muốn như mạch máu – thì Vitamin K2 lại cực kỳ cần thiết.</p>
+                <blockquote><strong>Sự kết hợp hiệp đồng:</strong> Vitamin D kiểm soát việc tổng hợp các protein, và sau đó chính Vitamin K2 sẽ kích hoạt các protein này để chúng có thể "dẫn đường" cho canxi đi đúng nơi cần đến.</blockquote>
+                
+                <h3>2. Các Dạng Vitamin K và Nguồn Cung Cấp</h3>
+                <p class="mb-4">Vitamin K là một nhóm vitamin tan trong chất béo, chủ yếu được phân biệt thành K1 và K2.</p>
+                <ul>
+                    <li><strong>Vitamin K1 (phylloquinone):</strong> Được tổng hợp bởi thực vật và tảo, chiếm 70-90% lượng vitamin K chúng ta hấp thu từ rau xanh như cải xoăn, bông cải xanh, rau bina.</li>
+                    <li><strong>Vitamin K2 (menaquinone):</strong> Được sản xuất một lượng nhỏ trong cơ thể từ việc chuyển hóa K1, và được hấp thu từ các sản phẩm lên men như sữa chua, phô mai, và đặc biệt là <strong>Natto</strong> (món đậu nành lên men của Nhật Bản) chứa hàm lượng Vitamin K2 dạng MK-7 rất cao.</li>
+                </ul>
+                <blockquote><strong>Tình trạng thiếu hụt:</strong> Nhiều nghiên cứu cho thấy lượng K2 được sản xuất trong cơ thể không đủ đáp ứng nhu cầu, và tình trạng thiếu hụt Vitamin K2 đang phổ biến ở các nước phương Tây do sức khỏe đường ruột suy giảm và ít tiêu thụ thực phẩm lên men.</blockquote>
+
+                <h3>3. Bổ Sung Vitamin K2: Tại Sao Chọn MK-7 Dạng trans?</h3>
+                <p class="mb-4">Nhu cầu Vitamin K khuyến nghị hàng ngày khó có thể được đáp ứng đầy đủ chỉ bằng chế độ dinh dưỡng. Khi cần bổ sung, việc lựa chọn dạng K2 là rất quan trọng.</p>
+                <ul>
+                    <li><strong>Thời gian tồn tại:</strong> MK-4 bị đào thải chỉ sau vài giờ, trong khi <strong>MK-7 vẫn có sẵn trong máu tới 72 giờ</strong>. Do đó, MK-7 cho thấy hiệu quả tốt hơn và kéo dài hơn.</li>
+                    <li><strong>Dạng hoạt động:</strong> Cơ thể chỉ có thể xử lý <strong>dạng trans</strong> của MK-7. Đây là yếu tố quan trọng khi lựa chọn sản phẩm bổ sung.</li>
+                </ul>
+                <blockquote><strong>Lưu ý quan trọng:</strong> Không nên dùng Vitamin K cho bệnh nhân đang điều trị bằng thuốc chống đông máu (như warfarin) vì nó có thể ảnh hưởng đến hiệu quả của thuốc.</blockquote>
+                
+                <h3>4. Kết Luận</h3>
+                <p>Vitamin K2, đặc biệt là dạng <strong>MK-7 trans</strong>, đóng vai trò then chốt trong việc "dẫn đường" cho canxi vào đúng vị trí trong cơ thể. Việc bổ sung Vitamin D kết hợp với Vitamin K2 là rất cần thiết để tối ưu hóa sức khỏe xương và mang lại nhiều lợi ích toàn diện khác.</p>
+            </article>
+        </div>
+    </main>
+
+</body>
+</html>
