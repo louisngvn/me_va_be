@@ -238,6 +238,17 @@
                     Tìm sản phẩm tốt nhất cho con với công cụ so sánh thông minh, 
                     biểu đồ trực quan và tư vấn AI miễn phí từ chuyên gia dinh dưỡng.
                 </p>
+                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button id="ai-consult-btn" class="px-8 py-4 bg-gradient-to-r from-amber-600 to-yellow-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <span>Tư Vấn AI Miễn Phí</span>
+                    </button>
+                    <button onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 glass-effect text-white font-semibold rounded-2xl hover:bg-white/20 transition-all duration-300">
+                        Xem Sản Phẩm
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -347,6 +358,31 @@
                                 <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
                                     <input type="radio" name="k2_filter" value="false" class="text-purple-500 focus:ring-purple-500">
                                     <span>Chỉ có D3</span>
+                                </label>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- D3 Content Filter -->
+                    <div class="mb-4 filter-group" data-filter-key="d3_content">
+                        <details class="text-white/90" open>
+                            <summary>Hàm lượng D3</summary>
+                            <div class="space-y-2 pt-2 pl-4">
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="<100" class="rounded text-purple-500 focus:ring-purple-500">
+                                    <span>Dưới 100 IU/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="100-200" class="rounded text-purple-500 focus:ring-purple-500">
+                                    <span>100-200 IU/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="200-400" class="rounded text-purple-500 focus:ring-purple-500">
+                                    <span>200-400 IU/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value=">400" class="rounded text-purple-500 focus:ring-purple-500">
+                                    <span>Trên 400 IU/Liều</span>
                                 </label>
                             </div>
                         </details>
@@ -513,23 +549,6 @@
         </div>
     </div>
 
-    <!-- Expert Modal -->
-    <div id="expert-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="glass-effect max-w-4xl w-full rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-white">Góc Chuyên Gia</h3>
-                <button id="expert-close" class="text-white/60 hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <div id="expert-content" class="text-white/90 prose prose-invert max-w-none">
-                <!-- Expert content will be loaded here -->
-            </div>
-        </div>
-    </div>
-
     <!-- Notification -->
     <div id="notification" class="notification glass-effect p-4 rounded-xl text-white">
         <div class="flex items-center space-x-3">
@@ -644,66 +663,23 @@
                 ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
                 rating: 4.3, reviews: 78, product_url: '#'
             },
+             {
+                id: 16, name: 'Sunday Natural D3 1000 IU', brand: 'Sunday Natural', image: 'https://placehold.co/300x300/f59e0b/white?text=Sunday+D3', price: 350000,
+                volume_ml: 50, total_doses_per_bottle: 1750, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
+                declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 1000, k2_mcg: 0 },
+                dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 1, unit: 'giọt' } }, // Adjusted, high dose
+                ingredients_details: { d3_source: 'Động vật', has_k2: false, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
+                rating: 4.9, reviews: 310, product_url: 'https://sunday.vn/products/vitamin-d3-1000-iu-1750-giot-thuan-chay'
+            },
+            {
+                id: 17, name: 'Sunday Natural D3+K2 MK7 1000 IU', brand: 'Sunday Natural', image: 'https://placehold.co/300x300/f59e0b/white?text=Sunday+D3K2', price: 420000,
+                volume_ml: 10, total_doses_per_bottle: 300, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
+                declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 1000, k2_mcg: 50 },
+                dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 1, unit: 'giọt' } }, // Adjusted, high dose
+                ingredients_details: { d3_source: 'Thực vật', has_k2: true, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
+                rating: 5.0, reviews: 150, product_url: 'https://sunday.vn/products/vitamin-d3-k2-mk7-1000-iu-50%C2%B5g-thuan-chay-300-giot'
+            }
         ];
-
-        // Expert article content
-        const expertArticleContent = `
-            <h2 class="text-2xl font-bold mb-4">Vitamin K2: Chìa Khóa Vàng Cho Xương Chắc Khỏe</h2>
-            <p class="mb-4">Trong những năm gần đây, vai trò của các vitamin, đặc biệt là Vitamin D, trong quá trình chuyển hóa xương đã được nghiên cứu kỹ lưỡng. Tuy nhiên, để Vitamin D có thể phát huy tối đa tác dụng, chúng ta cần một "người bạn đồng hành" không thể thiếu: <strong>Vitamin K2</strong>.</p>
-            
-            <h3 class="text-xl font-semibold mb-3 mt-6">1. Vitamin D và K2: Bộ Đôi Hoàn Hảo</h3>
-            <p class="mb-4">Vitamin D đóng vai trò quan trọng trong việc hấp thu canxi từ thức ăn và đưa canxi vào cơ thể. Tuy nhiên, để canxi được sử dụng đúng cách – tức là được tích hợp vào xương và không lắng đọng ở những nơi không mong muốn như mạch máu – thì Vitamin K2 lại cực kỳ cần thiết.</p>
-            
-            <div class="bg-white/10 p-4 rounded-xl mb-4">
-                <p class="font-semibold text-emerald-400">💡 Sự kết hợp hiệp đồng:</p>
-                <p>Vitamin D3 giúp hấp thu canxi, Vitamin K2 đảm bảo canxi đi đúng nơi cần thiết.</p>
-            </div>
-            
-            <h3 class="text-xl font-semibold mb-3 mt-6">2. Tại Sao Trẻ Em Cần Vitamin K2?</h3>
-            <ul class="list-disc list-inside mb-4 space-y-2">
-                <li><strong>Phát triển xương:</strong> Giai đoạn từ 0-12 tuổi là thời kỳ vàng cho sự phát triển xương</li>
-                <li><strong>Tăng chiều cao:</strong> K2 giúp tối ưu hóa quá trình khoáng hóa xương</li>
-                <li><strong>Răng chắc khỏe:</strong> Hỗ trợ phát triển men răng và cấu trúc răng</li>
-                <li><strong>Hệ miễn dịch:</strong> Góp phần tăng cường sức đề kháng tự nhiên</li>
-            </ul>
-            
-            <h3 class="text-xl font-semibold mb-3 mt-6">3. Cách Chọn Sản Phẩm Phù Hợp</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div class="bg-white/10 p-4 rounded-xl">
-                    <h4 class="font-semibold text-blue-400 mb-2">Theo độ tuổi:</h4>
-                    <ul class="text-sm space-y-1">
-                        <li>• 0-6 tháng: 400 IU D3/ngày</li>
-                        <li>• 6-12 tháng: 400 IU D3/ngày</li>
-                        <li>• 1-3 tuổi: 600 IU D3/ngày</li>
-                        <li>• 3+ tuổi: 600-800 IU D3/ngày</li>
-                    </ul>
-                </div>
-                <div class="bg-white/10 p-4 rounded-xl">
-                    <h4 class="font-semibold text-purple-400 mb-2">Tiêu chí chọn lựa:</h4>
-                    <ul class="text-sm space-y-1">
-                        <li>• Xuất xứ rõ ràng</li>
-                        <li>• Có chứng nhận chất lượng</li>
-                        <li>• Dạng giọt dễ sử dụng</li>
-                        <li>• Tỷ lệ D3:K2 phù hợp</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h3 class="text-xl font-semibold mb-3 mt-6">4. Lưu Ý Khi Sử Dụng</h3>
-            <div class="bg-yellow-500/20 border border-yellow-500/30 p-4 rounded-xl mb-4">
-                <p class="font-semibold text-yellow-400 mb-2">⚠️ Quan trọng:</p>
-                <ul class="text-sm space-y-1">
-                    <li>• Nên uống vào buổi sáng sau ăn</li>
-                    <li>• Không vượt quá liều khuyến cáo</li>
-                    <li>• Tham khảo ý kiến bác sĩ nhi khoa</li>
-                    <li>• Theo dõi phản ứng của trẻ</li>
-                </ul>
-            </div>
-            
-            <p class="text-center text-white/70 mt-6">
-                <em>Thông tin chỉ mang tính chất tham khảo. Vui lòng tham khảo ý kiến bác sĩ chuyên khoa trước khi sử dụng.</em>
-            </p>
-        `;
 
         // Global variables
         let filteredProducts = [...products];
@@ -781,40 +757,35 @@
             });
             
             // AI consultation modal
-            document.getElementById('ai-consult-btn').addEventListener('click', () => {
-                document.getElementById('ai-modal').classList.remove('hidden');
-            });
+            const aiConsultBtn = document.getElementById('ai-consult-btn');
+            if (aiConsultBtn) {
+                 aiConsultBtn.addEventListener('click', () => {
+                    document.getElementById('ai-modal').classList.remove('hidden');
+                });
+            }
             
-            document.getElementById('ai-close').addEventListener('click', () => {
-                document.getElementById('ai-modal').classList.add('hidden');
-            });
-            
-            document.getElementById('get-recommendation').addEventListener('click', getAIRecommendation);
-            
-            // Expert modal
-            document.getElementById('expert-link').addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('expert-content').innerHTML = expertArticleContent;
-                document.getElementById('expert-modal').classList.remove('hidden');
-            });
-            
-            document.getElementById('expert-close').addEventListener('click', () => {
-                document.getElementById('expert-modal').classList.add('hidden');
-            });
+            const aiCloseBtn = document.getElementById('ai-close');
+            if(aiCloseBtn) {
+                aiCloseBtn.addEventListener('click', () => {
+                    document.getElementById('ai-modal').classList.add('hidden');
+                });
+            }
+           
+            const aiModal = document.getElementById('ai-modal');
+            if(aiModal){
+                 aiModal.addEventListener('click', (e) => {
+                    if (e.target === e.currentTarget) {
+                        aiModal.classList.add('hidden');
+                    }
+                });
+            }
+
+            const getRecommendationBtn = document.getElementById('get-recommendation');
+            if(getRecommendationBtn){
+                 getRecommendationBtn.addEventListener('click', getAIRecommendation);
+            }
             
             // Close modals on backdrop click
-            document.getElementById('ai-modal').addEventListener('click', (e) => {
-                if (e.target === e.currentTarget) {
-                    document.getElementById('ai-modal').classList.add('hidden');
-                }
-            });
-            
-            document.getElementById('expert-modal').addEventListener('click', (e) => {
-                if (e.target === e.currentTarget) {
-                    document.getElementById('expert-modal').classList.add('hidden');
-                }
-            });
-            
             document.getElementById('comparison-modal').addEventListener('click', (e) => {
                 if (e.target === e.currentTarget) {
                     document.getElementById('comparison-modal').classList.add('hidden');
@@ -864,6 +835,21 @@
                 filtered = filtered.filter(product => product.ingredients_details.has_k2 === hasK2);
             }
             
+            // D3 Content filter
+            const d3ContentRanges = Array.from(document.querySelectorAll('[data-filter-key="d3_content"] input:checked')).map(cb => cb.value);
+            if (d3ContentRanges.length > 0) {
+                filtered = filtered.filter(p => {
+                    const d3PerDose = p.declared_dose.d3_iu / p.declared_dose.unit_count;
+                    return d3ContentRanges.some(range => {
+                        if (range === '<100') return d3PerDose < 100;
+                        if (range === '100-200') return d3PerDose >= 100 && d3PerDose <= 200;
+                        if (range === '200-400') return d3PerDose > 200 && d3PerDose <= 400;
+                        if (range === '>400') return d3PerDose > 400;
+                        return false;
+                    });
+                });
+            }
+
             // Origin filter
             const origins = Array.from(document.querySelectorAll('[data-filter-key="country"] input:checked')).map(cb => cb.value);
             if (origins.length > 0) {
@@ -1125,21 +1111,102 @@
                 </div>
             `}).join('');
         }
-
-        // Get AI recommendation with real API call
+        
+        // --- Gemini AI Functions ---
+        
         async function getAIRecommendation() {
-            // This function is kept for future use but is not currently called by the UI.
+            const ageEl = document.getElementById('child-age');
+            const budgetEl = document.getElementById('budget');
+            
+            const age = ageEl.options[ageEl.selectedIndex].text;
+            const budget = budgetEl.options[budgetEl.selectedIndex].text;
+            const preferences = Array.from(document.querySelectorAll('#ai-content input[type="checkbox"]:checked'))
+                                   .map(cb => cb.parentElement.textContent.trim());
+
+            if (!ageEl.value || !budgetEl.value) {
+                alert('Vui lòng chọn đầy đủ thông tin về tuổi và ngân sách của bé.');
+                return;
+            }
+
+            // Show loading state
+            const button = document.getElementById('get-recommendation');
+            const loading = document.getElementById('ai-loading');
+            const buttonText = button.querySelector('span');
+            
+            button.disabled = true;
+            loading.classList.remove('hidden');
+            buttonText.textContent = 'Đang phân tích...';
+
+            const systemPrompt = "Bạn là một chuyên gia dinh dưỡng nhi khoa tại Việt Nam, am hiểu về các sản phẩm vitamin D3K2 trên thị trường. Nhiệm vụ của bạn là đưa ra lời khuyên ngắn gọn, dễ hiểu và thuyết phục cho các bà mẹ.";
+
+            const userQuery = `
+                Dựa vào danh sách sản phẩm sau đây:
+                ${JSON.stringify(products, null, 2)}
+
+                Hãy tư vấn cho một bà mẹ đang tìm sản phẩm vitamin cho con.
+                Thông tin về bé:
+                - Tuổi: ${age}
+                - Ngân sách: ${budget}
+                - Ưu tiên khác: ${preferences.join(', ') || 'Không có'}
+
+                Yêu cầu:
+                1.  Đề xuất 1 đến 3 sản phẩm phù hợp nhất.
+                2.  Với mỗi sản phẩm, giải thích ngắn gọn (1-2 câu) tại sao nó phù hợp.
+                3.  Đưa ra một lời khuyên cuối cùng thật tâm lý và hữu ích.
+                4.  Trả lời hoàn toàn bằng tiếng Việt.
+            `;
+            
+            try {
+                const resultText = await callGeminiAPI(systemPrompt, userQuery);
+                displayAIRecommendation(resultText);
+            } catch (error) {
+                console.error("Lỗi khi gọi Gemini API:", error);
+                displayAIRecommendation("Rất tiếc, đã có lỗi xảy ra. Vui lòng thử lại sau.");
+            } finally {
+                // Reset button state
+                button.disabled = false;
+                loading.classList.add('hidden');
+                buttonText.textContent = 'Nhận Tư Vấn Ngay';
+            }
+        }
+        
+        async function callGeminiAPI(systemInstruction, userQuery) {
+            // In a real application, you should hide your API key.
+            // For this example, we leave it as an empty string, and it will be handled by the execution environment.
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: systemInstruction }]
+                },
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorBody = await response.text();
+                throw new Error(`API request failed with status ${response.status}: ${errorBody}`);
+            }
+
+            const result = await response.json();
+            return result.candidates?.[0]?.content?.parts?.[0]?.text || "Không nhận được phản hồi từ AI.";
         }
 
-        // Local AI recommendation fallback
-        function getLocalAIRecommendation(age, budget, preferences) {
-            // This function is kept for future use but is not currently called by the UI.
+        function displayAIRecommendation(text) {
+            const resultDiv = document.getElementById('ai-result');
+            // Basic markdown to HTML conversion
+            let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                           .replace(/\n/g, '<br>');
+            resultDiv.innerHTML = `<div class="text-white/90 leading-relaxed">${html}</div>`;
+            resultDiv.classList.remove('hidden');
         }
 
-        // Display AI recommendation
-        function displayAIRecommendation(data) {
-            // This function is kept for future use but is not currently called by the UI.
-        }
 
         // Format price
         function formatPrice(price) {
@@ -1148,3 +1215,4 @@
     </script>
 </body>
 </html>
+
