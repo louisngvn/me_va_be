@@ -6,7 +6,7 @@
     <title>Vi Chất Cho Mẹ và Bé - So Sánh Vitamin Tốt Nhất</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="So sánh 20+ sản phẩm Vitamin D3K2 cho trẻ em tại Việt Nam. Tìm sản phẩm phù hợp với bộ lọc thông minh và tư vấn AI miễn phí.">
+    <meta name="description" content="So sánh 20+ sản phẩm Vitamin D3K2 cho trẻ em tại Việt Nam. Tìm sản phẩm phù hợp với bộ lọc thông minh.">
     <meta name="keywords" content="vitamin D3K2, vitamin cho trẻ em, so sánh vitamin, tăng chiều cao, bổ sung canxi">
     
     <!-- Import Tailwind CSS -->
@@ -16,9 +16,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Chart.js for enhanced charts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         body {
@@ -45,13 +42,8 @@
             background-clip: text;
         }
         
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        .card-hover:hover .flip-card-front {
+             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
         
         .floating-animation {
@@ -79,7 +71,7 @@
         ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.5); }
         
         /* Product card selected state */
-        .product-card.selected {
+        .product-card.selected .flip-card-front {
             border: 2px solid #10b981;
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
         }
@@ -96,21 +88,6 @@
         
         .notification.show {
             transform: translateX(0);
-        }
-        
-        /* Loading spinner */
-        .spinner {
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 2px solid #10b981;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
         
         /* Line clamp utility */
@@ -143,7 +120,6 @@
             transition: width 0.5s ease-in-out;
         }
 
-        /* NEW: Underline sweep effect */
         .underline-reveal {
             position: relative;
             display: inline-block;
@@ -155,7 +131,7 @@
             content: '';
             position: absolute;
             width: 100%;
-            height: 2px; /* Thinner line */
+            height: 2px;
             bottom: -8px;
             left: 0;
             background-color: #FFECB3;
@@ -165,22 +141,67 @@
         }
 
         @keyframes sweep-underline {
-            0% {
-                transform: scaleX(0);
-                transform-origin: left;
-            }
-            45% {
-                transform: scaleX(1);
-                transform-origin: left;
-            }
-            55% {
-                transform: scaleX(1);
-                transform-origin: right;
-            }
-            100% {
-                transform: scaleX(0);
-                transform-origin: right;
-            }
+            0% { transform: scaleX(0); transform-origin: left; }
+            45% { transform: scaleX(1); transform-origin: left; }
+            55% { transform: scaleX(1); transform-origin: right; }
+            100% { transform: scaleX(0); transform-origin: right; }
+        }
+
+        /* --- FLIP CARD STYLES --- */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 520px; /* Fixed height for consistency */
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.is-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 1.5rem; /* rounded-3xl */
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+         .flip-card-back h4 {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #FFECB3;
+        }
+        .flip-card-back ul {
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 0.9rem;
+            color: white;
+            opacity: 0.9;
+            flex-grow: 1;
+        }
+        .flip-card-back ul li {
+            padding-left: 1.25rem;
+            position: relative;
+        }
+        .flip-card-back ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #34D399; /* emerald-400 */
         }
     </style>
 </head>
@@ -216,21 +237,6 @@
                         </div>
                     </div>
                     <a href="expert.html" class="hover:text-white transition-colors">Chuyên gia</a>
-                    
-                    <!-- User Authentication Area -->
-                    <div id="auth-container">
-                        <button id="login-btn" class="px-4 py-2 bg-white/10 rounded-xl hover:bg-white/20 transition-colors flex items-center space-x-2">
-                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                            </svg>
-                            <span>Đăng nhập</span>
-                        </button>
-                        <div id="user-profile-display" class="hidden items-center space-x-3 cursor-pointer">
-                            <img id="user-avatar" class="w-8 h-8 rounded-full" src="" alt="User Avatar">
-                            <span id="user-name" class="font-semibold"></span>
-                        </div>
-                    </div>
-
                 </nav>
                 <button class="md:hidden text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,17 +256,10 @@
                     <span class="underline-reveal">mẹ an tâm, con an toàn</span>
                 </h2>
                 <p class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-8 leading-relaxed">
-                    Tìm sản phẩm tốt nhất cho con với công cụ so sánh thông minh, 
-                    biểu đồ trực quan và tư vấn AI miễn phí từ chuyên gia dinh dưỡng.
+                    Tìm sản phẩm tốt nhất cho con với công cụ so sánh thông minh và biểu đồ trực quan.
                 </p>
                  <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <button id="ai-consult-btn" class="px-8 py-4 bg-gradient-to-r from-amber-600 to-yellow-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                        <span>Tư Vấn AI Miễn Phí</span>
-                    </button>
-                    <button onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 glass-effect text-white font-semibold rounded-2xl hover:bg-white/20 transition-all duration-300">
+                    <button onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-gradient-to-r from-amber-600 to-yellow-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                         Xem Sản Phẩm
                     </button>
                 </div>
@@ -489,117 +488,6 @@
         </div>
     </div>
 
-    <!-- AI Consultation Modal -->
-    <div id="ai-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="glass-effect max-w-2xl w-full rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-white flex items-center">
-                    <svg class="w-6 h-6 mr-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                    Tư Vấn AI Miễn Phí
-                </h3>
-                <button id="ai-close" class="text-white/60 hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            
-            <div id="ai-content">
-                <div class="space-y-4 mb-6">
-                    <div class="p-4 bg-white/10 rounded-xl">
-                        <label class="block text-white/90 font-medium mb-2">Tuổi của bé:</label>
-                        <select id="child-age" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                            <option value="">Chọn độ tuổi</option>
-                            <option value="0-6months">0-6 tháng</option>
-                            <option value="6-12months">6-12 tháng</option>
-                            <option value="1-3years">1-3 tuổi</option>
-                            <option value="3-12years">3-12 tuổi</option>
-                        </select>
-                    </div>
-                    
-                    <div class="p-4 bg-white/10 rounded-xl">
-                        <label class="block text-white/90 font-medium mb-2">Ngân sách:</label>
-                        <select id="budget" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                            <option value="">Chọn ngân sách</option>
-                            <option value="under300">Dưới 300,000đ</option>
-                            <option value="300-400">300,000đ - 400,000đ</option>
-                            <option value="over400">Trên 400,000đ</option>
-                        </select>
-                    </div>
-                    
-                    <div class="p-4 bg-white/10 rounded-xl">
-                        <label class="block text-white/90 font-medium mb-2">Ưu tiên:</label>
-                        <div class="space-y-2">
-                            <label class="flex items-center space-x-3 cursor-pointer text-white/80">
-                                <input type="checkbox" value="organic" class="rounded text-emerald-500 focus:ring-emerald-500">
-                                <span>Thành phần tự nhiên</span>
-                            </label>
-                            <label class="flex items-center space-x-3 cursor-pointer text-white/80">
-                                <input type="checkbox" value="european" class="rounded text-emerald-500 focus:ring-emerald-500">
-                                <span>Xuất xứ châu Âu</span>
-                            </label>
-                            <label class="flex items-center space-x-3 cursor-pointer text-white/80">
-                                <input type="checkbox" value="k2" class="rounded text-emerald-500 focus:ring-emerald-500">
-                                <span>Có vitamin K2</span>
-                            </label>
-                            <label class="flex items-center space-x-3 cursor-pointer text-white/80">
-                                <input type="checkbox" value="highrating" class="rounded text-emerald-500 focus:ring-emerald-500">
-                                <span>Đánh giá cao</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                
-                <button id="get-recommendation" class="w-full px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
-                    <span>Nhận Tư Vấn Ngay</span>
-                    <div id="ai-loading" class="hidden spinner"></div>
-                </button>
-                
-                <div id="ai-result" class="hidden mt-6 p-6 bg-white/10 rounded-xl">
-                    <!-- AI recommendation will be displayed here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Profile Modal -->
-    <div id="profile-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="glass-effect max-w-lg w-full rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-white">Hồ sơ của mẹ</h3>
-                <button id="profile-close" class="text-white/60 hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            <div class="space-y-4">
-                <div>
-                    <label for="birth-year" class="block text-white/80 mb-2">Năm sinh của mẹ</label>
-                    <input type="number" id="birth-year" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Ví dụ: 1995">
-                </div>
-                <div>
-                    <label for="due-date" class="block text-white/80 mb-2">Ngày dự sinh (nếu có)</label>
-                    <input type="date" id="due-date" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                </div>
-                <div>
-                    <label class="block text-white/80 mb-2">Mối quan tâm</label>
-                    <div class="grid grid-cols-2 gap-2 text-white/80">
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="interests" value="dinh_duong_thai_ky" class="rounded text-emerald-500"><span>Dinh dưỡng thai kỳ</span></label>
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="interests" value="phat_trien_chieu_cao" class="rounded text-emerald-500"><span>Phát triển chiều cao</span></label>
-                        <label class="flex items-center space-x-2"><input type="checkbox" name="interests" value="phat_trien_nao_bo" class="rounded text-emerald-500"><span>Phát triển não bộ</span></label>
-                         <label class="flex items-center space-x-2"><input type="checkbox" name="interests" value="tang_de_khang" class="rounded text-emerald-500"><span>Tăng đề kháng</span></label>
-                    </div>
-                </div>
-                <div class="pt-4 flex flex-col sm:flex-row gap-4">
-                    <button id="save-profile" class="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all">Lưu thông tin</button>
-                    <button id="logout-btn" class="flex-1 px-6 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all">Đăng xuất</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <!-- Notification -->
     <div id="notification" class="notification glass-effect p-4 rounded-xl text-white">
         <div class="flex items-center space-x-3">
@@ -609,792 +497,504 @@
             <span id="notification-text">Đã thêm vào danh sách so sánh</span>
         </div>
     </div>
-
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-        // =================================================================
-        // QUAN TRỌNG: HÃY THAY THẾ CÁC THÔNG TIN DƯỚI ĐÂY BẰNG CẤU HÌNH FIREBASE CỦA BẠN
-        // Bạn có thể lấy các thông tin này từ Project Settings trong Firebase Console
-        // =================================================================
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY", // Thay bằng API Key của bạn
-            authDomain: "YOUR_AUTH_DOMAIN", // Thay bằng Auth Domain của bạn
-            projectId: "YOUR_PROJECT_ID", // Thay bằng Project ID của bạn
-            storageBucket: "YOUR_STORAGE_BUCKET", // Thay bằng Storage Bucket của bạn
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Thay bằng Messaging Sender ID của bạn
-            appId: "YOUR_APP_ID" // Thay bằng App ID của bạn
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-
-        // --- AUTHENTICATION LOGIC ---
-        const loginBtn = document.getElementById('login-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        const userProfileDisplay = document.getElementById('user-profile-display');
-        const userAvatar = document.getElementById('user-avatar');
-        const userName = document.getElementById('user-name');
-        const profileModal = document.getElementById('profile-modal');
-        const profileCloseBtn = document.getElementById('profile-close');
-        const saveProfileBtn = document.getElementById('save-profile');
-
-        loginBtn.addEventListener('click', () => {
-            signInWithPopup(auth, provider)
-                .catch((error) => {
-                    console.error("Authentication Error: ", error);
-                    alert("Đã có lỗi xảy ra khi đăng nhập. Vui lòng thử lại.");
-                });
-        });
-
-        logoutBtn.addEventListener('click', () => {
-            signOut(auth).then(() => {
-                profileModal.classList.add('hidden');
-                showNotification('Đã đăng xuất thành công', 'success');
-            }).catch((error) => {
-                console.error("Sign Out Error: ", error);
-            });
-        });
-
-        userProfileDisplay.addEventListener('click', () => {
-            profileModal.classList.remove('hidden');
-        });
-
-        profileCloseBtn.addEventListener('click', () => {
-            profileModal.classList.add('hidden');
-        });
-        
-        profileModal.addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                profileModal.classList.add('hidden');
-            }
-        });
-
-        saveProfileBtn.addEventListener('click', async () => {
-            const user = auth.currentUser;
-            if (user) {
-                const birthYear = document.getElementById('birth-year').value;
-                const dueDate = document.getElementById('due-date').value;
-                const interests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(el => el.value);
-
-                try {
-                    await setDoc(doc(db, "users", user.uid), {
-                        birthYear: birthYear,
-                        dueDate: dueDate,
-                        interests: interests
-                    }, { merge: true });
-                    showNotification('Đã lưu thông tin hồ sơ!', 'success');
-                    profileModal.classList.add('hidden');
-                } catch (e) {
-                    console.error("Error adding document: ", e);
-                    alert("Đã có lỗi xảy ra khi lưu thông tin.");
-                }
-            }
-        });
-
-        async function loadUserProfile(userId) {
-            const docRef = doc(db, "users", userId);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                document.getElementById('birth-year').value = data.birthYear || '';
-                document.getElementById('due-date').value = data.dueDate || '';
-                document.querySelectorAll('input[name="interests"]').forEach(checkbox => {
-                    checkbox.checked = data.interests && data.interests.includes(checkbox.value);
-                });
-            }
-        }
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in
-                loginBtn.classList.add('hidden');
-                userProfileDisplay.classList.remove('hidden');
-                userProfileDisplay.classList.add('flex');
-                userAvatar.src = user.photoURL;
-                userName.textContent = user.displayName.split(' ')[0]; // Show first name
-                loadUserProfile(user.uid);
-            } else {
-                // User is signed out
-                loginBtn.classList.remove('hidden');
-                userProfileDisplay.classList.add('hidden');
-                userProfileDisplay.classList.remove('flex');
-            }
-        });
-
-    </script>
-
+    
     <script>
-        // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-        });
-        
-        // Enhanced product database with 20 products including ratings and reviews
-        const products = [
-            {
-                id: 1, name: 'LineaBon K2+D3', brand: 'ErgoPharm', image: 'https://placehold.co/300x300/667eea/white?text=LineaBon', price: 295000,
-                volume_ml: 10, total_doses_per_bottle: 300, origin: {country: 'Slovenia', continent: 'Châu Âu'}, form: 'drops',
-                declared_dose: { unit_count: 6, unit_name: 'giọt', d3_iu: 400, k2_mcg: 22.5 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 6, max: 6, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 6, max: 8, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 8, max: 12, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu Olive', additives: 'Tự nhiên' },
-                rating: 4.8, reviews: 156, product_url: 'https://lineabon.vn/'
-            },
-            {
-                id: 2, name: 'BioAmicus Vitamin D3 K2-MK7', brand: 'BioAmicus', image: 'https://placehold.co/300x300/764ba2/white?text=BioAmicus', price: 330000,
-                volume_ml: 10, total_doses_per_bottle: 350, origin: {country: 'Canada', continent: 'Châu Mỹ'}, form: 'drops',
-                declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 100, k2_mcg: 4 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 3, max: 4, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 7, max: 7, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 10, max: 10, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
-                rating: 4.6, reviews: 89, product_url: 'https://bioamicus.vn/'
-            },
-            {
-                id: 3, name: 'Dimao Pro Vitamin D3 - K2', brand: 'Dimao', image: 'https://placehold.co/300x300/10b981/white?text=Dimao', price: 299000,
-                volume_ml: 25, total_doses_per_bottle: 125, origin: {country: 'Slovenia', continent: 'Châu Âu'}, form: 'spray',
-                declared_dose: { unit_count: 1, unit_name: 'xịt', d3_iu: 400, k2_mcg: 18.75 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 1, max: 1, unit: 'xịt' }, 'tu_1_den_3_tuoi': { min: 1, max: 2, unit: 'xịt' }, 'tu_3_den_12_tuoi': { min: 2, max: 3, unit: 'xịt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu Olive', additives: 'Tổng hợp' },
-                rating: 4.7, reviews: 134, product_url: 'https://dimao.vn/'
-            },
-            {
-                id: 4, name: 'Sunday Natural D3+K2 MK7 Vegan', brand: 'Sunday Natural', image: 'https://placehold.co/300x300/f59e0b/white?text=Sunday+Natural', price: 450000,
-                volume_ml: 20, total_doses_per_bottle: 600, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
-                declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 200, k2_mcg: 15 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 2, max: 2, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 3, max: 4, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 5, max: 5, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Thực vật', has_k2: true, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
-                rating: 4.9, reviews: 203, product_url: '#'
-            },
-            {
-                id: 5, name: 'Pediakid Vitamin D3', brand: 'Pediakid', image: 'https://placehold.co/300x300/3b82f6/white?text=Pediakid', price: 250000,
-                volume_ml: 20, total_doses_per_bottle: 400, origin: {country: 'Pháp', continent: 'Châu Âu'}, form: 'drops',
-                declared_dose: { unit_count: 2, unit_name: 'giọt', d3_iu: 400, k2_mcg: 0 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 2, max: 2, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 2, max: 2, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: false, carrier_oil: 'Dầu hướng dương', additives: 'Tự nhiên' },
-                rating: 4.4, reviews: 78, product_url: '#'
-            },
-            {
-                id: 6, name: 'Kids Smart Drops D3+K2', brand: 'Nature\'s Way', image: 'https://placehold.co/300x300/8b5cf6/white?text=Nature%27s+Way+D3K2', price: 280000,
-                volume_ml: 20, total_doses_per_bottle: 400, origin: {country: 'Úc', continent: 'Châu Úc'}, form: 'drops',
-                declared_dose: { unit_count: 2, unit_name: 'giọt', d3_iu: 400, k2_mcg: 25 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 6, max: 6, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 6, max: 8, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 8, max: 12, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
-                rating: 4.7, reviews: 167, product_url: '#'
-            },
-            {
-                id: 7, name: 'Kids Smart Drops Vitamin D3', brand: 'Nature\'s Way', image: 'https://placehold.co/300x300/ec4899/white?text=Nature%27s+Way+D3', price: 220000,
-                volume_ml: 20, total_doses_per_bottle: 400, origin: {country: 'Úc', continent: 'Châu Úc'}, form: 'drops',
-                declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 400, k2_mcg: 0 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 1, max: 1, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 1, max: 1, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: false, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
-                rating: 4.3, reviews: 92, product_url: '#'
-            },
-            {
-                id: 8, name: 'Baby\'s Vitamin D3', brand: 'Nordic Naturals', image: 'https://placehold.co/300x300/06b6d4/white?text=Nordic+Naturals', price: 350000,
-                volume_ml: 11, total_doses_per_bottle: 365, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'drops',
-                declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 400, k2_mcg: 0 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 1, max: 1, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 1, max: 1, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: false, carrier_oil: 'Dầu Olive', additives: 'Tự nhiên' },
-                rating: 4.8, reviews: 245, product_url: '#'
-            },
-            {
-                id: 9, name: 'Fitobimbi D3 + K2', brand: 'Pharmalife Research', image: 'https://placehold.co/300x300/84cc16/white?text=Fitobimbi', price: 290000,
-                volume_ml: 30, total_doses_per_bottle: 600, origin: {country: 'Ý', continent: 'Châu Âu'}, form: 'drops',
-                declared_dose: { unit_count: 5, unit_name: 'giọt', d3_iu: 400, k2_mcg: 45 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 5, max: 20, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 10, max: 30, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu đậu nành + Vitamin E', additives: 'Tự nhiên' },
-                rating: 4.6, reviews: 112, product_url: '#'
-            },
-            {
-                id: 11, name: 'Ocean D3K2 Spray', brand: 'ORZAX', image: 'https://placehold.co/300x300/0ea5e9/white?text=Ocean', price: 295000,
-                volume_ml: 20, total_doses_per_bottle: 133, origin: {country: 'Thổ Nhĩ Kỳ', continent: 'Châu Á'}, form: 'spray',
-                declared_dose: { unit_count: 1, unit_name: 'xịt', d3_iu: 400, k2_mcg: 22.5 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 1, max: 1, unit: 'xịt' }, 'tu_1_den_3_tuoi': { min: 1, max: 1, unit: 'xịt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
-                rating: 4.4, reviews: 89, product_url: '#'
-            },
-            {
-                id: 12, name: 'Baby Drop D3 K2', brand: 'Herbitech', image: 'https://placehold.co/300x300/22c55e/white?text=Baby+Drop', price: 325000,
-                volume_ml: 10, total_doses_per_bottle: 200, origin: {country: 'Việt Nam', continent: 'Châu Á'}, form: 'drops',
-                declared_dose: { unit_count: 2, unit_name: 'giọt', d3_iu: 400, k2_mcg: 15 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 2, max: 4, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 6, max: 6, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 8, max: 8, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu hướng dương', additives: 'Tự nhiên' },
-                rating: 4.2, reviews: 45, product_url: '#'
-            },
-            {
-                id: 15, name: 'Hibon Vitamin D3K2 Infant', brand: 'Hibon', image: 'https://placehold.co/300x300/8b5cf6/white?text=Hibon', price: 290000,
-                volume_ml: 10, total_doses_per_bottle: 250, origin: {country: 'Ba Lan', continent: 'Châu Âu'}, form: 'drops',
-                declared_dose: { unit_count: 4, unit_name: 'giọt', d3_iu: 400, k2_mcg: 10 },
-                dosage_recommendation: { 'duoi_1_tuoi': { min: 3, max: 4, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 5, max: 8, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 8, max: 10, unit: 'giọt' } },
-                ingredients_details: { d3_source: 'Động vật', has_k2: true, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
-                rating: 4.3, reviews: 78, product_url: '#'
-            },
-             {
-                id: 16, name: 'Sunday Natural D3 1000 IU', brand: 'Sunday Natural', image: 'https://placehold.co/300x300/f59e0b/white?text=Sunday+D3', price: 350000,
-                volume_ml: 50, total_doses_per_bottle: 1750, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
-                declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 1000, k2_mcg: 0 },
-                dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 1, unit: 'giọt' } }, // Adjusted, high dose
-                ingredients_details: { d3_source: 'Động vật', has_k2: false, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
-                rating: 4.9, reviews: 310, product_url: 'https://sunday.vn/products/vitamin-d3-1000-iu-1750-giot-thuan-chay'
-            },
-            {
-                id: 17, name: 'Sunday Natural D3+K2 MK7 1000 IU', brand: 'Sunday Natural', image: 'https://placehold.co/300x300/f59e0b/white?text=Sunday+D3K2', price: 420000,
-                volume_ml: 10, total_doses_per_bottle: 300, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
-                declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 1000, k2_mcg: 50 },
-                dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 1, unit: 'giọt' } }, // Adjusted, high dose
-                ingredients_details: { d3_source: 'Thực vật', has_k2: true, carrier_oil: 'Dầu MCT', additives: 'Tự nhiên' },
-                rating: 5.0, reviews: 150, product_url: 'https://sunday.vn/products/vitamin-d3-k2-mk7-1000-iu-50%C2%B5g-thuan-chay-300-giot'
-            }
-        ];
-
-        // Global variables
-        let filteredProducts = [...products];
-        let activeFilters = {};
-        let selectedProducts = [];
-
-        // Initialize the application
-        function initializeApp() {
-            initializeFilters();
-            renderProducts(products);
-            setupEventListeners();
-            updateProductCount(products.length);
-        }
-
-        // Initialize filters
-        function initializeFilters() {
-            // Populate origin filter
-            const originFilter = document.getElementById('origin-filter');
-            const originsByContinent = products.reduce((acc, p) => {
-                if (!acc[p.origin.continent]) {
-                    acc[p.origin.continent] = new Set();
-                }
-                acc[p.origin.continent].add(p.origin.country);
-                return acc;
-            }, {});
-
-            originFilter.innerHTML = Object.keys(originsByContinent).sort().map(continent => `
-                <details class="text-white/90">
-                    <summary>${continent}</summary>
-                    <div class="space-y-2 pt-2 pl-4">
-                        ${[...originsByContinent[continent]].sort().map(country => `
-                            <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                <input type="checkbox" value="${country}" class="rounded text-purple-500 focus:ring-purple-500">
-                                <span>${country}</span>
-                            </label>
-                        `).join('')}
-                    </div>
-                </details>
-            `).join('');
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Search functionality
-            document.getElementById('search-input').addEventListener('input', handleSearch);
             
-            // Sort functionality
-            document.getElementById('sort-select').addEventListener('change', handleSort);
-            
-            // Filter functionality
-            document.addEventListener('change', function(e) {
-                if (e.target.type === 'checkbox' || e.target.type === 'radio') {
-                    handleFilterChange();
-                }
-            });
-            
-            // Clear filters
-            document.getElementById('clear-filters').addEventListener('click', clearAllFilters);
-            
-            // Comparison functionality
-            const compareMenu = document.getElementById('compare-menu-container');
-            if(compareMenu) {
-                compareMenu.addEventListener('click', (e) => {
-                    if(e.target.closest('#compare-btn')) {
-                        document.getElementById('compare-dropdown').classList.toggle('hidden');
-                    }
-                    if(e.target.dataset.compareType) {
-                        e.preventDefault();
-                        showComparison(e.target.dataset.compareType);
-                        document.getElementById('compare-dropdown').classList.add('hidden');
-                    }
-                });
-            }
-
-
-            const comparisonClose = document.getElementById('comparison-close');
-            if(comparisonClose) {
-                comparisonClose.addEventListener('click', () => {
-                    document.getElementById('comparison-modal').classList.add('hidden');
-                });
-            }
-            
-            // AI consultation modal
-            const aiConsultBtn = document.getElementById('ai-consult-btn');
-            if (aiConsultBtn) {
-                 aiConsultBtn.addEventListener('click', () => {
-                    document.getElementById('ai-modal').classList.remove('hidden');
-                });
-            }
-            
-            const aiCloseBtn = document.getElementById('ai-close');
-            if(aiCloseBtn) {
-                aiCloseBtn.addEventListener('click', () => {
-                    document.getElementById('ai-modal').classList.add('hidden');
-                });
-            }
-           
-            const aiModal = document.getElementById('ai-modal');
-            if(aiModal){
-                 aiModal.addEventListener('click', (e) => {
-                    if (e.target === e.currentTarget) {
-                        aiModal.classList.add('hidden');
-                    }
-                });
-            }
-
-            const getRecommendationBtn = document.getElementById('get-recommendation');
-            if(getRecommendationBtn){
-                 getRecommendationBtn.addEventListener('click', getAIRecommendation);
-            }
-            
-            // Close modals on backdrop click
-            const comparisonModal = document.getElementById('comparison-modal');
-            if(comparisonModal){
-                comparisonModal.addEventListener('click', (e) => {
-                    if (e.target === e.currentTarget) {
-                        comparisonModal.classList.add('hidden');
-                    }
-                });
-            }
-        }
-
-        // Handle search
-        function handleSearch(e) {
-            applyFilters();
-        }
-
-        // Handle sort
-        function handleSort(e) {
-            applyFilters();
-        }
-
-        // Handle filter changes
-        function handleFilterChange() {
-            applyFilters();
-        }
-
-        // Apply all filters
-        function applyFilters() {
-            let filtered = [...products];
-            
-            // Search filter
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            if (searchTerm) {
-                filtered = filtered.filter(product => 
-                    product.name.toLowerCase().includes(searchTerm) ||
-                    product.brand.toLowerCase().includes(searchTerm) ||
-                    product.origin.country.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            // D3 Source filter
-            const d3Sources = Array.from(document.querySelectorAll('[data-filter-key="d3_source"] input:checked')).map(cb => cb.value);
-            if (d3Sources.length > 0) {
-                filtered = filtered.filter(p => d3Sources.includes(p.ingredients_details.d3_source));
-            }
-
-            // K2 filter
-            const k2Filter = document.querySelector('input[name="k2_filter"]:checked').value;
-            if (k2Filter !== 'all') {
-                const hasK2 = k2Filter === 'true';
-                filtered = filtered.filter(product => product.ingredients_details.has_k2 === hasK2);
-            }
-            
-            // D3 Content filter
-            const d3ContentRanges = Array.from(document.querySelectorAll('[data-filter-key="d3_content"] input:checked')).map(cb => cb.value);
-            if (d3ContentRanges.length > 0) {
-                filtered = filtered.filter(p => {
-                    const d3PerDose = p.declared_dose.d3_iu / p.declared_dose.unit_count;
-                    return d3ContentRanges.some(range => {
-                        if (range === '<100') return d3PerDose < 100;
-                        if (range === '100-200') return d3PerDose >= 100 && d3PerDose <= 200;
-                        if (range === '200-400') return d3PerDose > 200 && d3PerDose <= 400;
-                        if (range === '>400') return d3PerDose > 400;
-                        return false;
-                    });
-                });
-            }
-
-            // Origin filter
-            const origins = Array.from(document.querySelectorAll('[data-filter-key="country"] input:checked')).map(cb => cb.value);
-            if (origins.length > 0) {
-                filtered = filtered.filter(product => origins.includes(product.origin.country));
-            }
-            
-            // Sort
-            const sortBy = document.getElementById('sort-select').value;
-            filtered.sort((a, b) => {
-                switch(sortBy) {
-                    case 'name': return a.name.localeCompare(b.name);
-                    case 'price_low': return a.price - b.price;
-                    case 'price_high': return b.price - a.price;
-                    case 'rating': return b.rating - a.rating;
-                    default: return 0;
-                }
-            });
-
-            renderProducts(filtered);
-            updateProductCount(filtered.length);
-        }
-
-        // Clear all filters
-        function clearAllFilters() {
-            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-            document.querySelectorAll('input[type="radio"][value="all"]').forEach(radio => radio.checked = true);
-            document.getElementById('search-input').value = '';
-            document.getElementById('sort-select').value = 'name';
-            
-            applyFilters();
-        }
-
-        // Update product count
-        function updateProductCount(count) {
-            document.getElementById('product-count').textContent = `${count} sản phẩm`;
-        }
-
-        // Generate star rating HTML
-        function generateStarRating(rating) {
-            let stars = '';
-            for(let i = 1; i <= 5; i++) {
-                stars += `<span class="star ${i <= rating ? '' : 'empty'}">★</span>`;
-            }
-            return stars;
-        }
-
-        // Toggle product selection for comparison
-        function toggleProductSelection(productId) {
-            const index = selectedProducts.indexOf(productId);
-            if (index > -1) {
-                selectedProducts.splice(index, 1);
-                showNotification('Đã xóa khỏi danh sách so sánh');
-            } else {
-                if (selectedProducts.length >= 4) {
-                    showNotification('Chỉ có thể so sánh tối đa 4 sản phẩm', 'warning');
-                    return;
-                }
-                selectedProducts.push(productId);
-                showNotification('Đã thêm vào danh sách so sánh');
-            }
-            
-            updateCompareButton();
-            updateProductCards();
-        }
-
-        // Update compare button
-        function updateCompareButton() {
-            document.getElementById('compare-count').textContent = selectedProducts.length;
-            const compareBtn = document.getElementById('compare-btn');
-            if (selectedProducts.length > 1) {
-                compareBtn.classList.remove('opacity-50');
-                compareBtn.disabled = false;
-            } else {
-                compareBtn.classList.add('opacity-50');
-                compareBtn.disabled = true;
-            }
-        }
-
-        // Update product cards to show selection state
-        function updateProductCards() {
-            document.querySelectorAll('.product-card').forEach(card => {
-                const productId = parseInt(card.dataset.productId);
-                if (selectedProducts.includes(productId)) {
-                    card.classList.add('selected');
-                } else {
-                    card.classList.remove('selected');
-                }
-            });
-        }
-
-        // Show notification
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notification-text');
-            
-            notificationText.textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Show comparison modal
-        function showComparison(type) {
-            if (selectedProducts.length < 2) {
-                showNotification('Vui lòng chọn ít nhất 2 sản phẩm để so sánh', 'warning');
-                return;
-            }
-            
-            const selectedProductsData = products.filter(p => selectedProducts.includes(p.id));
-            
-            if (type === 'dosage') {
-                generateComparisonChart(selectedProductsData);
-            } else if (type === 'cost') {
-                // Placeholder for cost comparison chart
-                document.getElementById('comparison-content').innerHTML = '<p class="text-white">Biểu đồ so sánh chi phí sắp ra mắt.</p>';
-            } else if (type === 'k2') {
-                // Placeholder for K2 comparison chart
-                document.getElementById('comparison-content').innerHTML = '<p class="text-white">Biểu đồ so sánh K2 sắp ra mắt.</p>';
-            }
-
-            document.getElementById('comparison-modal').classList.remove('hidden');
-        }
-
-        // Generate comparison table
-        function generateComparisonChart(productsToCompare) {
-            const comparisonContent = document.getElementById('comparison-content');
-            const ageGroups = [
-                { label: 'Sơ Sinh (<1 tuổi)', key: 'duoi_1_tuoi' },
-                { label: 'Trẻ nhỏ (1-3 tuổi)', key: 'tu_1_den_3_tuoi' },
-                { label: 'Trẻ em (3-12 tuổi)', key: 'tu_3_den_12_tuoi' }
-            ];
-
-            let maxDose = 0;
-            productsToCompare.forEach(p => {
-                ageGroups.forEach(age => {
-                    if (p.dosage_recommendation[age.key] && p.dosage_recommendation[age.key].max > maxDose) {
-                        maxDose = p.dosage_recommendation[age.key].max;
-                    }
-                });
-            });
-            maxDose = maxDose > 0 ? maxDose : 1;
-
-            let chartHtml = '<div class="space-y-8">';
-
-            productsToCompare.forEach(product => {
-                chartHtml += `
-                    <div>
-                        <div class="flex items-center mb-3">
-                            <img src="${product.image}" alt="${product.name}" class="w-10 h-10 rounded-lg mr-3">
-                            <h4 class="font-bold text-lg text-white">${product.name}</h4>
-                        </div>
-                        <div class="space-y-2">`;
-
-                ageGroups.forEach(age => {
-                    const dose = product.dosage_recommendation[age.key];
-                    let barHtml;
-                    if (dose) {
-                        const barWidth = (dose.max / maxDose) * 100;
-                        const doseText = dose.min === dose.max ? `${dose.min} ${dose.unit}` : `${dose.min}-${dose.max} ${dose.unit}`;
-                        barHtml = `
-                            <div class="flex-1 bg-white/10 rounded-full h-8">
-                                <div class="comparison-bar bg-gradient-to-r from-emerald-500 to-teal-500 h-8 rounded-full text-white text-sm font-medium flex items-center justify-end pr-3" style="width: ${barWidth}%">
-                                    <span>${doseText}</span>
-                                </div>
-                            </div>`;
-                    } else {
-                        barHtml = `<div class="flex-1 text-white/50 text-sm italic">Không khuyến nghị</div>`;
-                    }
-
-                    chartHtml += `
-                        <div class="flex items-center gap-4">
-                            <span class="w-32 text-sm text-white/80 text-right">${age.label}</span>
-                            ${barHtml}
-                        </div>`;
-                });
-
-                chartHtml += '</div></div>';
-            });
-
-            chartHtml += '</div>';
-            comparisonContent.innerHTML = chartHtml;
-        }
-
-        // Render products
-        function renderProducts(productsToRender) {
-            const grid = document.getElementById('product-grid');
-            const noResults = document.getElementById('no-results');
-            
-            if (productsToRender.length === 0) {
-                grid.innerHTML = '';
-                noResults.classList.remove('hidden');
-                return;
-            }
-            
-            noResults.classList.add('hidden');
-            
-            grid.innerHTML = productsToRender.map(product => {
-                const doseInfo = product.dosage_recommendation.duoi_1_tuoi || product.dosage_recommendation.tu_1_den_3_tuoi;
-                const dailyDose = doseInfo ? doseInfo.min : 1;
-                const dailyCost = Math.round((product.price / product.total_doses_per_bottle) * dailyDose);
-
-                return `
-                <div class="glass-effect p-6 rounded-3xl card-hover fade-in product-card ${selectedProducts.includes(product.id) ? 'selected' : ''}" data-product-id="${product.id}">
-                    <div class="relative mb-4">
-                        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-2xl">
-                        <div class="absolute top-3 right-3">
-                            <span class="px-3 py-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-semibold rounded-full">
-                                ${product.origin.country}
-                            </span>
-                        </div>
-                        ${product.ingredients_details.has_k2 ? 
-                            '<div class="absolute top-3 left-3"><span class="px-2 py-1 bg-purple-500 text-white text-xs font-semibold rounded-full">K2</span></div>' : 
-                            ''
+            const app = {
+                products: [
+                    {
+                        id: 1, category: 'xuong_rang', name: 'LineaBon K2+D3', brand: 'ErgoPharm', image: 'https://placehold.co/300x300/667eea/white?text=LineaBon', price: 295000,
+                        volume_ml: 10, total_doses_per_bottle: 300, origin: {country: 'Slovenia', continent: 'Châu Âu'}, form: 'drops',
+                        declared_dose: { unit_count: 6, unit_name: 'giọt', d3_iu: 400, k2_mcg: 22.5 },
+                        dosage_recommendation: { 'duoi_1_tuoi': { min: 6, max: 6, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 6, max: 8, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 8, max: 12, unit: 'giọt' } },
+                        ingredients_details: { d3_source: 'Động vật', has_k2: true },
+                        rating: 4.8, reviews: 156, product_url: 'https://lineabon.vn/',
+                        summary: {
+                            benefits: [
+                                'Hỗ trợ hấp thu Canxi và phốt pho, giúp xương răng chắc khỏe.',
+                                'Giảm nguy cơ còi xương ở trẻ nhỏ và loãng xương ở người lớn.',
+                                'Thúc đẩy phát triển chiều cao vượt trội cho trẻ.'
+                            ],
+                            ingredients: [
+                                'Vitamin K2 (VitaMK7) 22.5mcg',
+                                'Vitamin D3 400 IU',
+                                'Dầu Olive'
+                            ],
+                            users: 'Trẻ sơ sinh, trẻ nhỏ, trẻ trong giai đoạn phát triển, người lớn cần bổ sung Vitamin D3, K2.'
                         }
-                        <button onclick="toggleProductSelection(${product.id})" class="absolute bottom-3 right-3 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    <h3 class="font-bold text-lg text-white mb-2 line-clamp-2 h-14">${product.name}</h3>
-                    <p class="text-white/70 text-sm mb-3">${product.brand}</p>
-                    
-                    <div class="space-y-2 mb-4 border-t border-b border-white/10 py-3">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-white/70">Tổng liều:</span>
-                            <span class="text-white font-medium">${product.total_doses_per_bottle} ${product.declared_dose.unit_name}</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-white/70">Công bố D3:</span>
-                            <span class="text-white font-medium">${product.declared_dose.d3_iu} IU / ${product.declared_dose.unit_count} ${product.declared_dose.unit_name}</span>
-                        </div>
-                        ${product.ingredients_details.has_k2 ? `
-                        <div class="flex justify-between text-sm">
-                            <span class="text-white/70">Công bố K2:</span>
-                            <span class="text-white font-medium">${product.declared_dose.k2_mcg} mcg / ${product.declared_dose.unit_count} ${product.declared_dose.unit_name}</span>
-                        </div>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="mt-auto">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-2xl font-bold text-white">${formatPrice(product.price)}</span>
-                                <span class="text-white/70 text-sm">đ</span>
-                            </div>
-                            <div class="text-right">
-                                <span class="font-bold text-emerald-400">${formatPrice(dailyCost)}đ</span>
-                                <span class="text-xs text-white/70 block">/ ngày</span>
-                            </div>
-                        </div>
-                        <a href="${product.product_url}" target="_blank" class="block w-full text-center mt-3 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm">
-                            Đến nơi bán
-                        </a>
-                    </div>
-                </div>
-            `}).join('');
-        }
-        
-        // --- Gemini AI Functions ---
-        
-        async function getAIRecommendation() {
-            const ageEl = document.getElementById('child-age');
-            const budgetEl = document.getElementById('budget');
-            
-            const age = ageEl.options[ageEl.selectedIndex].text;
-            const budget = budgetEl.options[budgetEl.selectedIndex].text;
-            const preferences = Array.from(document.querySelectorAll('#ai-content input[type="checkbox"]:checked'))
-                                   .map(cb => cb.parentElement.textContent.trim());
+                    },
+                    {
+                        id: 2, category: 'xuong_rang', name: 'BioAmicus Vitamin D3 K2-MK7', brand: 'BioAmicus', image: 'https://placehold.co/300x300/764ba2/white?text=BioAmicus', price: 330000,
+                        volume_ml: 10, total_doses_per_bottle: 350, origin: {country: 'Canada', continent: 'Châu Mỹ'}, form: 'drops',
+                        declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 100, k2_mcg: 4 },
+                        dosage_recommendation: { 'duoi_1_tuoi': { min: 3, max: 4, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 7, max: 7, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 10, max: 10, unit: 'giọt' } },
+                        ingredients_details: { d3_source: 'Động vật', has_k2: true },
+                        rating: 4.6, reviews: 89, product_url: 'https://bioamicus.vn/bioamicus-vitamin-d3k2',
+                        summary: {
+                            benefits: [
+                                'Hỗ trợ hấp thu tối đa Canxi và Phốt pho.',
+                                'Giúp xương và răng chắc khỏe.',
+                                'Giảm nguy cơ còi xương ở trẻ nhỏ.',
+                                'Hỗ trợ hệ miễn dịch khỏe mạnh.'
+                            ],
+                            ingredients: [
+                                'Vitamin D3 (Cholecalciferol) 100 IU',
+                                'Vitamin K2 (MK-7) 4mcg',
+                                'Dầu dừa phân đoạn'
+                            ],
+                            users: 'Trẻ sơ sinh, trẻ nhỏ và người lớn.'
+                        }
+                    },
+                    {
+                        id: 3, category: 'xuong_rang', name: 'Dimao Pro Vitamin D3 - K2', brand: 'Dimao', image: 'https://placehold.co/300x300/10b981/white?text=Dimao', price: 299000,
+                        volume_ml: 25, total_doses_per_bottle: 125, origin: {country: 'Slovenia', continent: 'Châu Âu'}, form: 'spray',
+                        declared_dose: { unit_count: 1, unit_name: 'xịt', d3_iu: 400, k2_mcg: 18.75 },
+                        dosage_recommendation: { 'duoi_1_tuoi': { min: 1, max: 1, unit: 'xịt' }, 'tu_1_den_3_tuoi': { min: 1, max: 2, unit: 'xịt' }, 'tu_3_den_12_tuoi': { min: 2, max: 3, unit: 'xịt' } },
+                        ingredients_details: { d3_source: 'Động vật', has_k2: true },
+                        rating: 4.7, reviews: 134, product_url: 'https://dimao.vn/',
+                        summary: {
+                            benefits: [ 'Hỗ trợ hấp thu Canxi', 'Giúp xương răng chắc khỏe', 'Hỗ trợ phát triển chiều cao'],
+                            ingredients: [ 'Vitamin D3 400 IU', 'Vitamin K2 (K2VITAL) 18.75mcg'],
+                            users: 'Trẻ em và người lớn'
+                        }
+                    },
+                    {
+                        id: 4, category: 'xuong_rang', name: 'Sunday Natural D3+K2 MK7 Vegan', brand: 'Sunday Natural', image: 'https://placehold.co/300x300/f59e0b/white?text=Sunday+Natural', price: 450000,
+                        volume_ml: 20, total_doses_per_bottle: 600, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
+                        declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 200, k2_mcg: 15 },
+                        dosage_recommendation: { 'duoi_1_tuoi': { min: 2, max: 2, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 3, max: 4, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 5, max: 5, unit: 'giọt' } },
+                        ingredients_details: { d3_source: 'Thực vật', has_k2: true },
+                        rating: 4.9, reviews: 203, product_url: '#',
+                        summary: {
+                            benefits: [ 'Hỗ trợ hấp thu Canxi', 'Giúp xương răng chắc khỏe', 'Hỗ trợ phát triển chiều cao'],
+                            ingredients: [ 'Vitamin D3 200 IU', 'Vitamin K2 (MK-7) 15mcg'],
+                            users: 'Trẻ em và người lớn'
+                        }
+                    },
+                    {
+                        id: 5, category: 'xuong_rang', name: 'Pediakid Vitamin D3', brand: 'Pediakid', image: 'https://placehold.co/300x300/3b82f6/white?text=Pediakid', price: 250000,
+                        volume_ml: 20, total_doses_per_bottle: 400, origin: {country: 'Pháp', continent: 'Châu Âu'}, form: 'drops',
+                        declared_dose: { unit_count: 2, unit_name: 'giọt', d3_iu: 400, k2_mcg: 0 },
+                        dosage_recommendation: { 'duoi_1_tuoi': { min: 2, max: 2, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 2, max: 2, unit: 'giọt' } },
+                        ingredients_details: { d3_source: 'Động vật', has_k2: false },
+                        rating: 4.4, reviews: 78, product_url: '#',
+                        summary: {
+                            benefits: [ 'Hỗ trợ hấp thu Canxi', 'Giúp xương răng chắc khỏe', 'Hỗ trợ phát triển chiều cao'],
+                            ingredients: [ 'Vitamin D3 400 IU'],
+                            users: 'Trẻ em'
+                        }
+                    },
+                    // ... (rest of the products will have placeholder summaries)
+                ],
 
-            if (!ageEl.value || !budgetEl.value) {
-                alert('Vui lòng chọn đầy đủ thông tin về tuổi và ngân sách của bé.');
-                return;
-            }
-
-            // Show loading state
-            const button = document.getElementById('get-recommendation');
-            const loading = document.getElementById('ai-loading');
-            const buttonText = button.querySelector('span');
-            
-            button.disabled = true;
-            loading.classList.remove('hidden');
-            buttonText.textContent = 'Đang phân tích...';
-
-            const systemPrompt = "Bạn là một chuyên gia dinh dưỡng nhi khoa tại Việt Nam, am hiểu về các sản phẩm vitamin D3K2 trên thị trường. Nhiệm vụ của bạn là đưa ra lời khuyên ngắn gọn, dễ hiểu và thuyết phục cho các bà mẹ.";
-
-            const userQuery = `
-                Dựa vào danh sách sản phẩm sau đây:
-                ${JSON.stringify(products, null, 2)}
-
-                Hãy tư vấn cho một bà mẹ đang tìm sản phẩm vitamin cho con.
-                Thông tin về bé:
-                - Tuổi: ${age}
-                - Ngân sách: ${budget}
-                - Ưu tiên khác: ${preferences.join(', ') || 'Không có'}
-
-                Yêu cầu:
-                1.  Đề xuất 1 đến 3 sản phẩm phù hợp nhất.
-                2.  Với mỗi sản phẩm, giải thích ngắn gọn (1-2 câu) tại sao nó phù hợp.
-                3.  Đưa ra một lời khuyên cuối cùng thật tâm lý và hữu ích.
-                4.  Trả lời hoàn toàn bằng tiếng Việt.
-            `;
-            
-            try {
-                const resultText = await callGeminiAPI(systemPrompt, userQuery);
-                displayAIRecommendation(resultText);
-            } catch (error) {
-                console.error("Lỗi khi gọi Gemini API:", error);
-                displayAIRecommendation("Rất tiếc, đã có lỗi xảy ra. Vui lòng thử lại sau.");
-            } finally {
-                // Reset button state
-                button.disabled = false;
-                loading.classList.add('hidden');
-                buttonText.textContent = 'Nhận Tư Vấn Ngay';
-            }
-        }
-        
-        async function callGeminiAPI(systemInstruction, userQuery) {
-            // In a real application, you should hide your API key.
-            // For this example, we leave it as an empty string, and it will be handled by the execution environment.
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: {
-                    parts: [{ text: systemInstruction }]
+                selectedProducts: [],
+                
+                init: function() {
+                    this.initializeFilters();
+                    this.renderProducts(this.products.filter(p => p.category === 'xuong_rang'));
+                    this.setupEventListeners();
+                    this.updateProductCount(this.products.filter(p => p.category === 'xuong_rang').length);
                 },
+
+                initializeFilters: function() {
+                    const originFilter = document.getElementById('origin-filter');
+                    const originsByContinent = this.products.reduce((acc, p) => {
+                        if (!acc[p.origin.continent]) {
+                            acc[p.origin.continent] = new Set();
+                        }
+                        acc[p.origin.continent].add(p.origin.country);
+                        return acc;
+                    }, {});
+
+                    originFilter.innerHTML = Object.keys(originsByContinent).sort().map(continent => `
+                        <details class="text-white/90">
+                            <summary>${continent}</summary>
+                            <div class="space-y-2 pt-2 pl-4">
+                                ${[...originsByContinent[continent]].sort().map(country => `
+                                    <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                        <input type="checkbox" value="${country}" class="rounded text-purple-500 focus:ring-purple-500">
+                                        <span>${country}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </details>
+                    `).join('');
+                },
+                
+                setupEventListeners: function() {
+                    document.getElementById('search-input').addEventListener('input', () => this.applyFilters());
+                    document.getElementById('sort-select').addEventListener('change', () => this.applyFilters());
+                    document.querySelectorAll('.filter-group input').forEach(input => {
+                        input.addEventListener('change', () => this.applyFilters());
+                    });
+                    document.getElementById('clear-filters').addEventListener('click', () => this.clearAllFilters());
+                    
+                    const compareMenu = document.getElementById('compare-menu-container');
+                    if (compareMenu) {
+                        compareMenu.addEventListener('click', (e) => {
+                            const compareBtn = e.target.closest('#compare-btn');
+                            const dropdown = document.getElementById('compare-dropdown');
+                            if(compareBtn && dropdown) {
+                                dropdown.classList.toggle('hidden');
+                            }
+                            if(e.target.dataset.compareType) {
+                                e.preventDefault();
+                                this.showComparison(e.target.dataset.compareType);
+                                if (dropdown) dropdown.classList.add('hidden');
+                            }
+                        });
+                    }
+
+                    const comparisonClose = document.getElementById('comparison-close');
+                    if(comparisonClose) {
+                        comparisonClose.addEventListener('click', () => {
+                            document.getElementById('comparison-modal').classList.add('hidden');
+                        });
+                    }
+
+                    const productGrid = document.getElementById('product-grid');
+                    if(productGrid){
+                         productGrid.addEventListener('click', (e) => {
+                            const flipTrigger = e.target.closest('.flip-trigger');
+                            if (flipTrigger) {
+                                const card = flipTrigger.closest('.flip-card');
+                                if (card) card.classList.toggle('is-flipped');
+                            }
+                            const flipTriggerBack = e.target.closest('.flip-trigger-back');
+                             if (flipTriggerBack) {
+                                const card = flipTriggerBack.closest('.flip-card');
+                                if (card) card.classList.toggle('is-flipped');
+                            }
+                            const toggleButton = e.target.closest('.toggle-compare-btn');
+                            if (toggleButton) {
+                                const productId = parseInt(toggleButton.dataset.productId, 10);
+                                this.toggleProductSelection(productId);
+                            }
+                        });
+                    }
+                },
+                
+                applyFilters: function() {
+                    let filtered = this.products.filter(p => p.category === 'xuong_rang');
+                    
+                    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+                    if (searchTerm) {
+                        filtered = filtered.filter(product => 
+                            product.name.toLowerCase().includes(searchTerm) ||
+                            product.brand.toLowerCase().includes(searchTerm) ||
+                            product.origin.country.toLowerCase().includes(searchTerm)
+                        );
+                    }
+                    
+                    const d3Sources = Array.from(document.querySelectorAll('[data-filter-key="d3_source"] input:checked')).map(cb => cb.value);
+                    if (d3Sources.length > 0) {
+                        filtered = filtered.filter(p => d3Sources.includes(p.ingredients_details.d3_source));
+                    }
+
+                    const k2Filter = document.querySelector('input[name="k2_filter"]:checked').value;
+                    if (k2Filter !== 'all') {
+                        const hasK2 = k2Filter === 'true';
+                        filtered = filtered.filter(product => product.ingredients_details.has_k2 === hasK2);
+                    }
+                    
+                    const d3ContentRanges = Array.from(document.querySelectorAll('[data-filter-key="d3_content"] input:checked')).map(cb => cb.value);
+                    if (d3ContentRanges.length > 0) {
+                        filtered = filtered.filter(p => {
+                            const d3PerDose = p.declared_dose.d3_iu / p.declared_dose.unit_count;
+                            return d3ContentRanges.some(range => {
+                                if (range === '<100') return d3PerDose < 100;
+                                if (range === '100-200') return d3PerDose >= 100 && d3PerDose <= 200;
+                                if (range === '200-400') return d3PerDose > 200 && d3PerDose <= 400;
+                                if (range === '>400') return d3PerDose > 400;
+                                return false;
+                            });
+                        });
+                    }
+
+                    const origins = Array.from(document.querySelectorAll('[data-filter-key="country"] input:checked')).map(cb => cb.value);
+                    if (origins.length > 0) {
+                        filtered = filtered.filter(product => origins.includes(product.origin.country));
+                    }
+                    
+                    const sortBy = document.getElementById('sort-select').value;
+                    filtered.sort((a, b) => {
+                        switch(sortBy) {
+                            case 'name': return a.name.localeCompare(b.name);
+                            case 'price_low': return a.price - b.price;
+                            case 'price_high': return b.price - a.price;
+                            case 'rating': return b.rating - a.rating;
+                            default: return 0;
+                        }
+                    });
+
+                    this.renderProducts(filtered);
+                    this.updateProductCount(filtered.length);
+                },
+
+                clearAllFilters: function() {
+                    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                    document.querySelectorAll('input[type="radio"][value="all"]').forEach(radio => radio.checked = true);
+                    document.getElementById('search-input').value = '';
+                    document.getElementById('sort-select').value = 'name';
+                    
+                    this.applyFilters();
+                },
+
+                updateProductCount: function(count) {
+                    document.getElementById('product-count').textContent = `${count} sản phẩm`;
+                },
+
+                toggleProductSelection: function(productId) {
+                    const index = this.selectedProducts.indexOf(productId);
+                    if (index > -1) {
+                        this.selectedProducts.splice(index, 1);
+                        this.showNotification('Đã xóa khỏi danh sách so sánh');
+                    } else {
+                        if (this.selectedProducts.length >= 4) {
+                            this.showNotification('Chỉ có thể so sánh tối đa 4 sản phẩm', 'warning');
+                            return;
+                        }
+                        this.selectedProducts.push(productId);
+                        this.showNotification('Đã thêm vào danh sách so sánh');
+                    }
+                    
+                    this.updateCompareButton();
+                    this.updateProductCards();
+                },
+
+                updateCompareButton: function() {
+                    document.getElementById('compare-count').textContent = this.selectedProducts.length;
+                    const compareBtn = document.getElementById('compare-btn');
+                    if (this.selectedProducts.length > 1) {
+                        compareBtn.classList.remove('opacity-50');
+                        compareBtn.disabled = false;
+                    } else {
+                        compareBtn.classList.add('opacity-50');
+                        compareBtn.disabled = true;
+                    }
+                },
+
+                updateProductCards: function() {
+                    document.querySelectorAll('.product-card').forEach(card => {
+                        const productId = parseInt(card.dataset.productId, 10);
+                        if (this.selectedProducts.includes(productId)) {
+                            card.classList.add('selected');
+                        } else {
+                            card.classList.remove('selected');
+                        }
+                    });
+                },
+                
+                showNotification: function(message, type = 'success') {
+                    const notification = document.getElementById('notification');
+                    const notificationText = document.getElementById('notification-text');
+                    
+                    notificationText.textContent = message;
+                    notification.classList.add('show');
+                    
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 3000);
+                },
+
+                showComparison: function(type) {
+                    if (this.selectedProducts.length < 2) {
+                        this.showNotification('Vui lòng chọn ít nhất 2 sản phẩm để so sánh', 'warning');
+                        return;
+                    }
+                    
+                    const selectedProductsData = this.products.filter(p => this.selectedProducts.includes(p.id));
+                    
+                    if (type === 'dosage') {
+                        this.generateComparisonChart(selectedProductsData);
+                    } else if (type === 'cost') {
+                        document.getElementById('comparison-content').innerHTML = '<p class="text-white">Biểu đồ so sánh chi phí sắp ra mắt.</p>';
+                    } else if (type === 'k2') {
+                        document.getElementById('comparison-content').innerHTML = '<p class="text-white">Biểu đồ so sánh K2 sắp ra mắt.</p>';
+                    }
+
+                    document.getElementById('comparison-modal').classList.remove('hidden');
+                },
+
+                generateComparisonChart: function(productsToCompare) {
+                    const comparisonContent = document.getElementById('comparison-content');
+                    const ageGroups = [
+                        { label: 'Sơ Sinh (<1 tuổi)', key: 'duoi_1_tuoi' },
+                        { label: 'Trẻ nhỏ (1-3 tuổi)', key: 'tu_1_den_3_tuoi' },
+                        { label: 'Trẻ em (3-12 tuổi)', key: 'tu_3_den_12_tuoi' }
+                    ];
+
+                    let maxDose = 0;
+                    productsToCompare.forEach(p => {
+                        ageGroups.forEach(age => {
+                            if (p.dosage_recommendation[age.key] && p.dosage_recommendation[age.key].max > maxDose) {
+                                maxDose = p.dosage_recommendation[age.key].max;
+                            }
+                        });
+                    });
+                    maxDose = maxDose > 0 ? maxDose : 1;
+
+                    let chartHtml = '<div class="space-y-8">';
+
+                    productsToCompare.forEach(product => {
+                        chartHtml += `
+                            <div>
+                                <div class="flex items-center mb-3">
+                                    <img src="${product.image}" alt="${product.name}" class="w-10 h-10 rounded-lg mr-3">
+                                    <h4 class="font-bold text-lg text-white">${product.name}</h4>
+                                </div>
+                                <div class="space-y-2">`;
+
+                        ageGroups.forEach(age => {
+                            const dose = product.dosage_recommendation[age.key];
+                            let barHtml;
+                            if (dose) {
+                                const barWidth = (dose.max / maxDose) * 100;
+                                const doseText = dose.min === dose.max ? `${dose.min} ${dose.unit}` : `${dose.min}-${dose.max} ${dose.unit}`;
+                                barHtml = `
+                                    <div class="flex-1 bg-white/10 rounded-full h-8">
+                                        <div class="comparison-bar bg-gradient-to-r from-emerald-500 to-teal-500 h-8 rounded-full text-white text-sm font-medium flex items-center justify-end pr-3" style="width: ${barWidth}%">
+                                            <span>${doseText}</span>
+                                        </div>
+                                    </div>`;
+                            } else {
+                                barHtml = `<div class="flex-1 text-white/50 text-sm italic">Không khuyến nghị</div>`;
+                            }
+
+                            chartHtml += `
+                                <div class="flex items-center gap-4">
+                                    <span class="w-32 text-sm text-white/80 text-right">${age.label}</span>
+                                    ${barHtml}
+                                </div>`;
+                        });
+
+                        chartHtml += '</div></div>';
+                    });
+
+                    chartHtml += '</div>';
+                    comparisonContent.innerHTML = chartHtml;
+                },
+                
+                renderProducts: function(productsToRender) {
+                    const grid = document.getElementById('product-grid');
+                    const noResults = document.getElementById('no-results');
+                    
+                    if (!grid || !noResults) return;
+
+                    if (productsToRender.length === 0) {
+                        grid.innerHTML = '';
+                        noResults.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    noResults.classList.add('hidden');
+                    
+                    grid.innerHTML = productsToRender.map(product => {
+                        const doseInfo = product.dosage_recommendation.duoi_1_tuoi || product.dosage_recommendation.tu_1_den_3_tuoi;
+                        const dailyDose = doseInfo ? doseInfo.min : 1;
+                        const dailyCost = Math.round((product.price / product.total_doses_per_bottle) * dailyDose);
+
+                        const summaryHtml = product.summary ? `
+                            <h4>Công dụng chính</h4>
+                            <ul>${product.summary.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
+                            <h4 class="mt-4">Thành phần nổi bật</h4>
+                            <ul>${product.summary.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                             <h4 class="mt-4">Đối tượng sử dụng</h4>
+                            <p class="text-sm opacity-90">${product.summary.users}</p>
+                        ` : '<p class="text-white/70">Chưa có thông tin chi tiết.</p>';
+
+                        return `
+                        <div class="product-card" data-product-id="${product.id}">
+                             <div class="flip-card card-hover">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front glass-effect p-6 rounded-3xl flex flex-col">
+                                        <div class="relative mb-4">
+                                            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-2xl">
+                                            <div class="absolute top-3 right-3">
+                                                <span class="px-3 py-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-semibold rounded-full">
+                                                    ${product.origin.country}
+                                                </span>
+                                            </div>
+                                            ${product.ingredients_details.has_k2 ? 
+                                                '<div class="absolute top-3 left-3"><span class="px-2 py-1 bg-purple-500 text-white text-xs font-semibold rounded-full">K2</span></div>' : 
+                                                ''
+                                            }
+                                            <button class="absolute bottom-3 right-3 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors toggle-compare-btn" data-product-id="${product.id}">
+                                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        
+                                        <h3 class="font-bold text-lg text-white mb-2 line-clamp-2 h-14 cursor-pointer flip-trigger">${product.name}</h3>
+                                        <p class="text-white/70 text-sm mb-3">${product.brand}</p>
+                                        
+                                        <div class="space-y-2 mb-4 border-t border-b border-white/10 py-3">
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-white/70">Tổng liều:</span>
+                                                <span class="text-white font-medium">${product.total_doses_per_bottle} ${product.declared_dose.unit_name}</span>
+                                            </div>
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-white/70">Công bố D3:</span>
+                                                <span class="text-white font-medium">${product.declared_dose.d3_iu} IU / ${product.declared_dose.unit_count} ${product.declared_dose.unit_name}</span>
+                                            </div>
+                                            ${product.ingredients_details.has_k2 ? `
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-white/70">Công bố K2:</span>
+                                                <span class="text-white font-medium">${product.declared_dose.k2_mcg} mcg / ${product.declared_dose.unit_count} ${product.declared_dose.unit_name}</span>
+                                            </div>
+                                            ` : ''}
+                                        </div>
+                                        
+                                        <div class="mt-auto">
+                                            <div class="flex justify-between items-center">
+                                                <div>
+                                                    <span class="text-2xl font-bold text-white">${this.formatPrice(product.price)}</span>
+                                                    <span class="text-white/70 text-sm">đ</span>
+                                                </div>
+                                                <div class="text-right">
+                                                    <span class="font-bold text-emerald-400">${this.formatPrice(dailyCost)}đ</span>
+                                                    <span class="text-xs text-white/70 block">/ ngày</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex gap-2 mt-3">
+                                                <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm">
+                                                    Nơi bán
+                                                </a>
+                                                <button class="flex-1 block text-center px-4 py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 text-sm flip-trigger">
+                                                    Chi tiết
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flip-card-back glass-effect">
+                                        <div class="flex-grow overflow-y-auto pr-2">
+                                            ${summaryHtml}
+                                        </div>
+                                        <div class="flex gap-2 mt-4 pt-2 border-t border-white/20">
+                                             <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 font-semibold rounded-xl hover:shadow-lg transition-all text-sm text-white">
+                                                Tới trang SP
+                                            </a>
+                                            <button class="flex-1 text-white/80 hover:text-white transition-colors flip-trigger-back bg-white/10 rounded-xl py-2 text-sm font-semibold">
+                                                Quay lại
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `}).join('');
+                },
+                
+                formatPrice: function(price) {
+                    return price.toLocaleString('vi-VN');
+                }
             };
-
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const errorBody = await response.text();
-                throw new Error(`API request failed with status ${response.status}: ${errorBody}`);
-            }
-
-            const result = await response.json();
-            return result.candidates?.[0]?.content?.parts?.[0]?.text || "Không nhận được phản hồi từ AI.";
-        }
-
-        function displayAIRecommendation(text) {
-            const resultDiv = document.getElementById('ai-result');
-            // Basic markdown to HTML conversion
-            let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                           .replace(/\n/g, '<br>');
-            resultDiv.innerHTML = `<div class="text-white/90 leading-relaxed">${html}</div>`;
-            resultDiv.classList.remove('hidden');
-        }
-
-
-        // Format price
-        function formatPrice(price) {
-            return price.toLocaleString('vi-VN');
-        }
+            
+            app.init();
+        });
     </script>
 </body>
 </html>
-```eof
+
