@@ -216,6 +216,21 @@
                         </div>
                     </div>
                     <a href="expert.html" class="hover:text-white transition-colors">Chuyên gia</a>
+                    
+                    <!-- User Authentication Area -->
+                    <div id="auth-container">
+                        <button id="login-btn" class="px-4 py-2 bg-white/10 rounded-xl hover:bg-white/20 transition-colors flex items-center space-x-2">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                            </svg>
+                            <span>Đăng nhập</span>
+                        </button>
+                        <div id="user-profile-display" class="hidden items-center space-x-3 cursor-pointer">
+                            <img id="user-avatar" class="w-8 h-8 rounded-full" src="" alt="User Avatar">
+                            <span id="user-name" class="font-semibold"></span>
+                        </div>
+                    </div>
+
                 </nav>
                 <button class="md:hidden text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -549,6 +564,42 @@
         </div>
     </div>
 
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="glass-effect max-w-lg w-full rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white">Hồ sơ của mẹ</h3>
+                <button id="profile-close" class="text-white/60 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label for="birth-year" class="block text-white/80 mb-2">Năm sinh của mẹ</label>
+                    <input type="number" id="birth-year" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Ví dụ: 1995">
+                </div>
+                <div>
+                    <label for="due-date" class="block text-white/80 mb-2">Ngày dự sinh (nếu có)</label>
+                    <input type="date" id="due-date" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-white/80 mb-2">Mối quan tâm</label>
+                    <div class="grid grid-cols-2 gap-2 text-white/80">
+                        <label class="flex items-center space-x-2"><input type="checkbox" name="interests" value="dinh_duong_thai_ky" class="rounded text-emerald-500"><span>Dinh dưỡng thai kỳ</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" name="interests" value="phat_trien_chieu_cao" class="rounded text-emerald-500"><span>Phát triển chiều cao</span></label>
+                        <label class="flex items-center space-x-2"><input type="checkbox" name="interests" value="phat_trien_nao_bo" class="rounded text-emerald-500"><span>Phát triển não bộ</span></label>
+                         <label class="flex items-center space-x-2"><input type="checkbox" name="interests" value="tang_de_khang" class="rounded text-emerald-500"><span>Tăng đề kháng</span></label>
+                    </div>
+                </div>
+                <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                    <button id="save-profile" class="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all">Lưu thông tin</button>
+                    <button id="logout-btn" class="flex-1 px-6 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all">Đăng xuất</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Notification -->
     <div id="notification" class="notification glass-effect p-4 rounded-xl text-white">
         <div class="flex items-center space-x-3">
@@ -558,6 +609,128 @@
             <span id="notification-text">Đã thêm vào danh sách so sánh</span>
         </div>
     </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // =================================================================
+        // QUAN TRỌNG: HÃY THAY THẾ CÁC THÔNG TIN DƯỚI ĐÂY BẰNG CẤU HÌNH FIREBASE CỦA BẠN
+        // Bạn có thể lấy các thông tin này từ Project Settings trong Firebase Console
+        // =================================================================
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY", // Thay bằng API Key của bạn
+            authDomain: "YOUR_AUTH_DOMAIN", // Thay bằng Auth Domain của bạn
+            projectId: "YOUR_PROJECT_ID", // Thay bằng Project ID của bạn
+            storageBucket: "YOUR_STORAGE_BUCKET", // Thay bằng Storage Bucket của bạn
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Thay bằng Messaging Sender ID của bạn
+            appId: "YOUR_APP_ID" // Thay bằng App ID của bạn
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // --- AUTHENTICATION LOGIC ---
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userProfileDisplay = document.getElementById('user-profile-display');
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const profileModal = document.getElementById('profile-modal');
+        const profileCloseBtn = document.getElementById('profile-close');
+        const saveProfileBtn = document.getElementById('save-profile');
+
+        loginBtn.addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .catch((error) => {
+                    console.error("Authentication Error: ", error);
+                    alert("Đã có lỗi xảy ra khi đăng nhập. Vui lòng thử lại.");
+                });
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                profileModal.classList.add('hidden');
+                showNotification('Đã đăng xuất thành công', 'success');
+            }).catch((error) => {
+                console.error("Sign Out Error: ", error);
+            });
+        });
+
+        userProfileDisplay.addEventListener('click', () => {
+            profileModal.classList.remove('hidden');
+        });
+
+        profileCloseBtn.addEventListener('click', () => {
+            profileModal.classList.add('hidden');
+        });
+        
+        profileModal.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                profileModal.classList.add('hidden');
+            }
+        });
+
+        saveProfileBtn.addEventListener('click', async () => {
+            const user = auth.currentUser;
+            if (user) {
+                const birthYear = document.getElementById('birth-year').value;
+                const dueDate = document.getElementById('due-date').value;
+                const interests = Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(el => el.value);
+
+                try {
+                    await setDoc(doc(db, "users", user.uid), {
+                        birthYear: birthYear,
+                        dueDate: dueDate,
+                        interests: interests
+                    }, { merge: true });
+                    showNotification('Đã lưu thông tin hồ sơ!', 'success');
+                    profileModal.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                    alert("Đã có lỗi xảy ra khi lưu thông tin.");
+                }
+            }
+        });
+
+        async function loadUserProfile(userId) {
+            const docRef = doc(db, "users", userId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                document.getElementById('birth-year').value = data.birthYear || '';
+                document.getElementById('due-date').value = data.dueDate || '';
+                document.querySelectorAll('input[name="interests"]').forEach(checkbox => {
+                    checkbox.checked = data.interests && data.interests.includes(checkbox.value);
+                });
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                loginBtn.classList.add('hidden');
+                userProfileDisplay.classList.remove('hidden');
+                userProfileDisplay.classList.add('flex');
+                userAvatar.src = user.photoURL;
+                userName.textContent = user.displayName.split(' ')[0]; // Show first name
+                loadUserProfile(user.uid);
+            } else {
+                // User is signed out
+                loginBtn.classList.remove('hidden');
+                userProfileDisplay.classList.add('hidden');
+                userProfileDisplay.classList.remove('flex');
+            }
+        });
+
+    </script>
 
     <script>
         // Wait for DOM to be fully loaded
@@ -741,20 +914,26 @@
             
             // Comparison functionality
             const compareMenu = document.getElementById('compare-menu-container');
-            compareMenu.addEventListener('click', (e) => {
-                if(e.target.closest('#compare-btn')) {
-                    document.getElementById('compare-dropdown').classList.toggle('hidden');
-                }
-                if(e.target.dataset.compareType) {
-                    e.preventDefault();
-                    showComparison(e.target.dataset.compareType);
-                    document.getElementById('compare-dropdown').classList.add('hidden');
-                }
-            });
+            if(compareMenu) {
+                compareMenu.addEventListener('click', (e) => {
+                    if(e.target.closest('#compare-btn')) {
+                        document.getElementById('compare-dropdown').classList.toggle('hidden');
+                    }
+                    if(e.target.dataset.compareType) {
+                        e.preventDefault();
+                        showComparison(e.target.dataset.compareType);
+                        document.getElementById('compare-dropdown').classList.add('hidden');
+                    }
+                });
+            }
 
-            document.getElementById('comparison-close').addEventListener('click', () => {
-                document.getElementById('comparison-modal').classList.add('hidden');
-            });
+
+            const comparisonClose = document.getElementById('comparison-close');
+            if(comparisonClose) {
+                comparisonClose.addEventListener('click', () => {
+                    document.getElementById('comparison-modal').classList.add('hidden');
+                });
+            }
             
             // AI consultation modal
             const aiConsultBtn = document.getElementById('ai-consult-btn');
@@ -786,11 +965,14 @@
             }
             
             // Close modals on backdrop click
-            document.getElementById('comparison-modal').addEventListener('click', (e) => {
-                if (e.target === e.currentTarget) {
-                    document.getElementById('comparison-modal').classList.add('hidden');
-                }
-            });
+            const comparisonModal = document.getElementById('comparison-modal');
+            if(comparisonModal){
+                comparisonModal.addEventListener('click', (e) => {
+                    if (e.target === e.currentTarget) {
+                        comparisonModal.classList.add('hidden');
+                    }
+                });
+            }
         }
 
         // Handle search
@@ -1215,4 +1397,4 @@
     </script>
 </body>
 </html>
-
+```eof
