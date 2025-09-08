@@ -422,7 +422,7 @@
             <!-- Products Grid -->
             <main class="w-full lg:w-3/4" id="products">
                  <h2 class="text-4xl font-bold text-white text-center mb-8">
-                    Sản phẩm Hỗ trợ Xương, Răng & Chiều cao
+                    Sản phẩm Hỗ trợ Phát triển Não bộ & Thị lực
                 </h2>
                 <!-- Search and Sort -->
                 <div class="glass-effect p-6 rounded-3xl mb-8 fade-in">
@@ -501,98 +501,46 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            const app = {
-                products: [
-                    {
-                        id: 1, category: 'xuong_rang', name: 'LineaBon K2+D3', brand: 'ErgoPharm', image: 'https://placehold.co/300x300/667eea/white?text=LineaBon', price: 295000,
-                        volume_ml: 10, total_doses_per_bottle: 300, origin: {country: 'Slovenia', continent: 'Châu Âu'}, form: 'drops',
-                        declared_dose: { unit_count: 6, unit_name: 'giọt', d3_iu: 400, k2_mcg: 22.5 },
-                        dosage_recommendation: { 'duoi_1_tuoi': { min: 6, max: 6, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 6, max: 8, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 8, max: 12, unit: 'giọt' } },
-                        ingredients_details: { d3_source: 'Động vật', has_k2: true },
-                        rating: 4.8, reviews: 156, product_url: 'https://lineabon.vn/',
-                        summary: {
-                            benefits: [
-                                'Hỗ trợ hấp thu Canxi và phốt pho, giúp xương răng chắc khỏe.',
-                                'Giảm nguy cơ còi xương ở trẻ nhỏ và loãng xương ở người lớn.',
-                                'Thúc đẩy phát triển chiều cao vượt trội cho trẻ.'
-                            ],
-                            ingredients: [
-                                'Vitamin K2 (VitaMK7) 22.5mcg',
-                                'Vitamin D3 400 IU',
-                                'Dầu Olive'
-                            ],
-                            users: 'Trẻ sơ sinh, trẻ nhỏ, trẻ trong giai đoạn phát triển, người lớn cần bổ sung Vitamin D3, K2.'
-                        }
-                    },
-                    {
-                        id: 2, category: 'xuong_rang', name: 'BioAmicus Vitamin D3 K2-MK7', brand: 'BioAmicus', image: 'https://placehold.co/300x300/764ba2/white?text=BioAmicus', price: 330000,
-                        volume_ml: 10, total_doses_per_bottle: 350, origin: {country: 'Canada', continent: 'Châu Mỹ'}, form: 'drops',
-                        declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 100, k2_mcg: 4 },
-                        dosage_recommendation: { 'duoi_1_tuoi': { min: 3, max: 4, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 7, max: 7, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 10, max: 10, unit: 'giọt' } },
-                        ingredients_details: { d3_source: 'Động vật', has_k2: true },
-                        rating: 4.6, reviews: 89, product_url: 'https://bioamicus.vn/bioamicus-vitamin-d3k2',
-                        summary: {
-                            benefits: [
-                                'Hỗ trợ hấp thu tối đa Canxi và Phốt pho.',
-                                'Giúp xương và răng chắc khỏe.',
-                                'Giảm nguy cơ còi xương ở trẻ nhỏ.',
-                                'Hỗ trợ hệ miễn dịch khỏe mạnh.'
-                            ],
-                            ingredients: [
-                                'Vitamin D3 (Cholecalciferol) 100 IU',
-                                'Vitamin K2 (MK-7) 4mcg',
-                                'Dầu dừa phân đoạn'
-                            ],
-                            users: 'Trẻ sơ sinh, trẻ nhỏ và người lớn.'
-                        }
-                    },
-                    {
-                        id: 3, category: 'xuong_rang', name: 'Dimao Pro Vitamin D3 - K2', brand: 'Dimao', image: 'https://placehold.co/300x300/10b981/white?text=Dimao', price: 299000,
-                        volume_ml: 25, total_doses_per_bottle: 125, origin: {country: 'Slovenia', continent: 'Châu Âu'}, form: 'spray',
-                        declared_dose: { unit_count: 1, unit_name: 'xịt', d3_iu: 400, k2_mcg: 18.75 },
-                        dosage_recommendation: { 'duoi_1_tuoi': { min: 1, max: 1, unit: 'xịt' }, 'tu_1_den_3_tuoi': { min: 1, max: 2, unit: 'xịt' }, 'tu_3_den_12_tuoi': { min: 2, max: 3, unit: 'xịt' } },
-                        ingredients_details: { d3_source: 'Động vật', has_k2: true },
-                        rating: 4.7, reviews: 134, product_url: 'https://dimao.vn/',
-                        summary: {
-                            benefits: [ 'Hỗ trợ hấp thu Canxi', 'Giúp xương răng chắc khỏe', 'Hỗ trợ phát triển chiều cao'],
-                            ingredients: [ 'Vitamin D3 400 IU', 'Vitamin K2 (K2VITAL) 18.75mcg'],
-                            users: 'Trẻ em và người lớn'
-                        }
-                    },
-                    {
-                        id: 4, category: 'xuong_rang', name: 'Sunday Natural D3+K2 MK7 Vegan', brand: 'Sunday Natural', image: 'https://placehold.co/300x300/f59e0b/white?text=Sunday+Natural', price: 450000,
-                        volume_ml: 20, total_doses_per_bottle: 600, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
-                        declared_dose: { unit_count: 1, unit_name: 'giọt', d3_iu: 200, k2_mcg: 15 },
-                        dosage_recommendation: { 'duoi_1_tuoi': { min: 2, max: 2, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 3, max: 4, unit: 'giọt' }, 'tu_3_den_12_tuoi': { min: 5, max: 5, unit: 'giọt' } },
-                        ingredients_details: { d3_source: 'Thực vật', has_k2: true },
-                        rating: 4.9, reviews: 203, product_url: '#',
-                        summary: {
-                            benefits: [ 'Hỗ trợ hấp thu Canxi', 'Giúp xương răng chắc khỏe', 'Hỗ trợ phát triển chiều cao'],
-                            ingredients: [ 'Vitamin D3 200 IU', 'Vitamin K2 (MK-7) 15mcg'],
-                            users: 'Trẻ em và người lớn'
-                        }
-                    },
-                    {
-                        id: 5, category: 'xuong_rang', name: 'Pediakid Vitamin D3', brand: 'Pediakid', image: 'https://placehold.co/300x300/3b82f6/white?text=Pediakid', price: 250000,
-                        volume_ml: 20, total_doses_per_bottle: 400, origin: {country: 'Pháp', continent: 'Châu Âu'}, form: 'drops',
-                        declared_dose: { unit_count: 2, unit_name: 'giọt', d3_iu: 400, k2_mcg: 0 },
-                        dosage_recommendation: { 'duoi_1_tuoi': { min: 2, max: 2, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 2, max: 2, unit: 'giọt' } },
-                        ingredients_details: { d3_source: 'Động vật', has_k2: false },
-                        rating: 4.4, reviews: 78, product_url: '#',
-                        summary: {
-                            benefits: [ 'Hỗ trợ hấp thu Canxi', 'Giúp xương răng chắc khỏe', 'Hỗ trợ phát triển chiều cao'],
-                            ingredients: [ 'Vitamin D3 400 IU'],
-                            users: 'Trẻ em'
-                        }
-                    },
-                    // ... (rest of the products will have placeholder summaries)
-                ],
+const brainProducts = [
+    {
+        id: 21, category: 'nao_bo', name: 'Nature\'s Way Kids Smart Drops DHA', brand: 'Nature\'s Way', image: '[https://placehold.co/300x300/3b82f6/white?text=NW+DHA](https://placehold.co/300x300/3b82f6/white?text=NW+DHA)', price: 320000,
+        origin: {country: 'Úc', continent: 'Châu Úc'}, form: 'drops', product_url: '#',
+        key_ingredients: [{ name: 'DHA', value: '200.5mg' }, { name: 'EPA', value: '42mg' }],
+        summary: { benefits: ['Hỗ trợ phát triển não bộ và hệ thần kinh.', 'Tăng cường sức khỏe thị lực.'], ingredients: ['Dầu cá Omega-3', 'DHA', 'EPA'], users: 'Trẻ sơ sinh và trẻ nhỏ.' }
+    },
+    {
+        id: 22, category: 'nao_bo', name: 'BioAmicus Omega-3', brand: 'BioAmicus', image: '[https://placehold.co/300x300/764ba2/white?text=BA+Omega](https://placehold.co/300x300/764ba2/white?text=BA+Omega)', price: 385000,
+        origin: {country: 'Canada', continent: 'Châu Mỹ'}, form: 'drops', product_url: '#',
+        key_ingredients: [{ name: 'DHA', value: '100mg' }, { name: 'EPA', value: '20mg' }],
+        summary: { benefits: ['Cung cấp DHA & EPA tinh khiết.', 'Hỗ trợ phát triển chức năng não bộ.'], ingredients: ['Dầu cá cơm tinh chế', 'DHA', 'EPA'], users: 'Trẻ từ 1 tháng tuổi.' }
+    },
+    {
+        id: 23, category: 'nao_bo', name: 'Nordic Naturals Children\'s DHA', brand: 'Nordic Naturals', image: '[https://placehold.co/300x300/06b6d4/white?text=Nordic+DHA](https://placehold.co/300x300/06b6d4/white?text=Nordic+DHA)', price: 450000,
+        origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'liquid', product_url: '#',
+        key_ingredients: [{ name: 'Total Omega-3s', value: '530mg' }, { name: 'DHA', value: '255mg' }],
+        summary: { benefits: ['Thương hiệu Omega-3 cao cấp.', 'Hỗ trợ học tập và phát triển nhận thức.'], ingredients: ['Dầu gan cá tuyết Bắc Cực', 'Vitamin A', 'Vitamin D3'], users: 'Trẻ từ 1-6 tuổi.' }
+    },
+    {
+        id: 24, category: 'nao_bo', name: 'Pediakid Omega 3', brand: 'Pediakid', image: '[https://placehold.co/300x300/ef4444/white?text=Pediakid+O3](https://placehold.co/300x300/ef4444/white?text=Pediakid+O3)', price: 280000,
+        origin: {country: 'Pháp', continent: 'Châu Âu'}, form: 'syrup', product_url: '#',
+        key_ingredients: [{ name: 'DHA', value: '250mg' }, { name: 'Vitamin C', value: '80mg' }],
+        summary: { benefits: ['Kết hợp Omega-3 và vitamin tổng hợp.', 'Vị chanh thơm ngon, dễ uống.'], ingredients: ['Dầu cá, Siro cây thùa', 'Vitamin A, C, D, E'], users: 'Trẻ từ 6 tháng tuổi.' }
+    },
+    {
+        id: 25, category: 'nao_bo', name: 'Fitobimbi Omega Junior', brand: 'Pharmalife Research', image: '[https://placehold.co/300x300/84cc16/white?text=Fitobimbi+O](https://placehold.co/300x300/84cc16/white?text=Fitobimbi+O)', price: 345000,
+        origin: {country: 'Ý', continent: 'Châu Âu'}, form: 'syrup', product_url: '#',
+        key_ingredients: [{ name: 'Dầu hạt Lý chua đen', value: '14g' }, { name: 'Vitamin E', value: '60mg' }],
+        summary: { benefits: ['Omega-3, Omega-6 từ thực vật.', 'An toàn cho trẻ nhỏ.'], ingredients: ['Dầu hạt Lý chua đen', 'Vitamin B6', 'Vitamin E'], users: 'Trẻ từ 6 tháng đến 12 tuổi.' }
+    },
+    // Thêm 5 sản phẩm còn lại ở đây...
+];
+
 
                 selectedProducts: [],
                 
                 init: function() {
                     this.initializeFilters();
-                    this.renderProducts(this.products.filter(p => p.category === 'xuong_rang'));
+                    this.renderProducts(this.products);
                     this.setupEventListeners();
                     this.updateProductCount(this.products.filter(p => p.category === 'xuong_rang').length);
                 },
