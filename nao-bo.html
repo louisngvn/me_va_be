@@ -530,29 +530,54 @@
                 },
 
                 products: [
-                    {
-                        id: 101, category: 'nao_bo', name: 'Nordic Naturals Baby\'s DHA', brand: 'Nordic Naturals', image: 'https://placehold.co/300x300/3b82f6/white?text=Nordic+Baby+DHA', price: 520000,
-                        volume_ml: 60, total_doses_per_bottle: 120, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'drops',
-                        declared_dose: { unit_count: 1, unit_name: 'ml', dha_mg: 37, epa_mg: 60, omega3_total: 480 },
-                        dosage_recommendation: { 'duoi_1_tuoi': { min: 0.5, max: 1, unit: 'ml' }, 'tu_1_den_3_tuoi': { min: 1, max: 1.5, unit: 'ml' }, 'tu_3_den_12_tuoi': { min: 1.5, max: 2, unit: 'ml' } },
-                        ingredients_details: { omega3_source: 'Cá biển', purity: 'Molecular distillation', flavor: 'Strawberry' },
-                        rating: 4.8, reviews: 234, product_url: 'https://nordicnaturals.vn/',
+                                        {
+                        id: 108,
+                        category: 'nao_bo', 
+                        name: 'BioAmicus DHA', 
+                        brand: 'BioAmicus', 
+                        image: 'https://placehold.co/300x300/3b82f6/white?text=BioAmicus+DHA',
+                        price: 385000,
+                        volume_ml: 30,
+                        total_doses_per_bottle: 60,
+                        origin: {country: 'Canada', continent: 'Châu Mỹ'}, 
+                        form: 'drops',
+                        declared_dose: {
+                            unit_count: 1, 
+                            unit_name: 'liều (0.5ml)', 
+                            dha_mg: 100,
+                            epa_mg: 20,
+                            omega3_total: 140
+                        },
+                        dosage_recommendation: {
+                            'duoi_1_tuoi': { min: 1, max: 1, unit: 'liều' },
+                            'tu_1_den_3_tuoi': { min: 2, max: 2, unit: 'liều' },
+                            'tu_3_den_12_tuoi': { min: 3, max: 3, unit: 'liều' }
+                        },
+                        ingredients_details: { 
+                            omega3_source: 'Dầu cá tinh khiết', 
+                            purity: 'Pharmaceutical grade',
+                            flavor: 'Tự nhiên' 
+                        },
+                        rating: 4.7,
+                        reviews: 156,
+                        product_url: 'https://bioamicus.vn/bioamicus-dha',
                         summary: {
                             benefits: [
-                                'Hỗ trợ phát triển não bộ và thị lực của trẻ sơ sinh và trẻ nhỏ.',
-                                'Cải thiện khả năng học tập và ghi nhớ.',
-                                'Tăng cường hệ miễn dịch tự nhiên.',
-                                'Hỗ trợ phát triển hệ thần kinh trung ương.'
+                                'Bổ sung 100mg DHA và 20mg EPA mỗi liều 0.5ml',
+                                'Hỗ trợ phát triển não bộ và thị lực trẻ em',
+                                'Từ dầu cá tinh khiết, an toàn cho trẻ sơ sinh',
+                                'Liều dùng rõ ràng theo từng độ tuổi'
                             ],
                             ingredients: [
-                                'DHA (Docosahexaenoic Acid) 37mg',
-                                'EPA (Eicosapentaenoic Acid) 60mg',
-                                'Omega-3 tổng 480mg',
-                                'Vitamin E tự nhiên'
+                                'DHA (Docosahexaenoic Acid) 100mg/0.5ml',
+                                'EPA (Eicosapentaenoic Acid) 20mg/0.5ml', 
+                                'Omega-3 tổng: 140mg/0.5ml',
+                                'Dầu cá tinh khiết'
                             ],
-                            users: 'Trẻ sơ sinh từ 6 tháng tuổi, trẻ nhỏ 1-3 tuổi, trẻ em 3-12 tuổi.'
+                            users: 'Trẻ sơ sinh từ 0-12 tháng (1 liều/ngày), trẻ em 1-6 tuổi (2 liều/ngày), trẻ 7-11 tuổi (3 liều/ngày)'
                         }
                     },
+
                     {
                         id: 102, category: 'nao_bo', name: 'Algae Omega DHA cho trẻ em', brand: 'Doppelherz', image: 'https://placehold.co/300x300/1d4ed8/white?text=Doppelherz+DHA', price: 380000,
                         volume_ml: 45, total_doses_per_bottle: 90, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
