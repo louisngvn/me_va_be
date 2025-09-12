@@ -506,14 +506,10 @@
             
             const app = {
                 // Affiliate URL mapping system for monetization
-                affiliateUrls: {
-                    // Format: productId: 'affiliate_url'
-                    // Example: 1: 'https://shopee.vn/product/123?affiliate=xyz',
-                    // Add affiliate URLs here for each product
-                    1: 'https://shopee.vn/lineabon-k2-d3?affiliate=example', // LineaBon K2+D3
-                    2: 'https://tiki.vn/bioamicus-d3k2?affiliate=example', // BioAmicus
-                    // Add more affiliate URLs as needed
-                },
+               affiliateUrls: {
+    // Format: productId: 'affiliate_url'
+    1: 'https://s.shopee.vn/2LOr4CGtH6',
+},
 
                 // Get affiliate URL for a product (falls back to product_url if no affiliate URL)
                 getAffiliateUrl: function(productId, fallbackUrl) {
