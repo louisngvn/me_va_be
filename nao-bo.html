@@ -3,76 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEBUG - Não bộ & Thị lực</title>
+    <title>Vi Chất Cho Mẹ và Bé - Não bộ & Thị lực</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="So sánh sản phẩm DHA, Omega-3 cho phát triển não bộ và thị lực trẻ em tại Việt Nam. Tìm sản phẩm phù hợp với bộ lọc thông minh.">
+    <meta name="keywords" content="DHA, Omega-3, não bộ trẻ em, thị lực, phát triển trí thông minh, vitamin cho não bộ">
+    
+    <!-- Import Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #6366f1 0%, #3b82f6 25%, #1d4ed8 50%, #1e40af 75%, #3730a3 100%); min-height: 100vh; }
-        .glass-effect { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .flip-card { background-color: transparent; width: 100%; height: 520px; perspective: 1000px; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
-        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 1.5rem; }
-        .flip-card-back { transform: rotateY(180deg); padding: 1.5rem; display: flex; flex-direction: column; overflow-y: auto; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 25%, #1d4ed8 50%, #1e40af 75%, #3730a3 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header-glass {
+            background-color: rgba(59, 130, 246, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover:hover .flip-card-front {
+             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.5); }
+        
+        /* Product card selected state */
+        .product-card.selected .flip-card-front {
+            border: 2px solid #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* Line clamp utility */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Style cho accordion filter */
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #f3f4f6; /* text-gray-100 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        details > summary::after {
+            content: '›';
+            transform: rotate(90deg);
+            transition: transform 0.2s;
+            font-size: 1.5em;
+        }
+        details[open] > summary::after {
+            transform: rotate(-90deg);
+        }
+
+        /* --- FLIP CARD STYLES --- */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 520px; /* Fixed height for consistency */
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.is-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 1.5rem; /* rounded-3xl */
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .flip-card-back h4 {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #BBDEFB;
+        }
+        .flip-card-back ul {
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 0.9rem;
+            color: white;
+            opacity: 0.9;
+            flex-grow: 1;
+        }
+        .flip-card-back ul li {
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        .flip-card-back ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #34D399; /* emerald-400 */
+        }
     </style>
 </head>
 <body class="text-gray-800">
 
-    <!-- Debug Panel -->
-    <div id="debug-panel" class="fixed top-4 left-4 bg-black/80 text-white p-4 rounded-lg text-sm z-50 max-w-md">
-        <h3 class="font-bold mb-2">🐛 DEBUG INFO</h3>
-        <div id="debug-info"></div>
-        <button onclick="document.getElementById('debug-panel').style.display='none'" class="mt-2 px-2 py-1 bg-red-600 rounded text-xs">Ẩn</button>
-    </div>
-
-    <!-- Header -->
-    <header class="glass-effect sticky top-0 z-40 border-b border-white/20">
+    <!-- Header with Glass Effect -->
+    <header class="header-glass sticky top-0 z-40 border-b border-white/20">
         <div class="container mx-auto px-4 py-4">
-            <div class="flex justify-center items-center">
-                <h1 class="text-xl md:text-2xl font-bold text-white">
-                    🧠 DEBUG - Sản phẩm Não bộ & Thị lực
-                </h1>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold text-white">
+                        Vi Chất Cho Mẹ và Bé
+                    </h1>
+                </div>
+                <nav class="hidden md:flex space-x-6 text-white/80 font-medium items-center">
+                    <a href="index.html" class="hover:text-white transition-colors">Xương & Răng</a>
+                    <a href="nao-bo.html" class="hover:text-white transition-colors text-blue-200">Não bộ & Thị lực</a>
+                    <a href="de-khang.html" class="hover:text-white transition-colors">Đề kháng & Tiêu hóa</a>
+                    <a href="me-va-be.html" class="hover:text-white transition-colors">Phụ nữ & Thai kỳ</a>
+                    <a href="expert.html" class="hover:text-white transition-colors">Chuyên gia</a>
+                </nav>
+                <button class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                🧠 Sản phẩm Hỗ trợ Phát triển Não bộ & Thị lực
+            </h2>
+            <p class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-8 leading-relaxed">
+                So sánh các sản phẩm DHA, Omega-3 tốt nhất cho sự phát triển trí tuệ và thị lực của trẻ.
+            </p>
+        </div>
+    </section>
+
     <!-- Main Content -->
     <div class="container mx-auto p-4 md:p-8 mt-8">
-        <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-white mb-4">Kiểm tra hiển thị sản phẩm</h2>
-            <div id="product-count" class="text-white/80 text-lg"></div>
-        </div>
+        
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Enhanced Filter Sidebar -->
+            <aside class="w-full lg:w-1/4">
+                <div class="glass-effect p-6 rounded-3xl sticky top-24 fade-in">
+                    <h3 class="font-bold text-2xl mb-6 text-white flex items-center">
+                        <svg class="w-6 h-6 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                        </svg>
+                        Bộ Lọc Thông Minh
+                    </h3>
 
-        <!-- Products Grid -->
-        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <!-- Products sẽ được render ở đây -->
-        </div>
+                    <!-- Search -->
+                    <div class="mb-6">
+                        <div class="relative">
+                            <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." 
+                                   class="w-full px-4 py-3 pl-12 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
 
-        <!-- No Products Message -->
-        <div id="no-products" class="hidden text-center py-16">
-            <div class="glass-effect p-12 rounded-3xl">
-                <h3 class="text-2xl font-bold text-white mb-4">❌ KHÔNG CÓ SẢN PHẨM</h3>
-                <p class="text-white/70">Kiểm tra Console để xem lỗi chi tiết</p>
-            </div>
+                    <!-- Sort -->
+                    <div class="mb-6">
+                        <select id="sort-select" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="name">Sắp xếp theo tên</option>
+                            <option value="price_low">Giá thấp đến cao</option>
+                            <option value="price_high">Giá cao đến thấp</option>
+                            <option value="rating">Đánh giá cao nhất</option>
+                        </select>
+                    </div>
+
+                    <!-- Clear Filters Button -->
+                    <button id="clear-filters" class="w-full mt-4 px-4 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                        Xóa Bộ Lọc
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Products Grid -->
+            <main class="w-full lg:w-3/4">
+                <div class="text-center mb-8">
+                    <div id="product-count" class="text-white/80 text-lg"></div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Products will be inserted here by JavaScript -->
+                </div>
+
+                <!-- No Results -->
+                <div id="no-results" class="hidden text-center py-16">
+                    <div class="glass-effect p-12 rounded-3xl">
+                        <svg class="mx-auto h-16 w-16 text-white/60 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <h3 class="text-2xl font-bold text-white mb-2">Không tìm thấy sản phẩm</h3>
+                        <p class="text-white/70">Vui lòng thử lại với bộ lọc khác hoặc từ khóa tìm kiếm khác.</p>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 
+    <!-- Notification -->
+    <div id="notification" class="notification glass-effect p-4 rounded-xl text-white">
+        <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span id="notification-text">Đã thêm vào danh sách so sánh</span>
+        </div>
+    </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // Debug function
-            function debugLog(message) {
-                console.log('🐛 DEBUG:', message);
-                const debugInfo = document.getElementById('debug-info');
-                if (debugInfo) {
-                    debugInfo.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
-                }
-            }
-
-            debugLog('Script bắt đầu chạy');
-
             const app = {
-                // Test products data
+                // Affiliate URL mapping system for monetization
+                affiliateUrls: {
+                    // Format: productId: 'affiliate_url'
+                    101: 'https://nordicnaturals.vn/?affiliate=example', // Nordic Naturals Baby's DHA
+                    108: 'https://bioamicus.vn/bioamicus-dha?affiliate=example', // BioAmicus DHA
+                    // Add more affiliate URLs as needed
+                },
+
+                // Get affiliate URL for a product (falls back to product_url if no affiliate URL)
+                getAffiliateUrl: function(productId, fallbackUrl) {
+                    return this.affiliateUrls[productId] || fallbackUrl;
+                },
+
                 products: [
                     {
                         id: 101,
@@ -155,170 +397,220 @@
                     }
                 ],
 
+                selectedProducts: [],
+                
                 init: function() {
-                    debugLog('App init() được gọi');
-                    
-                    try {
-                        const naoBoproducts = this.products.filter(p => p.category === 'nao_bo');
-                        debugLog('Tìm thấy ' + naoBoproducts.length + ' sản phẩm nao_bo');
-                        
-                        this.renderProducts(naoBoproducts);
-                        this.updateProductCount(naoBoproducts.length);
-                        
-                        debugLog('Render hoàn thành');
-                        
-                    } catch (error) {
-                        debugLog('LỖI trong init(): ' + error.message);
-                        console.error('Chi tiết lỗi:', error);
-                    }
+                    this.renderProducts(this.products.filter(p => p.category === 'nao_bo'));
+                    this.setupEventListeners();
+                    this.updateProductCount(this.products.filter(p => p.category === 'nao_bo').length);
                 },
 
-                renderProducts: function(productsToRender) {
-                    debugLog('renderProducts() được gọi với ' + productsToRender.length + ' sản phẩm');
+                setupEventListeners: function() {
+                    document.getElementById('search-input').addEventListener('input', () => this.applyFilters());
+                    document.getElementById('sort-select').addEventListener('change', () => this.applyFilters());
+                    document.getElementById('clear-filters').addEventListener('click', () => this.clearAllFilters());
                     
-                    const grid = document.getElementById('product-grid');
-                    const noProducts = document.getElementById('no-products');
-                    
-                    if (!grid) {
-                        debugLog('LỖI: Không tìm thấy element product-grid');
-                        return;
-                    }
-
-                    if (productsToRender.length === 0) {
-                        debugLog('Không có sản phẩm để hiển thị');
-                        grid.innerHTML = '';
-                        noProducts.classList.remove('hidden');
-                        return;
-                    }
-                    
-                    noProducts.classList.add('hidden');
-                    
-                    try {
-                        grid.innerHTML = productsToRender.map(product => {
-                            const doseInfo = product.dosage_recommendation.duoi_1_tuoi || product.dosage_recommendation.tu_1_den_3_tuoi;
-                            const dailyDose = doseInfo ? doseInfo.min : 1;
-                            const dailyCost = Math.round((product.price / product.total_doses_per_bottle) * dailyDose);
-
-                            return `
-                            <div class="product-card" data-product-id="${product.id}">
-                                <div class="flip-card card-hover">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front glass-effect p-6 rounded-3xl flex flex-col">
-                                            <div class="relative mb-4">
-                                                <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-2xl">
-                                                <div class="absolute top-3 right-3">
-                                                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-semibold rounded-full">
-                                                        ${product.origin.country}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            
-                                            <h3 class="font-bold text-lg text-white mb-2 line-clamp-2 h-14">${product.name}</h3>
-                                            <p class="text-white/70 text-sm mb-3">${product.brand}</p>
-                                            
-                                            <div class="space-y-2 mb-4 border-t border-b border-white/10 py-3">
-                                                <div class="flex justify-between text-sm">
-                                                    <span class="text-white/70">DHA:</span>
-                                                    <span class="text-white font-medium">${product.declared_dose.dha_mg} mg</span>
-                                                </div>
-                                                <div class="flex justify-between text-sm">
-                                                    <span class="text-white/70">Omega-3:</span>
-                                                    <span class="text-white font-medium">${product.declared_dose.omega3_total} mg</span>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="mt-auto">
-                                                <div class="flex justify-between items-center">
-                                                    <div>
-                                                        <span class="text-2xl font-bold text-white">${product.price.toLocaleString('vi-VN')}</span>
-                                                        <span class="text-white/70 text-sm">đ</span>
-                                                    </div>
-                                                    <div class="text-right">
-                                                        <span class="font-bold text-blue-400">${dailyCost.toLocaleString('vi-VN')}đ</span>
-                                                        <span class="text-xs text-white/70 block">/ ngày</span>
-                                                    </div>
-                                                </div>
-                                                <div class="flex gap-2 mt-3">
-                                                    <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm">
-                                                        💰 Mua ngay
-                                                    </a>
-                                                    <button class="flex-1 block text-center px-4 py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 text-sm flip-trigger">
-                                                        Chi tiết
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flip-card-back glass-effect">
-                                            <div class="flex-grow overflow-y-auto pr-2">
-                                                <h4 class="font-bold text-lg mb-2 text-blue-200">Công dụng chính</h4>
-                                                <ul class="mb-4">
-                                                    ${product.summary.benefits.map(b => `<li class="mb-1 text-white/90 text-sm">✓ ${b}</li>`).join('')}
-                                                </ul>
-                                                <h4 class="font-bold text-lg mb-2 text-blue-200">Thành phần nổi bật</h4>
-                                                <ul class="mb-4">
-                                                    ${product.summary.ingredients.map(i => `<li class="mb-1 text-white/90 text-sm">• ${i}</li>`).join('')}
-                                                </ul>
-                                                <h4 class="font-bold text-lg mb-2 text-blue-200">Đối tượng sử dụng</h4>
-                                                <p class="text-sm text-white/90">${product.summary.users}</p>
-                                            </div>
-                                            <div class="flex gap-2 mt-4 pt-2 border-t border-white/20">
-                                                <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 font-semibold rounded-xl hover:shadow-lg transition-all text-sm text-white">
-                                                    Tới trang SP
-                                                </a>
-                                                <button class="flex-1 text-white/80 hover:text-white transition-colors flip-trigger-back bg-white/10 rounded-xl py-2 text-sm font-semibold">
-                                                    Quay lại
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `}).join('');
-                        
-                        debugLog('HTML được render thành công');
-                        
-                        // Setup flip card events
-                        this.setupFlipEvents();
-                        
-                    } catch (error) {
-                        debugLog('LỖI khi render HTML: ' + error.message);
-                        console.error('Chi tiết lỗi render:', error);
-                    }
-                },
-
-                setupFlipEvents: function() {
-                    debugLog('Setup flip card events');
-                    
-                    const grid = document.getElementById('product-grid');
-                    if (grid) {
-                        grid.addEventListener('click', (e) => {
+                    const productGrid = document.getElementById('product-grid');
+                    if(productGrid){
+                         productGrid.addEventListener('click', (e) => {
                             const flipTrigger = e.target.closest('.flip-trigger');
+                            if (flipTrigger) {
+                                const card = flipTrigger.closest('.flip-card');
+                                if (card) card.classList.toggle('is-flipped');
+                            }
                             const flipTriggerBack = e.target.closest('.flip-trigger-back');
-                            
-                            if (flipTrigger || flipTriggerBack) {
-                                const card = (flipTrigger || flipTriggerBack).closest('.flip-card');
-                                if (card) {
-                                    card.classList.toggle('is-flipped');
-                                    debugLog('Flip card toggled');
-                                }
+                             if (flipTriggerBack) {
+                                const card = flipTriggerBack.closest('.flip-card');
+                                if (card) card.classList.toggle('is-flipped');
+                            }
+                            const toggleButton = e.target.closest('.toggle-compare-btn');
+                            if (toggleButton) {
+                                const productId = parseInt(toggleButton.dataset.productId, 10);
+                                this.toggleProductSelection(productId);
                             }
                         });
                     }
                 },
+                
+                applyFilters: function() {
+                    let filtered = this.products.filter(p => p.category === 'nao_bo');
+                    
+                    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+                    if (searchTerm) {
+                        filtered = filtered.filter(product => 
+                            product.name.toLowerCase().includes(searchTerm) ||
+                            product.brand.toLowerCase().includes(searchTerm) ||
+                            product.origin.country.toLowerCase().includes(searchTerm)
+                        );
+                    }
+                    
+                    const sortBy = document.getElementById('sort-select').value;
+                    filtered.sort((a, b) => {
+                        switch(sortBy) {
+                            case 'name': return a.name.localeCompare(b.name);
+                            case 'price_low': return a.price - b.price;
+                            case 'price_high': return b.price - a.price;
+                            case 'rating': return b.rating - a.rating;
+                            default: return 0;
+                        }
+                    });
+
+                    this.renderProducts(filtered);
+                    this.updateProductCount(filtered.length);
+                },
+
+                clearAllFilters: function() {
+                    document.getElementById('search-input').value = '';
+                    document.getElementById('sort-select').value = 'name';
+                    this.applyFilters();
+                },
 
                 updateProductCount: function(count) {
-                    debugLog('Cập nhật số lượng sản phẩm: ' + count);
-                    const countEl = document.getElementById('product-count');
-                    if (countEl) {
-                        countEl.textContent = `Tìm thấy ${count} sản phẩm`;
+                    document.getElementById('product-count').textContent = `Tìm thấy ${count} sản phẩm`;
+                },
+
+                toggleProductSelection: function(productId) {
+                    const index = this.selectedProducts.indexOf(productId);
+                    if (index > -1) {
+                        this.selectedProducts.splice(index, 1);
+                        this.showNotification('Đã xóa khỏi danh sách so sánh');
+                    } else {
+                        if (this.selectedProducts.length >= 4) {
+                            this.showNotification('Chỉ có thể so sánh tối đa 4 sản phẩm', 'warning');
+                            return;
+                        }
+                        this.selectedProducts.push(productId);
+                        this.showNotification('Đã thêm vào danh sách so sánh');
                     }
+                },
+                
+                formatPrice: function(price) {
+                    return price.toLocaleString('vi-VN');
+                },
+
+                showNotification: function(message, type = 'success') {
+                    const notification = document.getElementById('notification');
+                    const notificationText = document.getElementById('notification-text');
+                    
+                    notificationText.textContent = message;
+                    notification.classList.add('show');
+                    
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 3000);
+                },
+                
+                renderProducts: function(productsToRender) {
+                    const grid = document.getElementById('product-grid');
+                    const noResults = document.getElementById('no-results');
+                    
+                    if (!grid || !noResults) return;
+
+                    if (productsToRender.length === 0) {
+                        grid.innerHTML = '';
+                        noResults.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    noResults.classList.add('hidden');
+                    
+                    grid.innerHTML = productsToRender.map(product => {
+                        const doseInfo = product.dosage_recommendation.duoi_1_tuoi || product.dosage_recommendation.tu_1_den_3_tuoi;
+                        const dailyDose = doseInfo ? doseInfo.min : 1;
+                        const dailyCost = Math.round((product.price / product.total_doses_per_bottle) * dailyDose);
+
+                        const summaryHtml = product.summary ? `
+                            <h4>Công dụng chính</h4>
+                            <ul>${product.summary.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
+                            <h4 class="mt-4">Thành phần nổi bật</h4>
+                            <ul>${product.summary.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                             <h4 class="mt-4">Đối tượng sử dụng</h4>
+                            <p class="text-sm opacity-90">${product.summary.users}</p>
+                        ` : '<p class="text-white/70">Chưa có thông tin chi tiết.</p>';
+
+                        return `
+                        <div class="product-card" data-product-id="${product.id}">
+                             <div class="flip-card card-hover">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front glass-effect p-6 rounded-3xl flex flex-col">
+                                        <div class="relative mb-4">
+                                            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-2xl">
+                                            <div class="absolute top-3 right-3">
+                                                <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-semibold rounded-full">
+                                                    ${product.origin.country}
+                                                </span>
+                                            </div>
+                                            ${product.declared_dose.dha_mg > 0 ? 
+                                                '<div class="absolute top-3 left-3"><span class="px-2 py-1 bg-cyan-500 text-white text-xs font-semibold rounded-full">DHA</span></div>' : 
+                                                ''
+                                            }
+                                            <button class="absolute bottom-3 right-3 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors toggle-compare-btn" data-product-id="${product.id}">
+                                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        
+                                        <h3 class="font-bold text-lg text-white mb-2 line-clamp-2 h-14 cursor-pointer flip-trigger">${product.name}</h3>
+                                        <p class="text-white/70 text-sm mb-3">${product.brand}</p>
+                                        
+                                        <div class="space-y-2 mb-4 border-t border-b border-white/10 py-3">
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-white/70">Tổng liều:</span>
+                                                <span class="text-white font-medium">${product.total_doses_per_bottle} ${product.declared_dose.unit_name}</span>
+                                            </div>
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-white/70">DHA:</span>
+                                                <span class="text-white font-medium">${product.declared_dose.dha_mg} mg / ${product.declared_dose.unit_count} ${product.declared_dose.unit_name}</span>
+                                            </div>
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-white/70">Omega-3:</span>
+                                                <span class="text-white font-medium">${product.declared_dose.omega3_total} mg / ${product.declared_dose.unit_count} ${product.declared_dose.unit_name}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-auto">
+                                            <div class="flex justify-between items-center">
+                                                <div>
+                                                    <span class="text-2xl font-bold text-white">${this.formatPrice(product.price)}</span>
+                                                    <span class="text-white/70 text-sm">đ</span>
+                                                </div>
+                                                <div class="text-right">
+                                                    <span class="font-bold text-blue-400">${this.formatPrice(dailyCost)}đ</span>
+                                                    <span class="text-xs text-white/70 block">/ ngày</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex gap-2 mt-3">
+                                                <a href="${this.getAffiliateUrl(product.id, product.product_url)}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm">
+                                                    💰 Mua ngay
+                                                </a>
+                                                <button class="flex-1 block text-center px-4 py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 text-sm flip-trigger">
+                                                    Chi tiết
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flip-card-back glass-effect">
+                                        <div class="flex-grow overflow-y-auto pr-2">
+                                            ${summaryHtml}
+                                        </div>
+                                        <div class="flex gap-2 mt-4 pt-2 border-t border-white/20">
+                                             <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 font-semibold rounded-xl hover:shadow-lg transition-all text-sm text-white">
+                                                Tới trang SP
+                                            </a>
+                                            <button class="flex-1 text-white/80 hover:text-white transition-colors flip-trigger-back bg-white/10 rounded-xl py-2 text-sm font-semibold">
+                                                Quay lại
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
                 }
             };
-
-            // Khởi chạy app
-            debugLog('Bắt đầu khởi chạy app...');
+            
             app.init();
-            debugLog('App đã khởi chạy xong');
         });
     </script>
 </body>
