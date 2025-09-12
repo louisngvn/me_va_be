@@ -3,534 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vi Chất Cho Mẹ và Bé - Não bộ & Thị lực</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="So sánh 15+ sản phẩm DHA, Omega-3 cho phát triển não bộ và thị lực trẻ em tại Việt Nam. Tìm sản phẩm phù hợp với bộ lọc thông minh.">
-    <meta name="keywords" content="DHA, Omega-3, não bộ trẻ em, thị lực, phát triển trí thông minh, vitamin cho não bộ">
-    
-    <!-- Import Tailwind CSS -->
+    <title>DEBUG - Não bộ & Thị lực</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Import Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 25%, #1d4ed8 50%, #1e40af 75%, #3730a3 100%);
-            min-height: 100vh;
-        }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .header-glass {
-            background-color: rgba(59, 130, 246, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .card-hover:hover .flip-card-front {
-             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-        
-        .floating-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.5); }
-        
-        /* Product card selected state */
-        .product-card.selected .flip-card-front {
-            border: 2px solid #10b981;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
-        }
-        
-        /* Notification styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        /* Line clamp utility */
-        .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        /* Style cho accordion filter */
-        details > summary {
-            cursor: pointer;
-            font-weight: 600;
-            color: #f3f4f6; /* text-gray-100 */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-        }
-        details > summary::after {
-            content: '›';
-            transform: rotate(90deg);
-            transition: transform 0.2s;
-            font-size: 1.5em;
-        }
-        details[open] > summary::after {
-            transform: rotate(-90deg);
-        }
-        .comparison-bar {
-            transition: width 0.5s ease-in-out;
-        }
-
-        .underline-reveal {
-            position: relative;
-            display: inline-block;
-            color: #FFF8E1;
-            text-shadow: 0 0 5px rgba(0,0,0,0.3);
-        }
-
-        .underline-reveal::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -8px;
-            left: 0;
-            background-color: #BBDEFB;
-            transform: scaleX(0);
-            animation: sweep-underline 3s ease-in-out infinite;
-            animation-delay: 1s;
-        }
-
-        @keyframes sweep-underline {
-            0% { transform: scaleX(0); transform-origin: left; }
-            45% { transform: scaleX(1); transform-origin: left; }
-            55% { transform: scaleX(1); transform-origin: right; }
-            100% { transform: scaleX(0); transform-origin: right; }
-        }
-
-        /* --- FLIP CARD STYLES --- */
-        .flip-card {
-            background-color: transparent;
-            width: 100%;
-            height: 520px; /* Fixed height for consistency */
-            perspective: 1000px;
-        }
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.7s;
-            transform-style: preserve-3d;
-        }
-        .flip-card.is-flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
-            backface-visibility: hidden;
-            border-radius: 1.5rem; /* rounded-3xl */
-        }
-        .flip-card-back {
-            transform: rotateY(180deg);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-        .flip-card-back h4 {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: #BBDEFB;
-        }
-        .flip-card-back ul {
-            list-style-type: none;
-            padding-left: 0;
-            font-size: 0.9rem;
-            color: white;
-            opacity: 0.9;
-            flex-grow: 1;
-        }
-        .flip-card-back ul li {
-            padding-left: 1.25rem;
-            position: relative;
-            margin-bottom: 0.5rem;
-        }
-        .flip-card-back ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #34D399; /* emerald-400 */
-        }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #6366f1 0%, #3b82f6 25%, #1d4ed8 50%, #1e40af 75%, #3730a3 100%); min-height: 100vh; }
+        .glass-effect { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .flip-card { background-color: transparent; width: 100%; height: 520px; perspective: 1000px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
+        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 1.5rem; }
+        .flip-card-back { transform: rotateY(180deg); padding: 1.5rem; display: flex; flex-direction: column; overflow-y: auto; }
     </style>
 </head>
 <body class="text-gray-800">
 
-    <!-- Header with Glass Effect -->
-    <header class="header-glass sticky top-0 z-40 border-b border-white/20">
+    <!-- Debug Panel -->
+    <div id="debug-panel" class="fixed top-4 left-4 bg-black/80 text-white p-4 rounded-lg text-sm z-50 max-w-md">
+        <h3 class="font-bold mb-2">🐛 DEBUG INFO</h3>
+        <div id="debug-info"></div>
+        <button onclick="document.getElementById('debug-panel').style.display='none'" class="mt-2 px-2 py-1 bg-red-600 rounded text-xs">Ẩn</button>
+    </div>
+
+    <!-- Header -->
+    <header class="glass-effect sticky top-0 z-40 border-b border-white/20">
         <div class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
-                    </div>
-                    <h1 class="text-xl md:text-2xl font-bold text-white">
-                        Vi Chất Cho Mẹ và Bé
-                    </h1>
-                </div>
-                <nav class="hidden md:flex space-x-6 text-white/80 font-medium items-center">
-                    <a href="index.html" class="hover:text-white transition-colors">Xương & Răng</a>
-                    <a href="nao-bo.html" class="hover:text-white transition-colors text-blue-200">Não bộ & Thị lực</a>
-                    <a href="de-khang.html" class="hover:text-white transition-colors">Đề kháng & Tiêu hóa</a>
-                    <a href="me-va-be.html" class="hover:text-white transition-colors">Phụ nữ & Thai kỳ</a>
-                    <div class="relative" id="compare-menu-container">
-                        <button id="compare-btn" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center space-x-2 opacity-50" disabled>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
-                            <span>So sánh (<span id="compare-count">0</span>)</span>
-                        </button>
-                        <div id="compare-dropdown" class="hidden absolute top-full mt-2 w-56 rounded-xl glass-effect text-white p-2 z-50">
-                            <a href="#" data-compare-type="dosage" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh liều dùng</a>
-                            <a href="#" data-compare-type="cost" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh chi phí/ngày</a>
-                            <a href="#" data-compare-type="dha" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh hàm lượng DHA</a>
-                        </div>
-                    </div>
-                    <a href="expert.html" class="hover:text-white transition-colors">Chuyên gia</a>
-                </nav>
-                <button class="md:hidden text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+            <div class="flex justify-center items-center">
+                <h1 class="text-xl md:text-2xl font-bold text-white">
+                    🧠 DEBUG - Sản phẩm Não bộ & Thị lực
+                </h1>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative py-20 overflow-hidden">
-        <div class="container mx-auto px-4 text-center">
-            <div class="floating-animation">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                    <span class="text-white/90">Phát triển não bộ thông minh,</span><br>
-                    <span class="underline-reveal">thị lực sáng khỏe</span>
-                </h2>
-                <p class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-8 leading-relaxed">
-                    Tìm sản phẩm DHA, Omega-3 tốt nhất cho sự phát triển não bộ và thị lực của bé với công cụ so sánh thông minh.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <button onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                        Xem Sản Phẩm
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Product Categories Section -->
-    <section id="product-categories" class="container mx-auto px-4 md:px-8 -mt-16 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Card 1: Xương, Răng -->
-            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
-                <div class="text-center">
-                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Xương, Răng & Chiều cao</h3>
-                    <p class="text-sm text-white/70 mb-4">Vitamin D3, K2, Canxi và các khoáng chất thiết yếu.</p>
-                </div>
-                <a href="index.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
-            </div>
-            <!-- Card 2: Não bộ (Active) -->
-            <div class="glass-effect p-6 rounded-3xl text-white card-hover border-2 border-blue-400 shadow-lg flex flex-col justify-between">
-                <div class="text-center">
-                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Phát triển Não bộ & Thị lực</h3>
-                    <p class="text-sm text-white/70 mb-4">DHA, Omega-3, và các dưỡng chất cho trí thông minh.</p>
-                </div>
-                <a href="#products" class="font-semibold text-blue-300 hover:text-white text-center">Xem chi tiết ↓</a>
-            </div>
-            <!-- Card 3: Đề kháng -->
-            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
-                <div class="text-center">
-                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-rose-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Tăng cường Sức đề kháng & Tiêu hóa</h3>
-                    <p class="text-sm text-white/70 mb-4">Vitamin C, Kẽm, Probiotics và vitamin tổng hợp.</p>
-                </div>
-                <a href="de-khang.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
-            </div>
-            <!-- Card 4: Phụ nữ & Thai kỳ -->
-            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
-                <div class="text-center">
-                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-pink-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.321h5.365c.414 0 .584.536.283.766l-4.34 3.16a.563.563 0 0 0-.182.635l1.63 5.85c.128.463-.386.848-.794.536l-4.82-3.522a.563.563 0 0 0-.666 0l-4.82 3.522c-.408.312-.922-.073-.794-.536l1.63-5.85a.563.563 0 0 0-.182-.635l-4.34-3.16c-.301-.23-.131-.766.283-.766h5.365a.563.563 0 0 0 .475-.321L11.48 3.5Z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Sức khỏe Phụ nữ & Thai kỳ</h3>
-                    <p class="text-sm text-white/70 mb-4">Sắt, Axit Folic, và các vitamin cho mẹ bầu & sau sinh.</p>
-                </div>
-                <a href="me-va-be.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
-            </div>
-        </div>
-    </section>
-
     <!-- Main Content -->
-    <div class="container mx-auto p-4 md:p-8 mt-16">
-        
-        <div class="flex flex-col lg:flex-row gap-8">
-            <!-- Enhanced Filter Sidebar -->
-            <aside class="w-full lg:w-1/4">
-                <div class="glass-effect p-6 rounded-3xl sticky top-24 fade-in">
-                    <h3 class="font-bold text-2xl mb-6 text-white flex items-center">
-                        <svg class="w-6 h-6 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-                        </svg>
-                        Bộ Lọc Thông Minh
-                    </h3>
-                    
-                    <!-- DHA Content Filter -->
-                    <div class="mb-4 filter-group" data-filter-key="dha_content">
-                        <details class="text-white/90" open>
-                            <summary>Hàm lượng DHA</summary>
-                            <div class="space-y-2 pt-2 pl-4">
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="<50" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>Dưới 50mg/Liều</span>
-                                </label>
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="50-100" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>50-100mg/Liều</span>
-                                </label>
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="100-200" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>100-200mg/Liều</span>
-                                </label>
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value=">200" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>Trên 200mg/Liều</span>
-                                </label>
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- Omega-3 Source Filter -->
-                    <div class="mb-4 filter-group" data-filter-key="omega3_source">
-                        <details class="text-white/90" open>
-                            <summary>Nguồn gốc Omega-3</summary>
-                            <div class="space-y-2 pt-2 pl-4">
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="Cá biển" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>Cá biển</span>
-                                </label>
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="Tảo biển" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>Tảo biển</span>
-                                </label>
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="Thực vật" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>Thực vật khác</span>
-                                </label>
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- Age Group Filter -->
-                    <div class="mb-4 filter-group" data-filter-key="age_group">
-                        <details class="text-white/90" open>
-                            <summary>Nhóm tuổi phù hợp</summary>
-                            <div class="space-y-2 pt-2 pl-4">
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="0-1" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>0-1 tuổi</span>
-                                </label>
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="1-3" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>1-3 tuổi</span>
-                                </label>
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="3-12" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>3-12 tuổi</span>
-                                </label>
-                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                    <input type="checkbox" value="12+" class="rounded text-blue-500 focus:ring-blue-500">
-                                    <span>Trên 12 tuổi</span>
-                                </label>
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- Origin Filter -->
-                    <div class="mb-4 filter-group" data-filter-key="country">
-                        <details class="text-white/90">
-                            <summary>Xuất Xứ</summary>
-                            <div class="space-y-2 pt-2" id="origin-filter">
-                                <!-- Will be populated by JavaScript -->
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- Clear Filters Button -->
-                    <button id="clear-filters" class="w-full mt-4 px-4 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-                        Xóa Bộ Lọc
-                    </button>
-                </div>
-            </aside>
-
-            <!-- Products Grid -->
-            <main class="w-full lg:w-3/4" id="products">
-                <h2 class="text-4xl font-bold text-white text-center mb-8">
-                    Sản phẩm Hỗ trợ Phát triển Não bộ & Thị lực
-                </h2>
-                <!-- Search and Sort -->
-                <div class="glass-effect p-6 rounded-3xl mb-8 fade-in">
-                    <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                        <div class="relative flex-1 max-w-md w-full">
-                            <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." 
-                                   class="w-full px-4 py-3 pl-12 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <select id="sort-select" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="name">Sắp xếp theo tên</option>
-                                <option value="price_low">Giá thấp đến cao</option>
-                                <option value="price_high">Giá cao đến thấp</option>
-                                <option value="rating">Đánh giá cao nhất</option>
-                                <option value="dha_high">Hàm lượng DHA cao nhất</option>
-                            </select>
-                            <div id="product-count" class="text-white/80 font-medium"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Products Grid -->
-                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    <!-- Products will be inserted here by JavaScript -->
-                </div>
-
-                <!-- No Results -->
-                <div id="no-results" class="hidden text-center py-16">
-                    <div class="glass-effect p-12 rounded-3xl">
-                        <svg class="mx-auto h-16 w-16 text-white/60 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                        <h3 class="text-2xl font-bold text-white mb-2">Không tìm thấy sản phẩm</h3>
-                        <p class="text-white/70">Vui lòng thử lại với bộ lọc khác hoặc từ khóa tìm kiếm khác.</p>
-                    </div>
-                </div>
-            </main>
+    <div class="container mx-auto p-4 md:p-8 mt-8">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-white mb-4">Kiểm tra hiển thị sản phẩm</h2>
+            <div id="product-count" class="text-white/80 text-lg"></div>
         </div>
-    </div>
 
-    <!-- Comparison Modal -->
-    <div id="comparison-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="glass-effect max-w-6xl w-full rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-white flex items-center">
-                    <svg class="w-6 h-6 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    </svg>
-                    So Sánh Sản Phẩm
-                </h3>
-                <button id="comparison-close" class="text-white/60 hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            
-            <div id="comparison-content" class="comparison-table">
-                <!-- Comparison table will be generated here -->
+        <!-- Products Grid -->
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Products sẽ được render ở đây -->
+        </div>
+
+        <!-- No Products Message -->
+        <div id="no-products" class="hidden text-center py-16">
+            <div class="glass-effect p-12 rounded-3xl">
+                <h3 class="text-2xl font-bold text-white mb-4">❌ KHÔNG CÓ SẢN PHẨM</h3>
+                <p class="text-white/70">Kiểm tra Console để xem lỗi chi tiết</p>
             </div>
         </div>
     </div>
 
-    <!-- Notification -->
-    <div id="notification" class="notification glass-effect p-4 rounded-xl text-white">
-        <div class="flex items-center space-x-3">
-            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-            <span id="notification-text">Đã thêm vào danh sách so sánh</span>
-        </div>
-    </div>
-    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
+            // Debug function
+            function debugLog(message) {
+                console.log('🐛 DEBUG:', message);
+                const debugInfo = document.getElementById('debug-info');
+                if (debugInfo) {
+                    debugInfo.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+                }
+            }
+
+            debugLog('Script bắt đầu chạy');
+
             const app = {
-                // Affiliate URL mapping system for monetization
-                affiliateUrls: {
-                    // Format: productId: 'affiliate_url'
-                    101: 'https://shopee.vn/nordic-naturals-baby-dha?affiliate=example', // Nordic Naturals Baby's DHA
-                    102: 'https://tiki.vn/coromega-kids-omega3?affiliate=example', // Coromega Kids
-                    // Add more affiliate URLs as needed
-                },
-
-                // Get affiliate URL for a product (falls back to product_url if no affiliate URL)
-                getAffiliateUrl: function(productId, fallbackUrl) {
-                    return this.affiliateUrls[productId] || fallbackUrl;
-                },
-
+                // Test products data
                 products: [
-                                        {
+                    {
+                        id: 101,
+                        category: 'nao_bo',
+                        name: 'Nordic Naturals Baby\'s DHA',
+                        brand: 'Nordic Naturals',
+                        image: 'https://placehold.co/300x300/3b82f6/white?text=Nordic+Baby+DHA',
+                        price: 520000,
+                        volume_ml: 60,
+                        total_doses_per_bottle: 120,
+                        origin: {country: 'Mỹ', continent: 'Châu Mỹ'},
+                        form: 'drops',
+                        declared_dose: { unit_count: 1, unit_name: 'ml', dha_mg: 37, epa_mg: 60, omega3_total: 480 },
+                        dosage_recommendation: { 'duoi_1_tuoi': { min: 0.5, max: 1, unit: 'ml' }, 'tu_1_den_3_tuoi': { min: 1, max: 1.5, unit: 'ml' }, 'tu_3_den_12_tuoi': { min: 1.5, max: 2, unit: 'ml' } },
+                        ingredients_details: { omega3_source: 'Cá biển', purity: 'Molecular distillation', flavor: 'Strawberry' },
+                        rating: 4.8,
+                        reviews: 234,
+                        product_url: 'https://nordicnaturals.vn/',
+                        summary: {
+                            benefits: [
+                                'Hỗ trợ phát triển não bộ và thị lực của trẻ sơ sinh và trẻ nhỏ.',
+                                'Cải thiện khả năng học tập và ghi nhớ.',
+                                'Tăng cường hệ miễn dịch tự nhiên.'
+                            ],
+                            ingredients: [
+                                'DHA từ cá biển 37mg/ml',
+                                'EPA 60mg/ml',
+                                'Omega-3 tổng 480mg/ml',
+                                'Hương dâu tự nhiên'
+                            ],
+                            users: 'Trẻ sơ sinh từ 6 tháng, trẻ nhỏ và phụ nữ mang thai.'
+                        }
+                    },
+                    {
                         id: 108,
                         category: 'nao_bo', 
                         name: 'BioAmicus DHA', 
@@ -576,638 +152,174 @@
                             ],
                             users: 'Trẻ sơ sinh từ 0-12 tháng (1 liều/ngày), trẻ em 1-6 tuổi (2 liều/ngày), trẻ 7-11 tuổi (3 liều/ngày)'
                         }
-                    },
-
-                    {
-                        id: 102, category: 'nao_bo', name: 'Algae Omega DHA cho trẻ em', brand: 'Doppelherz', image: 'https://placehold.co/300x300/1d4ed8/white?text=Doppelherz+DHA', price: 380000,
-                        volume_ml: 45, total_doses_per_bottle: 90, origin: {country: 'Đức', continent: 'Châu Âu'}, form: 'drops',
-                        declared_dose: { unit_count: 0.5, unit_name: 'ml', dha_mg: 80, epa_mg: 0, omega3_total: 200 },
-                        dosage_recommendation: { 'duoi_1_tuoi': { min: 0.5, max: 0.5, unit: 'ml' }, 'tu_1_den_3_tuoi': { min: 0.5, max: 1, unit: 'ml' }, 'tu_3_den_12_tuoi': { min: 1, max: 1.5, unit: 'ml' } },
-                        ingredients_details: { omega3_source: 'Tảo biển', purity: 'Vegan certified', flavor: 'Orange' },
-                        rating: 4.6, reviews: 145, product_url: 'https://doppelherz.vn/',
-                        summary: {
-                            benefits: [
-                                'DHA từ tảo biển thuần chay, an toàn cho trẻ.',
-                                'Hỗ trợ phát triển não bộ và thị lực tối ưu.',
-                                'Không chứa EPA, phù hợp với trẻ nhỏ.',
-                                'Vị cam tự nhiên, dễ uống.'
-                            ],
-                            ingredients: [
-                                'DHA từ tảo Schizochytrium sp. 80mg',
-                                'Omega-3 tổng 200mg',
-                                'Vitamin E tự nhiên',
-                                'Hương cam tự nhiên'
-                            ],
-                            users: 'Trẻ sơ sinh từ 6 tháng, trẻ nhỏ và trẻ em ăn chay.'
-                        }
-                    },
-                    {
-                        id: 103, category: 'nao_bo', name: 'Blackmores Pregnancy & Breast-Feeding Gold', brand: 'Blackmores', image: 'https://placehold.co/300x300/1e40af/white?text=Blackmores+Gold', price: 650000,
-                        volume_ml: 0, total_doses_per_bottle: 180, origin: {country: 'Úc', continent: 'Châu Đại Dương'}, form: 'capsules',
-                        declared_dose: { unit_count: 2, unit_name: 'viên', dha_mg: 125, epa_mg: 0, omega3_total: 125 },
-                        dosage_recommendation: { 'thai_ky': { min: 2, max: 2, unit: 'viên' }, 'cho_con_bu': { min: 2, max: 2, unit: 'viên' } },
-                        ingredients_details: { omega3_source: 'Cá biển', purity: 'Mercury tested', additional: 'Folic acid, Iron' },
-                        rating: 4.7, reviews: 198, product_url: 'https://blackmores.vn/',
-                        summary: {
-                            benefits: [
-                                'Hỗ trợ thai nhi phát triển não bộ và thị lực.',
-                                'Bổ sung DHA cho mẹ bầu và cho con bú.',
-                                'Chứa Axit folic và Sắt thiết yếu.',
-                                'Giảm nguy cơ sinh non và trầm cảm sau sinh.'
-                            ],
-                            ingredients: [
-                                'DHA 125mg',
-                                'Axit Folic 500mcg',
-                                'Sắt 18mg',
-                                'Iodine 150mcg'
-                            ],
-                            users: 'Phụ nữ mang thai và cho con bú.'
-                        }
-                    },
-                    {
-                        id: 104, category: 'nao_bo', name: 'Coromega Kids Omega-3', brand: 'Coromega', image: 'https://placehold.co/300x300/3730a3/white?text=Coromega+Kids', price: 420000,
-                        volume_ml: 0, total_doses_per_bottle: 30, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'squeeze',
-                        declared_dose: { unit_count: 1, unit_name: 'gói', dha_mg: 230, epa_mg: 120, omega3_total: 600 },
-                        dosage_recommendation: { 'tu_1_den_3_tuoi': { min: 0.5, max: 1, unit: 'gói' }, 'tu_3_den_12_tuoi': { min: 1, max: 1, unit: 'gói' } },
-                        ingredients_details: { omega3_source: 'Cá biển', purity: 'Emulsified formula', flavor: 'Orange cream' },
-                        rating: 4.9, reviews: 312, product_url: 'https://coromega.com/',
-                        summary: {
-                            benefits: [
-                                'Công thức dạng emulsion hấp thu 3x tốt hơn.',
-                                'Hàm lượng DHA cao nhất trong phân khúc.',
-                                'Vị kem cam ngon, trẻ thích uống.',
-                                'Không cần nhai, tiện lợi cho trẻ nhỏ.'
-                            ],
-                            ingredients: [
-                                'DHA 230mg',
-                                'EPA 120mg',
-                                'Omega-3 tổng 600mg',
-                                'Vitamin D3 600 IU'
-                            ],
-                            users: 'Trẻ từ 1-12 tuổi.'
-                        }
-                    },
-                    {
-                        id: 105, category: 'nao_bo', name: 'Life\'s DHA Algae Oil', brand: 'DSM', image: 'https://placehold.co/300x300/6366f1/white?text=Life+DHA', price: 580000,
-                        volume_ml: 50, total_doses_per_bottle: 100, origin: {country: 'Hà Lan', continent: 'Châu Âu'}, form: 'drops',
-                        declared_dose: { unit_count: 0.5, unit_name: 'ml', dha_mg: 100, epa_mg: 0, omega3_total: 200 },
-                        dosage_recommendation: { 'duoi_1_tuoi': { min: 0.25, max: 0.5, unit: 'ml' }, 'tu_1_den_3_tuoi': { min: 0.5, max: 0.75, unit: 'ml' }, 'tu_3_den_12_tuoi': { min: 0.75, max: 1, unit: 'ml' } },
-                        ingredients_details: { omega3_source: 'Tảo biển', purity: 'Pharmaceutical grade', flavor: 'Unflavored' },
-                        rating: 4.8, reviews: 167, product_url: 'https://lifesdha.com/',
-                        summary: {
-                            benefits: [
-                                'DHA tinh khiết từ tảo biển, không mùi tanh.',
-                                'Chuẩn dược phẩm, an toàn tuyệt đối.',
-                                'Thương hiệu DHA được tin dùng toàn cầu.',
-                                'Phù hợp cho trẻ dị ứng cá.'
-                            ],
-                            ingredients: [
-                                'DHA từ tảo Crypthecodinium cohnii 100mg',
-                                'Omega-3 tổng 200mg',
-                                'Vitamin E mixed tocopherols',
-                                'Dầu hướng dương'
-                            ],
-                            users: 'Trẻ sơ sinh, trẻ em, người ăn chay.'
-                        }
-                    },
-                    {
-                        id: 106, category: 'nao_bo', name: 'Garden of Life Oceans Kids DHA Chews', brand: 'Garden of Life', image: 'https://placehold.co/300x300/2563eb/white?text=Garden+DHA', price: 750000,
-                        volume_ml: 0, total_doses_per_bottle: 120, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'chewable',
-                        declared_dose: { unit_count: 2, unit_name: 'viên', dha_mg: 100, epa_mg: 24, omega3_total: 170 },
-                        dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 2, max: 4, unit: 'viên' } },
-                        ingredients_details: { omega3_source: 'Cá biển', purity: 'Third-party tested', flavor: 'Berry lime' },
-                        rating: 4.5, reviews: 89, product_url: 'https://gardenoflife.com/',
-                        summary: {
-                            benefits: [
-                                'Viên nhai hương berry lime thơm ngon.',
-                                'Omega-3 từ cá biển sạch, kiểm tra kim loại nặng.',
-                                'Không chất tạo màu và hương liệu nhân tạo.',
-                                'Bổ sung vitamin tổng hợp.'
-                            ],
-                            ingredients: [
-                                'DHA 100mg',
-                                'EPA 24mg',
-                                'Omega-3 tổng 170mg',
-                                'Vitamin A, C, D, E'
-                            ],
-                            users: 'Trẻ từ 3-12 tuổi có thể nhai được.'
-                        }
                     }
                 ],
 
-                selectedProducts: [],
-                
                 init: function() {
-                    this.initializeFilters();
-                    this.renderProducts(this.products.filter(p => p.category === 'nao_bo'));
-                    this.setupEventListeners();
-                    this.updateProductCount(this.products.filter(p => p.category === 'nao_bo').length);
-                },
-
-                initializeFilters: function() {
-                    const originFilter = document.getElementById('origin-filter');
-                    const originsByContinent = this.products.reduce((acc, p) => {
-                        if (!acc[p.origin.continent]) {
-                            acc[p.origin.continent] = new Set();
-                        }
-                        acc[p.origin.continent].add(p.origin.country);
-                        return acc;
-                    }, {});
-
-                    originFilter.innerHTML = Object.keys(originsByContinent).sort().map(continent => `
-                        <details class="text-white/90">
-                            <summary>${continent}</summary>
-                            <div class="space-y-2 pt-2 pl-4">
-                                ${[...originsByContinent[continent]].sort().map(country => `
-                                    <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
-                                        <input type="checkbox" value="${country}" class="rounded text-blue-500 focus:ring-blue-500">
-                                        <span>${country}</span>
-                                    </label>
-                                `).join('')}
-                            </div>
-                        </details>
-                    `).join('');
-                },
-                
-                setupEventListeners: function() {
-                    document.getElementById('search-input').addEventListener('input', () => this.applyFilters());
-                    document.getElementById('sort-select').addEventListener('change', () => this.applyFilters());
-                    document.querySelectorAll('.filter-group input').forEach(input => {
-                        input.addEventListener('change', () => this.applyFilters());
-                    });
-                    document.getElementById('clear-filters').addEventListener('click', () => this.clearAllFilters());
+                    debugLog('App init() được gọi');
                     
-                    const compareMenu = document.getElementById('compare-menu-container');
-                    if (compareMenu) {
-                        compareMenu.addEventListener('click', (e) => {
-                            const compareBtn = e.target.closest('#compare-btn');
-                            const dropdown = document.getElementById('compare-dropdown');
-                            if(compareBtn && dropdown) {
-                                dropdown.classList.toggle('hidden');
-                            }
-                            if(e.target.dataset.compareType) {
-                                e.preventDefault();
-                                this.showComparison(e.target.dataset.compareType);
-                                if (dropdown) dropdown.classList.add('hidden');
-                            }
-                        });
-                    }
-
-                    const comparisonClose = document.getElementById('comparison-close');
-                    if(comparisonClose) {
-                        comparisonClose.addEventListener('click', () => {
-                            document.getElementById('comparison-modal').classList.add('hidden');
-                        });
-                    }
-
-                    const productGrid = document.getElementById('product-grid');
-                    if(productGrid){
-                         productGrid.addEventListener('click', (e) => {
-                            const flipTrigger = e.target.closest('.flip-trigger');
-                            if (flipTrigger) {
-                                const card = flipTrigger.closest('.flip-card');
-                                if (card) card.classList.toggle('is-flipped');
-                            }
-                            const flipTriggerBack = e.target.closest('.flip-trigger-back');
-                             if (flipTriggerBack) {
-                                const card = flipTriggerBack.closest('.flip-card');
-                                if (card) card.classList.toggle('is-flipped');
-                            }
-                            const toggleButton = e.target.closest('.toggle-compare-btn');
-                            if (toggleButton) {
-                                const productId = parseInt(toggleButton.dataset.productId, 10);
-                                this.toggleProductSelection(productId);
-                            }
-                        });
-                    }
-                },
-
-                applyFilters: function() {
-                    const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
-                    const sortBy = document.getElementById('sort-select').value;
-                    
-                    let filteredProducts = this.products.filter(p => p.category === 'nao_bo');
-                    
-                    // Apply search filter
-                    if (searchTerm) {
-                        filteredProducts = filteredProducts.filter(p => 
-                            p.name.toLowerCase().includes(searchTerm) ||
-                            p.brand.toLowerCase().includes(searchTerm) ||
-                            p.origin.country.toLowerCase().includes(searchTerm)
-                        );
-                    }
-
-                    // Apply DHA content filter
-                    const dhaContentFilters = Array.from(document.querySelectorAll('[data-filter-key="dha_content"] input:checked')).map(input => input.value);
-                    if (dhaContentFilters.length > 0) {
-                        filteredProducts = filteredProducts.filter(p => {
-                            const dha = p.declared_dose.dha_mg;
-                            return dhaContentFilters.some(filter => {
-                                if (filter === '<50') return dha < 50;
-                                if (filter === '50-100') return dha >= 50 && dha <= 100;
-                                if (filter === '100-200') return dha >= 100 && dha <= 200;
-                                if (filter === '>200') return dha > 200;
-                                return false;
-                            });
-                        });
-                    }
-
-                    // Apply Omega-3 source filter
-                    const omega3SourceFilters = Array.from(document.querySelectorAll('[data-filter-key="omega3_source"] input:checked')).map(input => input.value);
-                    if (omega3SourceFilters.length > 0) {
-                        filteredProducts = filteredProducts.filter(p => 
-                            omega3SourceFilters.includes(p.ingredients_details.omega3_source)
-                        );
-                    }
-
-                    // Apply origin filter
-                    const originFilters = Array.from(document.querySelectorAll('[data-filter-key="country"] input:checked')).map(input => input.value);
-                    if (originFilters.length > 0) {
-                        filteredProducts = filteredProducts.filter(p => 
-                            originFilters.includes(p.origin.country)
-                        );
-                    }
-
-                    // Apply sorting
-                    this.sortProducts(filteredProducts, sortBy);
-                    
-                    this.renderProducts(filteredProducts);
-                    this.updateProductCount(filteredProducts.length);
-                },
-
-                sortProducts: function(products, sortBy) {
-                    switch(sortBy) {
-                        case 'name':
-                            products.sort((a, b) => a.name.localeCompare(b.name));
-                            break;
-                        case 'price_low':
-                            products.sort((a, b) => a.price - b.price);
-                            break;
-                        case 'price_high':
-                            products.sort((a, b) => b.price - a.price);
-                            break;
-                        case 'rating':
-                            products.sort((a, b) => b.rating - a.rating);
-                            break;
-                        case 'dha_high':
-                            products.sort((a, b) => b.declared_dose.dha_mg - a.declared_dose.dha_mg);
-                            break;
+                    try {
+                        const naoBoproducts = this.products.filter(p => p.category === 'nao_bo');
+                        debugLog('Tìm thấy ' + naoBoproducts.length + ' sản phẩm nao_bo');
+                        
+                        this.renderProducts(naoBoproducts);
+                        this.updateProductCount(naoBoproducts.length);
+                        
+                        debugLog('Render hoàn thành');
+                        
+                    } catch (error) {
+                        debugLog('LỖI trong init(): ' + error.message);
+                        console.error('Chi tiết lỗi:', error);
                     }
                 },
 
                 renderProducts: function(productsToRender) {
-                    const grid = document.getElementById('product-grid');
-                    const noResults = document.getElementById('no-results');
+                    debugLog('renderProducts() được gọi với ' + productsToRender.length + ' sản phẩm');
                     
-                    if (!grid || !noResults) return;
+                    const grid = document.getElementById('product-grid');
+                    const noProducts = document.getElementById('no-products');
+                    
+                    if (!grid) {
+                        debugLog('LỖI: Không tìm thấy element product-grid');
+                        return;
+                    }
 
                     if (productsToRender.length === 0) {
+                        debugLog('Không có sản phẩm để hiển thị');
                         grid.innerHTML = '';
-                        noResults.classList.remove('hidden');
+                        noProducts.classList.remove('hidden');
                         return;
                     }
                     
-                    noResults.classList.add('hidden');
+                    noProducts.classList.add('hidden');
                     
-                    grid.innerHTML = productsToRender.map(product => {
-                        const doseInfo = product.dosage_recommendation.duoi_1_tuoi || product.dosage_recommendation.tu_1_den_3_tuoi;
-                        const dailyDose = doseInfo ? doseInfo.min : 1;
-                        const dailyCost = Math.round((product.price / product.total_doses_per_bottle) * dailyDose);
+                    try {
+                        grid.innerHTML = productsToRender.map(product => {
+                            const doseInfo = product.dosage_recommendation.duoi_1_tuoi || product.dosage_recommendation.tu_1_den_3_tuoi;
+                            const dailyDose = doseInfo ? doseInfo.min : 1;
+                            const dailyCost = Math.round((product.price / product.total_doses_per_bottle) * dailyDose);
 
-                        const summaryHtml = product.summary ? `
-                            <h4>Công dụng chính</h4>
-                            <ul>${product.summary.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
-                            <h4 class="mt-4">Thành phần nổi bật</h4>
-                            <ul>${product.summary.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
-                             <h4 class="mt-4">Đối tượng sử dụng</h4>
-                            <p class="text-sm opacity-90">${product.summary.users}</p>
-                        ` : '<p class="text-white/70">Chưa có thông tin chi tiết.</p>';
-
-                        return `
-                        <div class="product-card" data-product-id="${product.id}">
-                             <div class="flip-card card-hover">
-                                <div class="flip-card-inner">
-                                    <div class="flip-card-front glass-effect p-6 rounded-3xl flex flex-col">
-                                        <div class="relative mb-4">
-                                            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-2xl">
-                                            <div class="absolute top-3 right-3">
-                                                <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-semibold rounded-full">
-                                                    ${product.origin.country}
-                                                </span>
-                                            </div>
-                                            ${product.declared_dose.dha_mg > 0 ? 
-                                                '<div class="absolute top-3 left-3"><span class="px-2 py-1 bg-cyan-500 text-white text-xs font-semibold rounded-full">DHA</span></div>' : 
-                                                ''
-                                            }
-                                            <button class="absolute bottom-3 right-3 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors toggle-compare-btn" data-product-id="${product.id}">
-                                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        
-                                        <h3 class="font-bold text-lg text-white mb-2 line-clamp-2 h-14 cursor-pointer flip-trigger">${product.name}</h3>
-                                        <p class="text-white/70 text-sm mb-3">${product.brand}</p>
-                                        
-                                        <div class="space-y-2 mb-4 border-t border-b border-white/10 py-3">
-                                            <div class="flex justify-between text-sm">
-                                                <span class="text-white/70">Tổng liều:</span>
-                                                <span class="text-white font-medium">${product.total_doses_per_bottle} ${product.declared_dose.unit_name}</span>
-                                            </div>
-                                            <div class="flex justify-between text-sm">
-                                                <span class="text-white/70">DHA:</span>
-                                                <span class="text-white font-medium">${product.declared_dose.dha_mg} mg / ${product.declared_dose.unit_count} ${product.declared_dose.unit_name}</span>
-                                            </div>
-                                            <div class="flex justify-between text-sm">
-                                                <span class="text-white/70">Omega-3:</span>
-                                                <span class="text-white font-medium">${product.declared_dose.omega3_total} mg / ${product.declared_dose.unit_count} ${product.declared_dose.unit_name}</span>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="mt-auto">
-                                            <div class="flex justify-between items-center">
-                                                <div>
-                                                    <span class="text-2xl font-bold text-white">${this.formatPrice(product.price)}</span>
-                                                    <span class="text-white/70 text-sm">đ</span>
-                                                </div>
-                                                <div class="text-right">
-                                                    <span class="font-bold text-blue-400">${this.formatPrice(dailyCost)}đ</span>
-                                                    <span class="text-xs text-white/70 block">/ ngày</span>
+                            return `
+                            <div class="product-card" data-product-id="${product.id}">
+                                <div class="flip-card card-hover">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front glass-effect p-6 rounded-3xl flex flex-col">
+                                            <div class="relative mb-4">
+                                                <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-2xl">
+                                                <div class="absolute top-3 right-3">
+                                                    <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs font-semibold rounded-full">
+                                                        ${product.origin.country}
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div class="flex gap-2 mt-3">
-                                                <a href="${this.getAffiliateUrl(product.id, product.product_url)}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm">
-                                                    💰 Mua ngay
+                                            
+                                            <h3 class="font-bold text-lg text-white mb-2 line-clamp-2 h-14">${product.name}</h3>
+                                            <p class="text-white/70 text-sm mb-3">${product.brand}</p>
+                                            
+                                            <div class="space-y-2 mb-4 border-t border-b border-white/10 py-3">
+                                                <div class="flex justify-between text-sm">
+                                                    <span class="text-white/70">DHA:</span>
+                                                    <span class="text-white font-medium">${product.declared_dose.dha_mg} mg</span>
+                                                </div>
+                                                <div class="flex justify-between text-sm">
+                                                    <span class="text-white/70">Omega-3:</span>
+                                                    <span class="text-white font-medium">${product.declared_dose.omega3_total} mg</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mt-auto">
+                                                <div class="flex justify-between items-center">
+                                                    <div>
+                                                        <span class="text-2xl font-bold text-white">${product.price.toLocaleString('vi-VN')}</span>
+                                                        <span class="text-white/70 text-sm">đ</span>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <span class="font-bold text-blue-400">${dailyCost.toLocaleString('vi-VN')}đ</span>
+                                                        <span class="text-xs text-white/70 block">/ ngày</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex gap-2 mt-3">
+                                                    <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm">
+                                                        💰 Mua ngay
+                                                    </a>
+                                                    <button class="flex-1 block text-center px-4 py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 text-sm flip-trigger">
+                                                        Chi tiết
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flip-card-back glass-effect">
+                                            <div class="flex-grow overflow-y-auto pr-2">
+                                                <h4 class="font-bold text-lg mb-2 text-blue-200">Công dụng chính</h4>
+                                                <ul class="mb-4">
+                                                    ${product.summary.benefits.map(b => `<li class="mb-1 text-white/90 text-sm">✓ ${b}</li>`).join('')}
+                                                </ul>
+                                                <h4 class="font-bold text-lg mb-2 text-blue-200">Thành phần nổi bật</h4>
+                                                <ul class="mb-4">
+                                                    ${product.summary.ingredients.map(i => `<li class="mb-1 text-white/90 text-sm">• ${i}</li>`).join('')}
+                                                </ul>
+                                                <h4 class="font-bold text-lg mb-2 text-blue-200">Đối tượng sử dụng</h4>
+                                                <p class="text-sm text-white/90">${product.summary.users}</p>
+                                            </div>
+                                            <div class="flex gap-2 mt-4 pt-2 border-t border-white/20">
+                                                <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 font-semibold rounded-xl hover:shadow-lg transition-all text-sm text-white">
+                                                    Tới trang SP
                                                 </a>
-                                                <button class="flex-1 block text-center px-4 py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 text-sm flip-trigger">
-                                                    Chi tiết
+                                                <button class="flex-1 text-white/80 hover:text-white transition-colors flip-trigger-back bg-white/10 rounded-xl py-2 text-sm font-semibold">
+                                                    Quay lại
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flip-card-back glass-effect">
-                                        <div class="flex-grow overflow-y-auto pr-2">
-                                            ${summaryHtml}
-                                        </div>
-                                        <div class="flex gap-2 mt-4 pt-2 border-t border-white/20">
-                                             <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 font-semibold rounded-xl hover:shadow-lg transition-all text-sm text-white">
-                                                Tới trang SP
-                                            </a>
-                                            <button class="flex-1 text-white/80 hover:text-white transition-colors flip-trigger-back bg-white/10 rounded-xl py-2 text-sm font-semibold">
-                                                Quay lại
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                    `).join('');
-                },
-
-                getFormText: function(form) {
-                    const formTexts = {
-                        'drops': 'Dung dịch nhỏ giọt',
-                        'capsules': 'Viên nang',
-                        'chewable': 'Viên nhai',
-                        'squeeze': 'Gói ép',
-                        'spray': 'Xịt'
-                    };
-                    return formTexts[form] || form;
-                },
-                
-                formatPrice: function(price) {
-                    return price.toLocaleString('vi-VN');
-                },
-
-                toggleProductSelection: function(productId) {
-                    const index = this.selectedProducts.indexOf(productId);
-                    
-                    if (index === -1) {
-                        if (this.selectedProducts.length < 4) {
-                            this.selectedProducts.push(productId);
-                            this.showNotification('Đã thêm vào danh sách so sánh');
-                        } else {
-                            this.showNotification('Chỉ có thể so sánh tối đa 4 sản phẩm');
-                            return;
-                        }
-                    } else {
-                        this.selectedProducts.splice(index, 1);
-                        this.showNotification('Đã xóa khỏi danh sách so sánh');
-                    }
-                    
-                    this.updateCompareButton();
-                    this.updateProductCards();
-                },
-
-                updateCompareButton: function() {
-                    const compareBtn = document.getElementById('compare-btn');
-                    const compareCount = document.getElementById('compare-count');
-                    
-                    if (compareBtn && compareCount) {
-                        compareCount.textContent = this.selectedProducts.length;
+                        `}).join('');
                         
-                        if (this.selectedProducts.length >= 2) {
-                            compareBtn.disabled = false;
-                            compareBtn.classList.remove('opacity-50');
-                        } else {
-                            compareBtn.disabled = true;
-                            compareBtn.classList.add('opacity-50');
-                        }
-                    }
-                },
-
-                updateProductCards: function() {
-                    const productCards = document.querySelectorAll('.product-card');
-                    productCards.forEach(card => {
-                        const productId = parseInt(card.dataset.productId);
-                        const compareButtons = card.querySelectorAll('.compare-toggle');
+                        debugLog('HTML được render thành công');
                         
-                        if (this.selectedProducts.includes(productId)) {
-                            card.classList.add('selected');
-                            compareButtons.forEach(btn => {
-                                btn.classList.remove('bg-white/10', 'text-white/80');
-                                btn.classList.add('bg-emerald-600', 'text-white');
-                                btn.textContent = 'Đã chọn ✓';
-                            });
-                        } else {
-                            card.classList.remove('selected');
-                            compareButtons.forEach(btn => {
-                                btn.classList.remove('bg-emerald-600', 'text-white');
-                                btn.classList.add('bg-white/10', 'text-white/80');
-                                btn.textContent = 'So sánh';
-                            });
-                        }
-                    });
-                },
-
-                showNotification: function(message) {
-                    const notification = document.getElementById('notification');
-                    const notificationText = document.getElementById('notification-text');
-                    
-                    if (notification && notificationText) {
-                        notificationText.textContent = message;
-                        notification.classList.add('show');
+                        // Setup flip card events
+                        this.setupFlipEvents();
                         
-                        setTimeout(() => {
-                            notification.classList.remove('show');
-                        }, 3000);
+                    } catch (error) {
+                        debugLog('LỖI khi render HTML: ' + error.message);
+                        console.error('Chi tiết lỗi render:', error);
                     }
                 },
 
-                showComparison: function(type) {
-                    if (this.selectedProducts.length < 2) {
-                        this.showNotification('Vui lòng chọn ít nhất 2 sản phẩm để so sánh');
-                        return;
-                    }
-
-                    const modal = document.getElementById('comparison-modal');
-                    const content = document.getElementById('comparison-content');
+                setupFlipEvents: function() {
+                    debugLog('Setup flip card events');
                     
-                    if (modal && content) {
-                        content.innerHTML = this.generateComparisonContent(type);
-                        modal.classList.remove('hidden');
+                    const grid = document.getElementById('product-grid');
+                    if (grid) {
+                        grid.addEventListener('click', (e) => {
+                            const flipTrigger = e.target.closest('.flip-trigger');
+                            const flipTriggerBack = e.target.closest('.flip-trigger-back');
+                            
+                            if (flipTrigger || flipTriggerBack) {
+                                const card = (flipTrigger || flipTriggerBack).closest('.flip-card');
+                                if (card) {
+                                    card.classList.toggle('is-flipped');
+                                    debugLog('Flip card toggled');
+                                }
+                            }
+                        });
                     }
-                },
-
-                generateComparisonContent: function(type) {
-                    const selectedProductsData = this.products.filter(p => this.selectedProducts.includes(p.id));
-                    
-                    if (type === 'dosage') {
-                        return this.generateDosageComparison(selectedProductsData);
-                    } else if (type === 'cost') {
-                        return this.generateCostComparison(selectedProductsData);
-                    } else if (type === 'dha') {
-                        return this.generateDHAComparison(selectedProductsData);
-                    }
-                },
-
-                generateDosageComparison: function(products) {
-                    const ageGroups = [
-                        { key: 'duoi_1_tuoi', name: 'Dưới 1 tuổi' },
-                        { key: 'tu_1_den_3_tuoi', name: '1-3 tuổi' },
-                        { key: 'tu_3_den_12_tuoi', name: '3-12 tuổi' }
-                    ];
-
-                    return `
-                        <div class="overflow-x-auto">
-                            <h4 class="text-xl font-bold text-white mb-4">So sánh liều dùng khuyến nghị theo nhóm tuổi</h4>
-                            ${ageGroups.map(group => `
-                                <div class="mb-6">
-                                    <h5 class="text-lg font-semibold text-blue-200 mb-3">${group.name}</h5>
-                                    <div class="space-y-2">
-                                        ${products.map(product => {
-                                            const dosage = product.dosage_recommendation[group.key];
-                                            if (!dosage) return '';
-                                            
-                                            const avgDosage = (dosage.min + dosage.max) / 2;
-                                            const maxValue = Math.max(...products.map(p => {
-                                                const d = p.dosage_recommendation[group.key];
-                                                return d ? (d.min + d.max) / 2 : 0;
-                                            }));
-                                            const percentage = (avgDosage / maxValue) * 100;
-                                            
-                                            return `
-                                                <div class="flex items-center space-x-4">
-                                                    <div class="w-40 text-white text-sm">${product.name}</div>
-                                                    <div class="flex-1 bg-white/20 rounded-full h-6 relative">
-                                                        <div class="comparison-bar bg-blue-500 h-full rounded-full transition-all duration-1000" style="width: ${percentage}%"></div>
-                                                        <span class="absolute inset-0 flex items-center justify-center text-white text-xs font-medium">
-                                                            ${dosage.min}-${dosage.max} ${dosage.unit}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            `;
-                                        }).join('')}
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                },
-
-                generateCostComparison: function(products) {
-                    return `
-                        <div class="overflow-x-auto">
-                            <h4 class="text-xl font-bold text-white mb-4">So sánh chi phí mỗi ngày</h4>
-                            <div class="space-y-3">
-                                ${products.map(product => {
-                                    const costPerDose = product.price / product.total_doses_per_bottle;
-                                    const costPerDay = costPerDose; // Assuming 1 dose per day
-                                    const maxCost = Math.max(...products.map(p => p.price / p.total_doses_per_bottle));
-                                    const percentage = (costPerDay / maxCost) * 100;
-                                    
-                                    return `
-                                        <div class="flex items-center space-x-4">
-                                            <div class="w-48 text-white text-sm">${product.name}</div>
-                                            <div class="flex-1 bg-white/20 rounded-full h-8 relative">
-                                                <div class="comparison-bar bg-gradient-to-r from-green-500 to-blue-500 h-full rounded-full" style="width: ${percentage}%"></div>
-                                                <span class="absolute inset-0 flex items-center justify-center text-white text-sm font-medium">
-                                                    ${Math.round(costPerDay).toLocaleString('vi-VN')}₫/ngày
-                                                </span>
-                                            </div>
-                                        </div>
-                                    `;
-                                }).join('')}
-                            </div>
-                        </div>
-                    `;
-                },
-
-                generateDHAComparison: function(products) {
-                    return `
-                        <div class="overflow-x-auto">
-                            <h4 class="text-xl font-bold text-white mb-4">So sánh hàm lượng DHA mỗi liều</h4>
-                            <div class="space-y-3">
-                                ${products.map(product => {
-                                    const dhaAmount = product.declared_dose.dha_mg;
-                                    const maxDHA = Math.max(...products.map(p => p.declared_dose.dha_mg));
-                                    const percentage = (dhaAmount / maxDHA) * 100;
-                                    
-                                    return `
-                                        <div class="flex items-center space-x-4">
-                                            <div class="w-48 text-white text-sm">${product.name}</div>
-                                            <div class="flex-1 bg-white/20 rounded-full h-8 relative">
-                                                <div class="comparison-bar bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full" style="width: ${percentage}%"></div>
-                                                <span class="absolute inset-0 flex items-center justify-center text-white text-sm font-medium">
-                                                    ${dhaAmount}mg DHA
-                                                </span>
-                                            </div>
-                                        </div>
-                                    `;
-                                }).join('')}
-                            </div>
-                        </div>
-                    `;
                 },
 
                 updateProductCount: function(count) {
-                    const productCountEl = document.getElementById('product-count');
-                    if (productCountEl) {
-                        productCountEl.textContent = `${count} sản phẩm`;
+                    debugLog('Cập nhật số lượng sản phẩm: ' + count);
+                    const countEl = document.getElementById('product-count');
+                    if (countEl) {
+                        countEl.textContent = `Tìm thấy ${count} sản phẩm`;
                     }
-                },
-
-                clearAllFilters: function() {
-                    // Clear search
-                    document.getElementById('search-input').value = '';
-                    
-                    // Clear all checkboxes
-                    document.querySelectorAll('.filter-group input[type="checkbox"]').forEach(checkbox => {
-                        checkbox.checked = false;
-                    });
-                    
-                    // Reset sort
-                    document.getElementById('sort-select').value = 'name';
-                    
-                    // Re-apply filters
-                    this.applyFilters();
-                    
-                    this.showNotification('Đã xóa tất cả bộ lọc');
                 }
             };
 
+            // Khởi chạy app
+            debugLog('Bắt đầu khởi chạy app...');
             app.init();
+            debugLog('App đã khởi chạy xong');
         });
     </script>
-    
 </body>
 </html>
