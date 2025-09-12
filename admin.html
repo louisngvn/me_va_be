@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Quản lý Sản phẩm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 min-h-screen">
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="glass-effect rounded-3xl p-8 mb-8 text-white">
+                <h1 class="text-3xl font-bold mb-2">🔧 Admin Panel</h1>
+                <p class="text-white/80">Quản lý dữ liệu sản phẩm Vi Chất Cho Mẹ và Bé</p>
+            </div>
+
+            <!-- Category Selection -->
+            <div class="glass-effect rounded-3xl p-6 mb-8">
+                <label class="block text-white font-semibold mb-4">Chọn Danh Mục:</label>
+                <select id="categorySelect" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="xuong_rang">Xương, Răng & Chiều cao</option>
+                    <option value="nao_bo">Não bộ & Thị lực</option>
+                    <option value="de_khang">Đề kháng & Tiêu hóa</option>
+                    <option value="me_va_be">Phụ nữ & Thai kỳ</option>
+                </select>
+            </div>
+
+            <!-- Add New Product Form -->
+            <div class="glass-effect rounded-3xl p-6 mb-8">
+                <h2 class="text-2xl font-bold text-white mb-6">➕ Thêm Sản Phẩm Mới</h2>
+                
+                <form id="productForm" class="space-y-6">
+                    <!-- Basic Info -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-white font-medium mb-2">Tên sản phẩm *</label>
+                            <input type="text" id="productName" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ví dụ: LineaBon K2+D3">
+                        </div>
+                        <div>
+                            <label class="block text-white font-medium mb-2">Thương hiệu *</label>
+                            <input type="text" id="productBrand" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ví dụ: ErgoPharm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-white font-medium mb-2">Giá (VNĐ) *</label>
+                            <input type="number" id="productPrice" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="295000">
+                        </div>
+                        <div>
+                            <label class="block text-white font-medium mb-2">Xuất xứ *</label>
+                            <input type="text" id="productOrigin" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Slovenia">
+                        </div>
+                        <div>
+                            <label class="block text-white font-medium mb-2">Dạng sản phẩm *</label>
+                            <select id="productForm" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="drops">Nhỏ giọt</option>
+                                <option value="tablets">Viên nén</option>
+                                <option value="capsules">Viên nang</option>
+                                <option value="syrup">Siro</option>
+                                <option value="gummies">Kẹo dẻo</option>
+                                <option value="spray">Xịt</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Nutritional Content (Dynamic based on category) -->
+                    <div id="nutritionalContent" class="space-y-4">
+                        <h3 class="text-xl font-semibold text-white">Thành phần dinh dưỡng</h3>
+                        <!-- Will be populated based on selected category -->
+                    </div>
+
+                    <!-- Benefits -->
+                    <div>
+                        <label class="block text-white font-medium mb-2">Công dụng chính (mỗi dòng 1 lợi ích)</label>
+                        <textarea id="productBenefits" rows="4" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Hỗ trợ hấp thu Canxi và phốt pho&#10;Giúp xương răng chắc khỏe&#10;Thúc đẩy phát triển chiều cao"></textarea>
+                    </div>
+
+                    <!-- Ingredients -->
+                    <div>
+                        <label class="block text-white font-medium mb-2">Thành phần (mỗi dòng 1 thành phần)</label>
+                        <textarea id="productIngredients" rows="3" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Vitamin D3 400 IU&#10;Vitamin K2 22.5mcg&#10;Dầu Olive"></textarea>
+                    </div>
+
+                    <!-- Users -->
+                    <div>
+                        <label class="block text-white font-medium mb-2">Đối tượng sử dụng</label>
+                        <input type="text" id="productUsers" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Trẻ sơ sinh, trẻ nhỏ, người lớn">
+                    </div>
+
+                    <!-- Product URL -->
+                    <div>
+                        <label class="block text-white font-medium mb-2">Link sản phẩm</label>
+                        <input type="url" id="productUrl" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://lineabon.vn/">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex space-x-4">
+                        <button type="submit" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                            💾 Lưu Sản Phẩm
+                        </button>
+                        <button type="button" id="previewBtn" class="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                            👀 Xem Trước
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Current Products List -->
+            <div class="glass-effect rounded-3xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6">📋 Sản Phẩm Hiện Tại</h2>
+                <div id="currentProducts" class="space-y-4">
+                    <!-- Will be populated with current products -->
+                </div>
+            </div>
+
+            <!-- Export/Import Section -->
+            <div class="glass-effect rounded-3xl p-6 mt-8">
+                <h2 class="text-2xl font-bold text-white mb-6">🔄 Xuất/Nhập Dữ Liệu</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button id="exportBtn" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-700 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300">
+                        📥 Xuất JSON
+                    </button>
+                    <div>
+                        <input type="file" id="importFile" accept=".json" class="hidden">
+                        <button onclick="document.getElementById('importFile').click()" class="w-full px-6 py-3 bg-gradient-to-r from-orange-600 to-red-700 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300">
+                            📤 Nhập JSON
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="glass-effect max-w-2xl w-full rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white">👀 Xem Trước Sản Phẩm</h3>
+                <button id="closePreview" class="text-white/60 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="previewContent" class="text-white">
+                <!-- Preview content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentData = {
+            xuong_rang: [],
+            nao_bo: [],
+            de_khang: [],
+            me_va_be: []
+        };
+
+        // Category configurations
+        const categoryConfigs = {
+            xuong_rang: {
+                fields: [
+                    {name: 'd3_iu', label: 'Vitamin D3 (IU)', type: 'number'},
+                    {name: 'k2_mcg', label: 'Vitamin K2 (mcg)', type: 'number'}
+                ]
+            },
+            nao_bo: {
+                fields: [
+                    {name: 'dha_mg', label: 'DHA (mg)', type: 'number'},
+                    {name: 'epa_mg', label: 'EPA (mg)', type: 'number'},
+                    {name: 'omega3_total', label: 'Tổng Omega-3 (mg)', type: 'number'}
+                ]
+            },
+            de_khang: {
+                fields: [
+                    {name: 'vitamin_c_mg', label: 'Vitamin C (mg)', type: 'number'},
+                    {name: 'zinc_mg', label: 'Kẽm (mg)', type: 'number'},
+                    {name: 'probiotics_cfu', label: 'Probiotics (CFU)', type: 'number'}
+                ]
+            },
+            me_va_be: {
+                fields: [
+                    {name: 'iron_mg', label: 'Sắt (mg)', type: 'number'},
+                    {name: 'folic_acid_mcg', label: 'Axit Folic (mcg)', type: 'number'},
+                    {name: 'dha_mg', label: 'DHA (mg)', type: 'number'}
+                ]
+            }
+        };
+
+        // Update nutritional fields based on category
+        document.getElementById('categorySelect').addEventListener('change', function() {
+            const category = this.value;
+            const config = categoryConfigs[category];
+            const container = document.getElementById('nutritionalContent');
+            
+            let fieldsHTML = '<h3 class="text-xl font-semibold text-white mb-4">Thành phần dinh dưỡng</h3>';
+            fieldsHTML += '<div class="grid grid-cols-1 md:grid-cols-3 gap-4">';
+            
+            config.fields.forEach(field => {
+                fieldsHTML += `
+                    <div>
+                        <label class="block text-white font-medium mb-2">${field.label}</label>
+                        <input type="${field.type}" id="${field.name}" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="0">
+                    </div>
+                `;
+            });
+            
+            fieldsHTML += '</div>';
+            container.innerHTML = fieldsHTML;
+            
+            updateCurrentProductsList();
+        });
+
+        // Form submission
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const category = document.getElementById('categorySelect').value;
+            const config = categoryConfigs[category];
+            
+            // Collect nutritional data
+            const declaredDose = {
+                unit_count: 1,
+                unit_name: 'liều'
+            };
+            
+            config.fields.forEach(field => {
+                const value = document.getElementById(field.name).value;
+                declaredDose[field.name] = value ? parseFloat(value) : 0;
+            });
+            
+            const newProduct = {
+                id: Date.now(),
+                category: category,
+                name: document.getElementById('productName').value,
+                brand: document.getElementById('productBrand').value,
+                price: parseInt(document.getElementById('productPrice').value),
+                image: `https://placehold.co/300x300/667eea/white?text=${encodeURIComponent(document.getElementById('productName').value)}`,
+                origin: {
+                    country: document.getElementById('productOrigin').value,
+                    continent: 'Châu Á' // Default, can be made dynamic
+                },
+                form: document.getElementById('productForm').value,
+                declared_dose: declaredDose,
+                rating: 4.5,
+                reviews: Math.floor(Math.random() * 200) + 50,
+                product_url: document.getElementById('productUrl').value || '#',
+                summary: {
+                    benefits: document.getElementById('productBenefits').value.split('\n').filter(b => b.trim()),
+                    ingredients: document.getElementById('productIngredients').value.split('\n').filter(i => i.trim()),
+                    users: document.getElementById('productUsers').value
+                }
+            };
+            
+            currentData[category].push(newProduct);
+            
+            // Show success message
+            alert('✅ Đã thêm sản phẩm thành công!');
+            
+            // Reset form
+            this.reset();
+            
+            // Update products list
+            updateCurrentProductsList();
+        });
+
+        // Preview functionality
+        document.getElementById('previewBtn').addEventListener('click', function() {
+            const category = document.getElementById('categorySelect').value;
+            const name = document.getElementById('productName').value;
+            const brand = document.getElementById('productBrand').value;
+            const price = document.getElementById('productPrice').value;
+            
+            if (!name || !brand || !price) {
+                alert('⚠️ Vui lòng nhập ít nhất Tên, Thương hiệu và Giá');
+                return;
+            }
+            
+            const previewHTML = `
+                <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
+                    <h4 class="text-xl font-bold mb-2">${name}</h4>
+                    <p class="text-white/80 mb-4">${brand}</p>
+                    <div class="text-2xl font-bold mb-4">${parseInt(price).toLocaleString('vi-VN')}₫</div>
+                    <div class="space-y-2">
+                        <p><strong>Danh mục:</strong> ${document.getElementById('categorySelect').selectedOptions[0].text}</p>
+                        <p><strong>Xuất xứ:</strong> ${document.getElementById('productOrigin').value}</p>
+                        <p><strong>Dạng:</strong> ${document.getElementById('productForm').selectedOptions[0].text}</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            document.getElementById('previewModal').classList.remove('hidden');
+        });
+
+        // Close preview
+        document.getElementById('closePreview').addEventListener('click', function() {
+            document.getElementById('previewModal').classList.add('hidden');
+        });
+
+        // Export data
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            const dataStr = JSON.stringify(currentData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'products-data.json';
+            link.click();
+        });
+
+        // Import data
+        document.getElementById('importFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        currentData = importedData;
+                        updateCurrentProductsList();
+                        alert('✅ Đã nhập dữ liệu thành công!');
+                    } catch (error) {
+                        alert('❌ File JSON không hợp lệ!');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Update current products list
+        function updateCurrentProductsList() {
+            const category = document.getElementById('categorySelect').value;
+            const container = document.getElementById('currentProducts');
+            const products = currentData[category] || [];
+            
+            if (products.length === 0) {
+                container.innerHTML = '<p class="text-white/60 text-center py-8">Chưa có sản phẩm nào trong danh mục này</p>';
+                return;
+            }
+            
+            container.innerHTML = products.map((product, index) => `
+                <div class="bg-white/10 rounded-2xl p-4 border border-white/20">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h4 class="text-white font-semibold">${product.name}</h4>
+                            <p class="text-white/70 text-sm">${product.brand} - ${product.price.toLocaleString('vi-VN')}₫</p>
+                        </div>
+                        <button onclick="deleteProduct('${category}', ${index})" class="text-red-400 hover:text-red-300 ml-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Delete product
+        function deleteProduct(category, index) {
+            if (confirm('⚠️ Bạn có chắc muốn xóa sản phẩm này?')) {
+                currentData[category].splice(index, 1);
+                updateCurrentProductsList();
+            }
+        }
+
+        // Initialize
+        document.getElementById('categorySelect').dispatchEvent(new Event('change'));
+    </script>
+</body>
+</html>

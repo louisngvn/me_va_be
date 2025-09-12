@@ -1,0 +1,70 @@
+{
+  "xuong_rang": [
+    {
+      "id": 1,
+      "name": "LineaBon K2+D3",
+      "brand": "ErgoPharm",
+      "price": 295000,
+      "image": "https://placehold.co/300x300/667eea/white?text=LineaBon",
+      "origin": {"country": "Slovenia", "continent": "Châu Âu"},
+      "form": "drops",
+      "declared_dose": {
+        "unit_count": 6,
+        "unit_name": "giọt", 
+        "d3_iu": 400,
+        "k2_mcg": 22.5
+      },
+      "dosage_recommendation": {
+        "duoi_1_tuoi": {"min": 6, "max": 6, "unit": "giọt"},
+        "tu_1_den_3_tuoi": {"min": 6, "max": 8, "unit": "giọt"},
+        "tu_3_den_12_tuoi": {"min": 8, "max": 12, "unit": "giọt"}
+      },
+      "ingredients_details": {
+        "d3_source": "Động vật",
+        "has_k2": true
+      },
+      "rating": 4.8,
+      "reviews": 156,
+      "product_url": "https://lineabon.vn/",
+      "summary": {
+        "benefits": [
+          "Hỗ trợ hấp thu Canxi và phốt pho, giúp xương răng chắc khỏe.",
+          "Giảm nguy cơ còi xương ở trẻ nhỏ và loãng xương ở người lớn.",
+          "Thúc đẩy phát triển chiều cao vượt trội cho trẻ."
+        ],
+        "ingredients": [
+          "Vitamin K2 (VitaMK7) 22.5mcg",
+          "Vitamin D3 400 IU",
+          "Dầu Olive"
+        ],
+        "users": "Trẻ sơ sinh, trẻ nhỏ, trẻ trong giai đoạn phát triển, người lớn cần bổ sung Vitamin D3, K2."
+      }
+    }
+  ],
+  "nao_bo": [
+    {
+      "id": 101,
+      "name": "Nordic Naturals Baby's DHA",
+      "brand": "Nordic Naturals",
+      "price": 520000,
+      "image": "https://placehold.co/300x300/3b82f6/white?text=Nordic+Baby+DHA",
+      "origin": {"country": "Mỹ", "continent": "Châu Mỹ"},
+      "form": "drops",
+      "declared_dose": {
+        "unit_count": 1,
+        "unit_name": "ml",
+        "dha_mg": 37,
+        "epa_mg": 60,
+        "omega3_total": 480
+      },
+      "ingredients_details": {
+        "omega3_source": "Cá biển",
+        "purity": "Molecular distillation",
+        "flavor": "Strawberry"
+      },
+      "rating": 4.8,
+      "reviews": 234,
+      "product_url": "https://nordicnaturals.vn/"
+    }
+  ]
+}

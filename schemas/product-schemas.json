@@ -1,0 +1,126 @@
+{
+  "xuong_rang": {
+    "category_name": "Xương, Răng & Chiều cao",
+    "primary_nutrients": ["d3_iu", "k2_mcg"],
+    "age_groups": ["duoi_1_tuoi", "tu_1_den_3_tuoi", "tu_3_den_12_tuoi"],
+    "common_forms": ["drops", "spray", "tablets"],
+    "schema": {
+      "declared_dose": {
+        "unit_count": {"type": "number", "required": true, "min": 1},
+        "unit_name": {"type": "string", "enum": ["giọt", "xịt", "viên", "ml"], "required": true},
+        "d3_iu": {"type": "number", "required": true, "min": 0, "max": 5000, "unit": "IU"},
+        "k2_mcg": {"type": "number", "required": false, "min": 0, "max": 200, "unit": "mcg"}
+      },
+      "dosage_recommendation": {
+        "duoi_1_tuoi": {"min": "number", "max": "number", "unit": "string"},
+        "tu_1_den_3_tuoi": {"min": "number", "max": "number", "unit": "string"},
+        "tu_3_den_12_tuoi": {"min": "number", "max": "number", "unit": "string"}
+      },
+      "ingredients_details": {
+        "d3_source": {"type": "string", "enum": ["Động vật", "Thực vật"], "required": true},
+        "has_k2": {"type": "boolean", "required": true},
+        "k2_type": {"type": "string", "enum": ["MK-4", "MK-7", "Mixed"], "required": false}
+      },
+      "comparison_metrics": ["d3_iu", "k2_mcg", "cost_per_day", "dosage"],
+      "filter_fields": ["d3_source", "has_k2", "d3_content_range", "country", "form"]
+    }
+  },
+
+  "nao_bo": {
+    "category_name": "Não bộ & Thị lực",
+    "primary_nutrients": ["dha_mg", "epa_mg", "omega3_total"],
+    "age_groups": ["duoi_1_tuoi", "tu_1_den_3_tuoi", "tu_3_den_12_tuoi", "thai_ky", "cho_con_bu"],
+    "common_forms": ["drops", "capsules", "softgels", "chewable", "squeeze"],
+    "schema": {
+      "declared_dose": {
+        "unit_count": {"type": "number", "required": true, "min": 1},
+        "unit_name": {"type": "string", "enum": ["ml", "viên", "gói", "giọt"], "required": true},
+        "dha_mg": {"type": "number", "required": true, "min": 0, "max": 1000, "unit": "mg"},
+        "epa_mg": {"type": "number", "required": false, "min": 0, "max": 500, "unit": "mg"},
+        "omega3_total": {"type": "number", "required": true, "min": 0, "max": 2000, "unit": "mg"}
+      },
+      "dosage_recommendation": {
+        "duoi_1_tuoi": {"min": "number", "max": "number", "unit": "string"},
+        "tu_1_den_3_tuoi": {"min": "number", "max": "number", "unit": "string"},
+        "tu_3_den_12_tuoi": {"min": "number", "max": "number", "unit": "string"},
+        "thai_ky": {"min": "number", "max": "number", "unit": "string"},
+        "cho_con_bu": {"min": "number", "max": "number", "unit": "string"}
+      },
+      "ingredients_details": {
+        "omega3_source": {"type": "string", "enum": ["Cá biển", "Tảo biển", "Thực vật"], "required": true},
+        "purity": {"type": "string", "enum": ["Molecular distillation", "Supercritical CO2", "Standard"], "required": false},
+        "flavor": {"type": "string", "required": false},
+        "has_epa": {"type": "boolean", "computed": "epa_mg > 0"}
+      },
+      "comparison_metrics": ["dha_mg", "omega3_total", "cost_per_day", "dosage"],
+      "filter_fields": ["omega3_source", "dha_content_range", "age_group", "country", "form"]
+    }
+  },
+
+  "de_khang": {
+    "category_name": "Sức đề kháng & Tiêu hóa", 
+    "primary_nutrients": ["vitamin_c_mg", "zinc_mg", "probiotics_cfu"],
+    "age_groups": ["duoi_1_tuoi", "tu_1_den_3_tuoi", "tu_3_den_12_tuoi", "tu_12_den_18_tuoi"],
+    "common_forms": ["drops", "syrup", "chewable", "gummies", "lozenges", "tablets"],
+    "schema": {
+      "declared_dose": {
+        "unit_count": {"type": "number", "required": true, "min": 1},
+        "unit_name": {"type": "string", "enum": ["ml", "viên", "gói", "giọt"], "required": true},
+        "vitamin_c_mg": {"type": "number", "required": false, "min": 0, "max": 1000, "unit": "mg"},
+        "zinc_mg": {"type": "number", "required": false, "min": 0, "max": 50, "unit": "mg"},
+        "probiotics_cfu": {"type": "number", "required": false, "min": 0, "max": 100000000000, "unit": "CFU"}
+      },
+      "dosage_recommendation": {
+        "duoi_1_tuoi": {"min": "number", "max": "number", "unit": "string"},
+        "tu_1_den_3_tuoi": {"min": "number", "max": "number", "unit": "string"},
+        "tu_3_den_12_tuoi": {"min": "number", "max": "number", "unit": "string"},
+        "tu_12_den_18_tuoi": {"min": "number", "max": "number", "unit": "string"}
+      },
+      "ingredients_details": {
+        "has_probiotics": {"type": "boolean", "computed": "probiotics_cfu > 0"},
+        "probiotic_strains": {"type": "array", "required": false},
+        "has_vitamin_c": {"type": "boolean", "computed": "vitamin_c_mg > 0"},
+        "has_zinc": {"type": "boolean", "computed": "zinc_mg > 0"},
+        "elderberry": {"type": "boolean", "required": false},
+        "natural_flavor": {"type": "string", "required": false}
+      },
+      "comparison_metrics": ["vitamin_c_mg", "zinc_mg", "probiotics_cfu", "cost_per_day", "dosage"],
+      "filter_fields": ["has_probiotics", "vitamin_c_content_range", "zinc_content_range", "age_group", "country", "form"]
+    }
+  },
+
+  "me_va_be": {
+    "category_name": "Sức khỏe Phụ nữ & Thai kỳ",
+    "primary_nutrients": ["iron_mg", "folic_acid_mcg", "dha_mg"],
+    "age_groups": ["thai_ky", "cho_con_bu", "phu_nu", "thieu_nu"],
+    "common_forms": ["tablets", "capsules", "softgels", "drops"],
+    "schema": {
+      "declared_dose": {
+        "unit_count": {"type": "number", "required": true, "min": 1},
+        "unit_name": {"type": "string", "enum": ["viên", "ml", "gói"], "required": true},
+        "iron_mg": {"type": "number", "required": true, "min": 0, "max": 100, "unit": "mg"},
+        "folic_acid_mcg": {"type": "number", "required": true, "min": 0, "max": 1000, "unit": "mcg"},
+        "dha_mg": {"type": "number", "required": false, "min": 0, "max": 500, "unit": "mg"}
+      },
+      "target_groups": {
+        "type": "array", 
+        "enum": ["thai_ky", "cho_con_bu", "phu_nu", "thieu_nu"],
+        "required": true
+      },
+      "dosage_recommendation": {
+        "thai_ky": {"min": "number", "max": "number", "unit": "string"},
+        "cho_con_bu": {"min": "number", "max": "number", "unit": "string"},
+        "phu_nu": {"min": "number", "max": "number", "unit": "string"},
+        "thieu_nu": {"min": "number", "max": "number", "unit": "string"}
+      },
+      "ingredients_details": {
+        "is_multivitamin": {"type": "boolean", "required": true},
+        "has_dha": {"type": "boolean", "computed": "dha_mg > 0"},
+        "iron_type": {"type": "string", "enum": ["Ferrous sulfate", "Iron bisglycinate", "Iron fumarate"], "required": false},
+        "folate_type": {"type": "string", "enum": ["Folic acid", "Metafolin", "L-methylfolate"], "required": false}
+      },
+      "comparison_metrics": ["iron_mg", "folic_acid_mcg", "dha_mg", "cost_per_day", "dosage"],
+      "filter_fields": ["target_group", "is_multivitamin", "iron_content_range", "folic_acid_content_range", "country", "form"]
+    }
+  }
+}

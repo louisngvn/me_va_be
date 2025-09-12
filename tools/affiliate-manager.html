@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔗 Quản lý Link Affiliate - Vi Chất Cho Mẹ và Bé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-600 via-blue-600 to-green-600 min-h-screen">
+    <div class="container mx-auto p-6">
+        <div class="bg-white/10 backdrop-blur-md rounded-3xl shadow-xl p-8 border border-white/20">
+            <h1 class="text-3xl font-bold text-white text-center mb-8">
+                🔗 Quản lý Link Affiliate
+            </h1>
+
+            <!-- Instructions -->
+            <div class="bg-blue-500/20 rounded-2xl p-6 mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">📖 Hướng dẫn sử dụng</h2>
+                <div class="text-white/90 space-y-2 text-sm">
+                    <p>• Dán mã JavaScript được tạo vào các file tương ứng</p>
+                    <p>• <strong>"💰 Mua ngay"</strong> = Link affiliate (kiếm tiền)</p>
+                    <p>• <strong>"Tới trang SP"</strong> = Link website chính thức của sản phẩm</p>
+                    <p>• ID sản phẩm: 1-100 (Xương/Răng), 101-200 (Não bộ), 201-300 (Đề kháng), 301-400 (Phụ nữ/Thai kỳ)</p>
+                </div>
+            </div>
+
+            <!-- Category Selection -->
+            <div class="mb-6">
+                <label class="block text-white font-semibold mb-4">Chọn Danh Mục:</label>
+                <select id="categorySelect" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="index">Xương, Răng & Chiều cao (ID: 1-100)</option>
+                    <option value="nao-bo">Não bộ & Thị lực (ID: 101-200)</option>
+                    <option value="de-khang">Đề kháng & Tiêu hóa (ID: 201-300)</option>
+                    <option value="me-va-be">Phụ nữ & Thai kỳ (ID: 301-400)</option>
+                </select>
+            </div>
+
+            <!-- Add Affiliate URL Form -->
+            <div class="bg-white/10 rounded-2xl p-6 mb-6">
+                <h3 class="text-xl font-semibold text-white mb-4">➕ Thêm Link Affiliate</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="number" id="productId" placeholder="ID Sản phẩm" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60">
+                    <input type="url" id="affiliateUrl" placeholder="Link Affiliate (https://...)" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60">
+                    <button onclick="addAffiliateUrl()" class="px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl">
+                        Thêm Link
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current Links Display -->
+            <div id="currentLinks" class="mb-6"></div>
+
+            <!-- Generated Code -->
+            <div class="bg-gray-800 rounded-2xl p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold text-white">📋 Code để dán vào file</h3>
+                    <button onclick="copyCode()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">
+                        Copy Code
+                    </button>
+                </div>
+                <pre id="generatedCode" class="text-green-400 text-sm bg-black/50 rounded-lg p-4 overflow-x-auto"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let affiliateData = {
+            'index': {},
+            'nao-bo': {},
+            'de-khang': {},
+            'me-va-be': {}
+        };
+
+        function addAffiliateUrl() {
+            const category = document.getElementById('categorySelect').value;
+            const productId = parseInt(document.getElementById('productId').value);
+            const affiliateUrl = document.getElementById('affiliateUrl').value.trim();
+            
+            if (!productId || !affiliateUrl) {
+                alert('Vui lòng điền đầy đủ thông tin');
+                return;
+            }
+            
+            if (!affiliateUrl.startsWith('http')) {
+                alert('Link affiliate phải bắt đầu với http:// hoặc https://');
+                return;
+            }
+            
+            affiliateData[category][productId] = affiliateUrl;
+            
+            document.getElementById('productId').value = '';
+            document.getElementById('affiliateUrl').value = '';
+            
+            updateDisplay();
+        }
+
+        function removeAffiliateUrl(category, productId) {
+            delete affiliateData[category][productId];
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const category = document.getElementById('categorySelect').value;
+            const currentLinks = document.getElementById('currentLinks');
+            const generatedCode = document.getElementById('generatedCode');
+            
+            // Update current links display
+            const links = affiliateData[category];
+            if (Object.keys(links).length === 0) {
+                currentLinks.innerHTML = `
+                    <div class="bg-yellow-500/20 rounded-2xl p-4">
+                        <p class="text-white/80">Chưa có link affiliate nào cho danh mục này</p>
+                    </div>
+                `;
+            } else {
+                currentLinks.innerHTML = `
+                    <div class="bg-white/10 rounded-2xl p-6">
+                        <h3 class="text-xl font-semibold text-white mb-4">🔗 Link hiện tại</h3>
+                        <div class="space-y-2">
+                            ${Object.entries(links).map(([id, url]) => `
+                                <div class="flex justify-between items-center bg-black/20 rounded-lg p-3">
+                                    <div class="text-white">
+                                        <span class="font-semibold">ID ${id}:</span>
+                                        <span class="text-sm text-white/80 ml-2">${url}</span>
+                                    </div>
+                                    <button onclick="removeAffiliateUrl('${category}', '${id}')" class="text-red-400 hover:text-red-300">
+                                        ❌
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Update generated code
+            const codeContent = Object.keys(links).length === 0 ? 
+                '// Chưa có affiliate URL nào' :
+                `affiliateUrls: {
+    // Format: productId: 'affiliate_url'
+${Object.entries(links).map(([id, url]) => `    ${id}: '${url}',`).join('\n')}
+},`;
+            
+            generatedCode.textContent = codeContent;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('generatedCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Đã copy code vào clipboard!');
+            });
+        }
+
+        document.getElementById('categorySelect').addEventListener('change', updateDisplay);
+        
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>

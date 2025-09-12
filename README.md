@@ -24,8 +24,8 @@ Website so sánh vitamin và dinh dưỡng chuyên sâu cho mẹ và bé tại V
 - **Bộ lọc**: Hàm lượng Vitamin C, Kẽm, có/không Probiotics
 - **So sánh**: Liều dùng, chi phí/ngày, Vitamin C, Kẽm
 
-### 👩‍👶 **Mẹ & Bé (me-va-be.html)**
-- **Danh mục**: Hỗ trợ Sức khỏe Phụ nữ & Thai kỳ
+### 👩‍👶 **Phụ nữ & Thai kỳ (me-va-be.html)**
+- **Danh mục**: Hỗ trợ Phụ nữ & Thai kỳ
 - **Sản phẩm**: 7+ sản phẩm Sắt, Axit Folic cho mẹ bầu
 - **Bộ lọc**: Đối tượng sử dụng, hàm lượng Sắt/Folic, loại sản phẩm
 - **So sánh**: Liều dùng, chi phí/ngày, Sắt, Axit Folic
@@ -51,15 +51,23 @@ Website so sánh vitamin và dinh dưỡng chuyên sâu cho mẹ và bé tại V
 - **Xương & Răng**: Gradient vàng amber (#d4a574 → #f4a460)
 - **Não bộ**: Gradient xanh dương (#6366f1 → #3730a3)  
 - **Đề kháng**: Gradient đỏ hồng (#ec4899 → #b91c1c)
-- **Mẹ & Bé**: Gradient tím hồng (#a855f7 → #fb7185)
+- **Phụ nữ & Thai kỳ**: Gradient tím hồng (#a855f7 → #fb7185)
 - **Chuyên gia**: Gradient xanh lá (#10b981 → #064e3b)
 
 ### **Tính Năng UX**
 - Glass morphism effects với backdrop blur
-- Flip cards cho thông tin chi tiết sản phẩm
+- **Flip cards chuẩn hóa** cho tất cả danh mục sản phẩm
+- **Hệ thống Affiliate Link** tích hợp cho kiếm tiền
 - Smooth scrolling và animations
 - Responsive design cho mobile/tablet/desktop
 - Loading states và transitions mượt mà
+
+### **Hệ Thống Affiliate & Monetization** 💰
+- **"💰 Mua ngay"**: Link affiliate cho kiếm tiền (commission)
+- **"Tới trang SP"**: Link website chính thức của sản phẩm
+- **Quản lý tập trung**: Affiliate URLs được quản lý riêng cho từng danh mục
+- **Tool quản lý**: `tools/affiliate-manager.html` để dễ dàng thêm/sửa link affiliate
+- **Fallback system**: Tự động dùng product_url nếu chưa có affiliate link
 
 ## 📊 Cấu Trúc Dữ Liệu
 
@@ -92,6 +100,13 @@ Website so sánh vitamin và dinh dưỡng chuyên sâu cho mẹ và bé tại V
 
 ## 🔧 Tính Năng Kỹ Thuật
 
+### **Flip Cards Chuẩn Hóa** 🔄
+- **Thiết kế thống nhất** cho tất cả 4 danh mục
+- **Mặt trước**: Thông tin cơ bản, giá, hình ảnh, nút hành động
+- **Mặt sau**: Chi tiết công dụng, thành phần, đối tượng sử dụng
+- **Animation mượt mà**: CSS transform 3D với perspective
+- **Responsive**: Hoạt động tốt trên mobile và desktop
+
 ### **Bộ Lọc Thông Minh**
 - Lọc theo hàm lượng dinh dưỡng (ranges)
 - Lọc theo nguồn gốc và xuất xứ
@@ -117,6 +132,28 @@ Website so sánh vitamin và dinh dưỡng chuyên sâu cho mẹ và bé tại V
 - **Mobile (< 768px)**: Single column layout, collapsible filters
 - **Tablet (768px - 1024px)**: 2-column product grid
 - **Desktop (> 1024px)**: 3-column product grid với sidebar
+
+## 🛠️ Công Cụ Quản Lý
+
+### **tools/affiliate-manager.html** 🔗
+Tool quản lý link affiliate với giao diện thân thiện:
+- **Thêm/xóa affiliate URLs** cho từng sản phẩm
+- **Phân chia theo danh mục** (ID ranges: 1-100, 101-200, 201-300, 301-400)
+- **Generate code tự động** để copy-paste vào file
+- **Preview và validation** URL format
+
+### **tools/csv-to-json.html** 📊
+Chuyển đổi dữ liệu sản phẩm từ CSV/Excel:
+- Upload file CSV với cấu trúc có sẵn
+- Validation và mapping fields theo schema
+- Generate JSON code sẵn sàng sử dụng
+
+### **admin-smart.html** ⚙️
+Panel quản trị thông minh:
+- **Dynamic form generation** dựa trên schema danh mục
+- **Real-time validation** với visual feedback
+- **Schema-aware** cho từng loại sản phẩm
+- Export/import dữ liệu JSON
 
 ## 🚀 Hướng Dẫn Sử Dụng
 
@@ -148,10 +185,14 @@ Website là static site có thể deploy trên:
 
 ### **Giai Đoạn Hiện Tại** ✅
 - [x] 4 danh mục sản phẩm chính hoàn chỉnh
+- [x] **Flip cards chuẩn hóa** cho tất cả danh mục
+- [x] **Hệ thống affiliate link** tích hợp hoàn chỉnh
+- [x] **Tool quản lý affiliate** (`tools/affiliate-manager.html`)
 - [x] Trang chuyên gia với tư vấn
 - [x] Hệ thống so sánh thông minh
 - [x] Responsive design toàn diện
 - [x] 25+ sản phẩm với dữ liệu chi tiết
+- [x] Đổi tên danh mục "Mẹ & Bé" thành "Phụ nữ & Thai kỳ"
 
 ### **Giai Đoạn Tiếp Theo** 🔄
 - [ ] Tính năng lưu sản phẩm yêu thích (localStorage)

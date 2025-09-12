@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Admin Panel - Schema-Aware</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .field-required { border-left: 4px solid #ef4444; }
+        .field-optional { border-left: 4px solid #10b981; }
+        .validation-error { border-color: #ef4444 !important; box-shadow: 0 0 0 1px #ef4444; }
+        .validation-success { border-color: #10b981 !important; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <div class="glass-effect rounded-3xl p-8 mb-8 text-white">
+                <h1 class="text-3xl font-bold mb-2">🧠 Smart Admin Panel</h1>
+                <p class="text-white/80">Quản lý sản phẩm với Schema thông minh - Tự động thích ứng theo danh mục</p>
+            </div>
+
+            <!-- Schema Info Panel -->
+            <div id="schemaInfo" class="glass-effect rounded-3xl p-6 mb-8 text-white">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">📋 Thông tin Schema hiện tại</h2>
+                    <button id="toggleSchemaInfo" class="text-blue-400 hover:text-blue-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="schemaDetails" class="hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <span class="text-blue-300 font-medium">Dinh dưỡng chính:</span>
+                            <div id="primaryNutrients" class="text-white/80"></div>
+                        </div>
+                        <div>
+                            <span class="text-green-300 font-medium">Nhóm tuổi:</span>
+                            <div id="ageGroups" class="text-white/80"></div>
+                        </div>
+                        <div>
+                            <span class="text-purple-300 font-medium">Dạng phổ biến:</span>
+                            <div id="commonForms" class="text-white/80"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Selection -->
+            <div class="glass-effect rounded-3xl p-6 mb-8">
+                <label class="block text-white font-semibold mb-4">🏷️ Chọn Danh Mục:</label>
+                <select id="categorySelect" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <option value="">-- Chọn danh mục --</option>
+                    <option value="xuong_rang">Xương, Răng & Chiều cao</option>
+                    <option value="nao_bo">Não bộ & Thị lực</option>
+                    <option value="de_khang">Đề kháng & Tiêu hóa</option>
+                    <option value="me_va_be">Phụ nữ & Thai kỳ</option>
+                </select>
+            </div>
+
+            <!-- Dynamic Form -->
+            <div id="dynamicFormContainer" class="hidden glass-effect rounded-3xl p-8 mb-8">
+                <h2 class="text-2xl font-bold text-white mb-6">➕ Thêm Sản Phẩm</h2>
+                <form id="smartProductForm">
+                    <!-- Basic fields will be inserted here -->
+                    <div id="basicFields" class="space-y-6 mb-8"></div>
+                    
+                    <!-- Dynamic nutritional fields -->
+                    <div id="nutritionalFields" class="space-y-6 mb-8"></div>
+                    
+                    <!-- Dosage recommendation fields -->
+                    <div id="dosageFields" class="space-y-6 mb-8"></div>
+                    
+                    <!-- Ingredient details -->
+                    <div id="ingredientFields" class="space-y-6 mb-8"></div>
+                    
+                    <!-- Summary fields -->
+                    <div id="summaryFields" class="space-y-6 mb-8"></div>
+                    
+                    <!-- Action buttons -->
+                    <div class="flex space-x-4">
+                        <button type="submit" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-2xl hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                            💾 Lưu Sản Phẩm
+                        </button>
+                        <button type="button" id="validateBtn" class="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-2xl hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                            ✅ Kiểm Tra Validation
+                        </button>
+                        <button type="button" id="previewBtn" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-700 text-white font-semibold rounded-2xl hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                            👀 Xem Trước
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Validation Results -->
+            <div id="validationResults" class="hidden glass-effect rounded-3xl p-6 mb-8">
+                <h3 class="text-xl font-bold text-white mb-4">🔍 Kết Quả Validation</h3>
+                <div id="validationContent"></div>
+            </div>
+
+            <!-- Products Management -->
+            <div class="glass-effect rounded-3xl p-6 mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-white">📦 Quản Lý Sản Phẩm</h2>
+                    <div class="flex space-x-4">
+                        <button id="exportSchemaBtn" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-colors">
+                            📄 Xuất Schema
+                        </button>
+                        <button id="exportDataBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors">
+                            💾 Xuất Dữ Liệu
+                        </button>
+                        <input type="file" id="importFile" accept=".json" class="hidden">
+                        <button onclick="document.getElementById('importFile').click()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors">
+                            📤 Nhập Dữ Liệu
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="productsContainer" class="space-y-4">
+                    <!-- Products will be listed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="glass-effect max-w-4xl w-full rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white">👀 Xem Trước Sản Phẩm</h3>
+                <button id="closePreview" class="text-white/60 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="previewContent" class="text-white"></div>
+        </div>
+    </div>
+
+    <script>
+        // Product schemas - loaded from schemas/product-schemas.json
+        let schemas = {};
+        let currentData = {
+            xuong_rang: [],
+            nao_bo: [],
+            de_khang: [],
+            me_va_be: []
+        };
+        let currentSchema = null;
+        let currentCategory = null;
+
+        // Load schemas
+        async function loadSchemas() {
+            try {
+                // In a real implementation, you'd fetch this from schemas/product-schemas.json
+                schemas = {
+                    "xuong_rang": {
+                        "category_name": "Xương, Răng & Chiều cao",
+                        "primary_nutrients": ["d3_iu", "k2_mcg"],
+                        "age_groups": ["duoi_1_tuoi", "tu_1_den_3_tuoi", "tu_3_den_12_tuoi"],
+                        "common_forms": ["drops", "spray", "tablets"],
+                        "schema": {
+                            "declared_dose": {
+                                "unit_count": {"type": "number", "required": true, "min": 1},
+                                "unit_name": {"type": "string", "enum": ["giọt", "xịt", "viên", "ml"], "required": true},
+                                "d3_iu": {"type": "number", "required": true, "min": 0, "max": 5000, "unit": "IU"},
+                                "k2_mcg": {"type": "number", "required": false, "min": 0, "max": 200, "unit": "mcg"}
+                            },
+                            "dosage_recommendation": {
+                                "duoi_1_tuoi": {"min": "number", "max": "number", "unit": "string"},
+                                "tu_1_den_3_tuoi": {"min": "number", "max": "number", "unit": "string"},
+                                "tu_3_den_12_tuoi": {"min": "number", "max": "number", "unit": "string"}
+                            },
+                            "ingredients_details": {
+                                "d3_source": {"type": "string", "enum": ["Động vật", "Thực vật"], "required": true},
+                                "has_k2": {"type": "boolean", "required": true}
+                            }
+                        }
+                    },
+                    "nao_bo": {
+                        "category_name": "Não bộ & Thị lực",
+                        "primary_nutrients": ["dha_mg", "epa_mg", "omega3_total"],
+                        "age_groups": ["duoi_1_tuoi", "tu_1_den_3_tuoi", "tu_3_den_12_tuoi", "thai_ky", "cho_con_bu"],
+                        "common_forms": ["drops", "capsules", "softgels", "chewable", "squeeze"],
+                        "schema": {
+                            "declared_dose": {
+                                "unit_count": {"type": "number", "required": true, "min": 1},
+                                "unit_name": {"type": "string", "enum": ["ml", "viên", "gói", "giọt"], "required": true},
+                                "dha_mg": {"type": "number", "required": true, "min": 0, "max": 1000, "unit": "mg"},
+                                "epa_mg": {"type": "number", "required": false, "min": 0, "max": 500, "unit": "mg"},
+                                "omega3_total": {"type": "number", "required": true, "min": 0, "max": 2000, "unit": "mg"}
+                            },
+                            "dosage_recommendation": {
+                                "duoi_1_tuoi": {"min": "number", "max": "number", "unit": "string"},
+                                "tu_1_den_3_tuoi": {"min": "number", "max": "number", "unit": "string"},
+                                "tu_3_den_12_tuoi": {"min": "number", "max": "number", "unit": "string"},
+                                "thai_ky": {"min": "number", "max": "number", "unit": "string"},
+                                "cho_con_bu": {"min": "number", "max": "number", "unit": "string"}
+                            },
+                            "ingredients_details": {
+                                "omega3_source": {"type": "string", "enum": ["Cá biển", "Tảo biển", "Thực vật"], "required": true},
+                                "purity": {"type": "string", "required": false},
+                                "flavor": {"type": "string", "required": false}
+                            }
+                        }
+                    },
+                    "de_khang": {
+                        "category_name": "Sức đề kháng & Tiêu hóa",
+                        "primary_nutrients": ["vitamin_c_mg", "zinc_mg", "probiotics_cfu"],
+                        "age_groups": ["duoi_1_tuoi", "tu_1_den_3_tuoi", "tu_3_den_12_tuoi", "tu_12_den_18_tuoi"],
+                        "common_forms": ["drops", "syrup", "chewable", "gummies", "lozenges", "tablets"],
+                        "schema": {
+                            "declared_dose": {
+                                "unit_count": {"type": "number", "required": true, "min": 1},
+                                "unit_name": {"type": "string", "enum": ["ml", "viên", "gói", "giọt"], "required": true},
+                                "vitamin_c_mg": {"type": "number", "required": false, "min": 0, "max": 1000, "unit": "mg"},
+                                "zinc_mg": {"type": "number", "required": false, "min": 0, "max": 50, "unit": "mg"},
+                                "probiotics_cfu": {"type": "number", "required": false, "min": 0, "max": 100000000000, "unit": "CFU"}
+                            },
+                            "ingredients_details": {
+                                "has_probiotics": {"type": "boolean", "required": true},
+                                "elderberry": {"type": "boolean", "required": false},
+                                "natural_flavor": {"type": "string", "required": false}
+                            }
+                        }
+                    },
+                    "me_va_be": {
+                        "category_name": "Sức khỏe Phụ nữ & Thai kỳ",
+                        "primary_nutrients": ["iron_mg", "folic_acid_mcg", "dha_mg"],
+                        "age_groups": ["thai_ky", "cho_con_bu", "phu_nu", "thieu_nu"],
+                        "common_forms": ["tablets", "capsules", "softgels", "drops"],
+                        "schema": {
+                            "declared_dose": {
+                                "unit_count": {"type": "number", "required": true, "min": 1},
+                                "unit_name": {"type": "string", "enum": ["viên", "ml", "gói"], "required": true},
+                                "iron_mg": {"type": "number", "required": true, "min": 0, "max": 100, "unit": "mg"},
+                                "folic_acid_mcg": {"type": "number", "required": true, "min": 0, "max": 1000, "unit": "mcg"},
+                                "dha_mg": {"type": "number", "required": false, "min": 0, "max": 500, "unit": "mg"}
+                            },
+                            "target_groups": {
+                                "type": "array", 
+                                "enum": ["thai_ky", "cho_con_bu", "phu_nu", "thieu_nu"],
+                                "required": true
+                            },
+                            "ingredients_details": {
+                                "is_multivitamin": {"type": "boolean", "required": true},
+                                "iron_type": {"type": "string", "enum": ["Ferrous sulfate", "Iron bisglycinate", "Iron fumarate"], "required": false},
+                                "folate_type": {"type": "string", "enum": ["Folic acid", "Metafolin", "L-methylfolate"], "required": false}
+                            }
+                        }
+                    }
+                };
+            } catch (error) {
+                console.error('Error loading schemas:', error);
+            }
+        }
+
+        // Generate dynamic form based on schema
+        function generateDynamicForm(category) {
+            const schema = schemas[category];
+            if (!schema) return;
+
+            currentSchema = schema.schema;
+            currentCategory = category;
+
+            // Update schema info
+            updateSchemaInfo(schema);
+
+            // Generate basic fields
+            generateBasicFields();
+            
+            // Generate nutritional fields
+            generateNutritionalFields(schema.schema.declared_dose);
+            
+            // Generate dosage fields
+            generateDosageFields(schema.schema.dosage_recommendation, schema.age_groups);
+            
+            // Generate ingredient fields
+            generateIngredientFields(schema.schema.ingredients_details);
+            
+            // Generate summary fields
+            generateSummaryFields();
+
+            document.getElementById('dynamicFormContainer').classList.remove('hidden');
+        }
+
+        function updateSchemaInfo(schema) {
+            document.getElementById('primaryNutrients').textContent = schema.primary_nutrients.join(', ');
+            document.getElementById('ageGroups').textContent = schema.age_groups.join(', ');
+            document.getElementById('commonForms').textContent = schema.common_forms.join(', ');
+        }
+
+        function generateBasicFields() {
+            const basicFields = document.getElementById('basicFields');
+            basicFields.innerHTML = `
+                <h3 class="text-xl font-semibold text-white mb-4">📝 Thông tin cơ bản</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="field-required">
+                        <label class="block text-white font-medium mb-2">Tên sản phẩm *</label>
+                        <input type="text" id="name" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Ví dụ: LineaBon K2+D3">
+                    </div>
+                    <div class="field-required">
+                        <label class="block text-white font-medium mb-2">Thương hiệu *</label>
+                        <input type="text" id="brand" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Ví dụ: ErgoPharm">
+                    </div>
+                    <div class="field-required">
+                        <label class="block text-white font-medium mb-2">Giá (VNĐ) *</label>
+                        <input type="number" id="price" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="295000">
+                    </div>
+                    <div class="field-required">
+                        <label class="block text-white font-medium mb-2">Xuất xứ *</label>
+                        <input type="text" id="origin_country" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Slovenia">
+                    </div>
+                    <div class="field-required">
+                        <label class="block text-white font-medium mb-2">Dạng sản phẩm *</label>
+                        <select id="form" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <option value="">-- Chọn dạng --</option>
+                            ${schemas[currentCategory].common_forms.map(form => 
+                                `<option value="${form}">${getFormText(form)}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                    <div class="field-optional">
+                        <label class="block text-white font-medium mb-2">Đánh giá (1-5)</label>
+                        <input type="number" id="rating" min="1" max="5" step="0.1" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="4.5">
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateNutritionalFields(doseSchema) {
+            const nutritionalFields = document.getElementById('nutritionalFields');
+            let fieldsHTML = '<h3 class="text-xl font-semibold text-white mb-4">💊 Thành phần dinh dưỡng</h3>';
+            fieldsHTML += '<div class="grid grid-cols-1 md:grid-cols-3 gap-6">';
+
+            Object.entries(doseSchema).forEach(([fieldName, fieldConfig]) => {
+                const isRequired = fieldConfig.required;
+                const fieldClass = isRequired ? 'field-required' : 'field-optional';
+                
+                if (fieldConfig.type === 'number') {
+                    fieldsHTML += `
+                        <div class="${fieldClass}">
+                            <label class="block text-white font-medium mb-2">
+                                ${getFieldLabel(fieldName)} ${isRequired ? '*' : ''}
+                                ${fieldConfig.unit ? `(${fieldConfig.unit})` : ''}
+                            </label>
+                            <input type="number" id="${fieldName}" 
+                                ${isRequired ? 'required' : ''} 
+                                ${fieldConfig.min !== undefined ? `min="${fieldConfig.min}"` : ''}
+                                ${fieldConfig.max !== undefined ? `max="${fieldConfig.max}"` : ''}
+                                class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" 
+                                placeholder="${fieldConfig.min || 0}">
+                        </div>
+                    `;
+                } else if (fieldConfig.type === 'string' && fieldConfig.enum) {
+                    fieldsHTML += `
+                        <div class="${fieldClass}">
+                            <label class="block text-white font-medium mb-2">${getFieldLabel(fieldName)} ${isRequired ? '*' : ''}</label>
+                            <select id="${fieldName}" ${isRequired ? 'required' : ''} class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="">-- Chọn ${getFieldLabel(fieldName).toLowerCase()} --</option>
+                                ${fieldConfig.enum.map(option => `<option value="${option}">${option}</option>`).join('')}
+                            </select>
+                        </div>
+                    `;
+                } else if (fieldConfig.type === 'string') {
+                    fieldsHTML += `
+                        <div class="${fieldClass}">
+                            <label class="block text-white font-medium mb-2">${getFieldLabel(fieldName)} ${isRequired ? '*' : ''}</label>
+                            <input type="text" id="${fieldName}" ${isRequired ? 'required' : ''} class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="${getFieldLabel(fieldName)}">
+                        </div>
+                    `;
+                }
+            });
+
+            fieldsHTML += '</div>';
+            nutritionalFields.innerHTML = fieldsHTML;
+        }
+
+        function generateDosageFields(dosageSchema, ageGroups) {
+            const dosageFields = document.getElementById('dosageFields');
+            let fieldsHTML = '<h3 class="text-xl font-semibold text-white mb-4">📏 Liều dùng khuyến nghị</h3>';
+            fieldsHTML += '<div class="space-y-4">';
+
+            ageGroups.forEach(ageGroup => {
+                fieldsHTML += `
+                    <div class="field-optional">
+                        <label class="block text-white font-medium mb-2">${getAgeGroupLabel(ageGroup)}</label>
+                        <div class="grid grid-cols-3 gap-4">
+                            <input type="number" id="dosage_${ageGroup}_min" step="0.1" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Min">
+                            <input type="number" id="dosage_${ageGroup}_max" step="0.1" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Max">
+                            <input type="text" id="dosage_${ageGroup}_unit" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Đơn vị">
+                        </div>
+                    </div>
+                `;
+            });
+
+            fieldsHTML += '</div>';
+            dosageFields.innerHTML = fieldsHTML;
+        }
+
+        function generateIngredientFields(ingredientSchema) {
+            const ingredientFields = document.getElementById('ingredientFields');
+            let fieldsHTML = '<h3 class="text-xl font-semibold text-white mb-4">🧪 Chi tiết thành phần</h3>';
+            fieldsHTML += '<div class="grid grid-cols-1 md:grid-cols-2 gap-6">';
+
+            Object.entries(ingredientSchema).forEach(([fieldName, fieldConfig]) => {
+                const isRequired = fieldConfig.required;
+                const fieldClass = isRequired ? 'field-required' : 'field-optional';
+                
+                if (fieldConfig.type === 'boolean') {
+                    fieldsHTML += `
+                        <div class="${fieldClass}">
+                            <label class="block text-white font-medium mb-2">${getFieldLabel(fieldName)} ${isRequired ? '*' : ''}</label>
+                            <select id="${fieldName}" ${isRequired ? 'required' : ''} class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="">-- Chọn --</option>
+                                <option value="true">Có</option>
+                                <option value="false">Không</option>
+                            </select>
+                        </div>
+                    `;
+                } else if (fieldConfig.enum) {
+                    fieldsHTML += `
+                        <div class="${fieldClass}">
+                            <label class="block text-white font-medium mb-2">${getFieldLabel(fieldName)} ${isRequired ? '*' : ''}</label>
+                            <select id="${fieldName}" ${isRequired ? 'required' : ''} class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="">-- Chọn ${getFieldLabel(fieldName).toLowerCase()} --</option>
+                                ${fieldConfig.enum.map(option => `<option value="${option}">${option}</option>`).join('')}
+                            </select>
+                        </div>
+                    `;
+                } else {
+                    fieldsHTML += `
+                        <div class="${fieldClass}">
+                            <label class="block text-white font-medium mb-2">${getFieldLabel(fieldName)} ${isRequired ? '*' : ''}</label>
+                            <input type="text" id="${fieldName}" ${isRequired ? 'required' : ''} class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="${getFieldLabel(fieldName)}">
+                        </div>
+                    `;
+                }
+            });
+
+            fieldsHTML += '</div>';
+            ingredientFields.innerHTML = fieldsHTML;
+        }
+
+        function generateSummaryFields() {
+            const summaryFields = document.getElementById('summaryFields');
+            summaryFields.innerHTML = `
+                <h3 class="text-xl font-semibold text-white mb-4">📝 Thông tin tóm tắt</h3>
+                <div class="space-y-6">
+                    <div class="field-optional">
+                        <label class="block text-white font-medium mb-2">Công dụng chính (mỗi dòng 1 lợi ích)</label>
+                        <textarea id="benefits" rows="4" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Hỗ trợ hấp thu Canxi&#10;Giúp xương răng chắc khỏe&#10;Thúc đẩy phát triển chiều cao"></textarea>
+                    </div>
+                    <div class="field-optional">
+                        <label class="block text-white font-medium mb-2">Thành phần chi tiết (mỗi dòng 1 thành phần)</label>
+                        <textarea id="ingredients" rows="3" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Vitamin D3 400 IU&#10;Vitamin K2 22.5mcg&#10;Dầu Olive"></textarea>
+                    </div>
+                    <div class="field-optional">
+                        <label class="block text-white font-medium mb-2">Đối tượng sử dụng</label>
+                        <input type="text" id="users" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Trẻ sơ sinh, trẻ nhỏ, người lớn">
+                    </div>
+                    <div class="field-optional">
+                        <label class="block text-white font-medium mb-2">Link sản phẩm</label>
+                        <input type="url" id="product_url" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="https://lineabon.vn/">
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper functions
+        function getFieldLabel(fieldName) {
+            const labels = {
+                'unit_count': 'Số lượng đơn vị',
+                'unit_name': 'Đơn vị',
+                'd3_iu': 'Vitamin D3',
+                'k2_mcg': 'Vitamin K2',
+                'dha_mg': 'DHA',
+                'epa_mg': 'EPA', 
+                'omega3_total': 'Tổng Omega-3',
+                'vitamin_c_mg': 'Vitamin C',
+                'zinc_mg': 'Kẽm',
+                'probiotics_cfu': 'Probiotics',
+                'iron_mg': 'Sắt',
+                'folic_acid_mcg': 'Axit Folic',
+                'd3_source': 'Nguồn gốc D3',
+                'has_k2': 'Có K2',
+                'omega3_source': 'Nguồn gốc Omega-3',
+                'purity': 'Độ tinh khiết',
+                'flavor': 'Hương vị',
+                'has_probiotics': 'Có Probiotics',
+                'elderberry': 'Có Elderberry',
+                'natural_flavor': 'Hương vị tự nhiên',
+                'is_multivitamin': 'Là vitamin tổng hợp',
+                'iron_type': 'Loại Sắt',
+                'folate_type': 'Loại Folate'
+            };
+            return labels[fieldName] || fieldName;
+        }
+
+        function getAgeGroupLabel(ageGroup) {
+            const labels = {
+                'duoi_1_tuoi': 'Dưới 1 tuổi',
+                'tu_1_den_3_tuoi': '1-3 tuổi',
+                'tu_3_den_12_tuoi': '3-12 tuổi',
+                'tu_12_den_18_tuoi': '12-18 tuổi',
+                'thai_ky': 'Thai kỳ',
+                'cho_con_bu': 'Cho con bú',
+                'phu_nu': 'Phụ nữ',
+                'thieu_nu': 'Thiếu nữ'
+            };
+            return labels[ageGroup] || ageGroup;
+        }
+
+        function getFormText(form) {
+            const forms = {
+                'drops': 'Nhỏ giọt',
+                'spray': 'Xịt',
+                'tablets': 'Viên nén',
+                'capsules': 'Viên nang',
+                'softgels': 'Viên mềm',
+                'syrup': 'Siro',
+                'chewable': 'Viên nhai',
+                'gummies': 'Kẹo dẻo',
+                'lozenges': 'Viên ngậm',
+                'squeeze': 'Gói ép'
+            };
+            return forms[form] || form;
+        }
+
+        // Validation functions
+        function validateProduct() {
+            const results = [];
+            const form = document.getElementById('smartProductForm');
+            
+            // Validate basic required fields
+            const requiredFields = ['name', 'brand', 'price', 'origin_country', 'form'];
+            requiredFields.forEach(fieldName => {
+                const field = document.getElementById(fieldName);
+                if (field && field.hasAttribute('required') && !field.value.trim()) {
+                    results.push({
+                        type: 'error',
+                        field: fieldName,
+                        message: `${getFieldLabel(fieldName)} là trường bắt buộc`
+                    });
+                    field.classList.add('validation-error');
+                } else if (field) {
+                    field.classList.remove('validation-error');
+                    field.classList.add('validation-success');
+                }
+            });
+
+            // Validate nutritional fields based on schema
+            if (currentSchema && currentSchema.declared_dose) {
+                Object.entries(currentSchema.declared_dose).forEach(([fieldName, fieldConfig]) => {
+                    const field = document.getElementById(fieldName);
+                    if (field && fieldConfig.required && !field.value.trim()) {
+                        results.push({
+                            type: 'error',
+                            field: fieldName,
+                            message: `${getFieldLabel(fieldName)} là trường bắt buộc`
+                        });
+                        field.classList.add('validation-error');
+                    } else if (field && field.value && fieldConfig.type === 'number') {
+                        const value = parseFloat(field.value);
+                        if (fieldConfig.min !== undefined && value < fieldConfig.min) {
+                            results.push({
+                                type: 'warning',
+                                field: fieldName,
+                                message: `${getFieldLabel(fieldName)} không nên nhỏ hơn ${fieldConfig.min}`
+                            });
+                        }
+                        if (fieldConfig.max !== undefined && value > fieldConfig.max) {
+                            results.push({
+                                type: 'warning',
+                                field: fieldName,
+                                message: `${getFieldLabel(fieldName)} không nên lớn hơn ${fieldConfig.max}`
+                            });
+                        }
+                        if (field.classList.contains('validation-error')) {
+                            field.classList.remove('validation-error');
+                        }
+                        field.classList.add('validation-success');
+                    }
+                });
+            }
+
+            // Validate ingredient details
+            if (currentSchema && currentSchema.ingredients_details) {
+                Object.entries(currentSchema.ingredients_details).forEach(([fieldName, fieldConfig]) => {
+                    const field = document.getElementById(fieldName);
+                    if (field && fieldConfig.required && !field.value.trim()) {
+                        results.push({
+                            type: 'error',
+                            field: fieldName,
+                            message: `${getFieldLabel(fieldName)} là trường bắt buộc`
+                        });
+                        field.classList.add('validation-error');
+                    } else if (field) {
+                        field.classList.remove('validation-error');
+                        if (field.value.trim()) {
+                            field.classList.add('validation-success');
+                        }
+                    }
+                });
+            }
+
+            displayValidationResults(results);
+            return results.filter(r => r.type === 'error').length === 0;
+        }
+
+        function displayValidationResults(results) {
+            const container = document.getElementById('validationResults');
+            const content = document.getElementById('validationContent');
+            
+            if (results.length === 0) {
+                content.innerHTML = '<div class="text-green-400 font-semibold">✅ Tất cả dữ liệu hợp lệ!</div>';
+            } else {
+                const errorsHTML = results.map(result => {
+                    const color = result.type === 'error' ? 'text-red-400' : 'text-yellow-400';
+                    const icon = result.type === 'error' ? '❌' : '⚠️';
+                    return `<div class="${color} mb-2">${icon} ${result.message}</div>`;
+                }).join('');
+                content.innerHTML = errorsHTML;
+            }
+            
+            container.classList.remove('hidden');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSchemas();
+            
+            // Category selection
+            document.getElementById('categorySelect').addEventListener('change', function() {
+                const category = this.value;
+                if (category) {
+                    generateDynamicForm(category);
+                } else {
+                    document.getElementById('dynamicFormContainer').classList.add('hidden');
+                }
+            });
+
+            // Toggle schema info
+            document.getElementById('toggleSchemaInfo').addEventListener('click', function() {
+                document.getElementById('schemaDetails').classList.toggle('hidden');
+            });
+
+            // Validate button
+            document.getElementById('validateBtn').addEventListener('click', validateProduct);
+
+            // Preview button
+            document.getElementById('previewBtn').addEventListener('click', function() {
+                if (validateProduct()) {
+                    showPreview();
+                }
+            });
+
+            // Form submission
+            document.getElementById('smartProductForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateProduct()) {
+                    saveProduct();
+                }
+            });
+
+            // Close preview
+            document.getElementById('closePreview').addEventListener('click', function() {
+                document.getElementById('previewModal').classList.add('hidden');
+            });
+
+            // Export buttons
+            document.getElementById('exportSchemaBtn').addEventListener('click', exportSchema);
+            document.getElementById('exportDataBtn').addEventListener('click', exportData);
+            
+            // Import file
+            document.getElementById('importFile').addEventListener('change', importData);
+        });
+
+        function showPreview() {
+            // Collect form data and show preview
+            const formData = collectFormData();
+            const previewHTML = generatePreviewHTML(formData);
+            
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            document.getElementById('previewModal').classList.remove('hidden');
+        }
+
+        function collectFormData() {
+            // Collect all form data based on current schema
+            const data = {
+                id: Date.now(),
+                category: currentCategory,
+                name: document.getElementById('name').value,
+                brand: document.getElementById('brand').value,
+                price: parseInt(document.getElementById('price').value) || 0,
+                origin: {
+                    country: document.getElementById('origin_country').value,
+                    continent: 'Châu Á' // Default
+                },
+                form: document.getElementById('form').value,
+                rating: parseFloat(document.getElementById('rating').value) || 4.5,
+                reviews: Math.floor(Math.random() * 200) + 50,
+                product_url: document.getElementById('product_url').value || '#'
+            };
+
+            // Collect declared_dose
+            data.declared_dose = {};
+            if (currentSchema && currentSchema.declared_dose) {
+                Object.keys(currentSchema.declared_dose).forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    if (field && field.value) {
+                        if (currentSchema.declared_dose[fieldName].type === 'number') {
+                            data.declared_dose[fieldName] = parseFloat(field.value);
+                        } else {
+                            data.declared_dose[fieldName] = field.value;
+                        }
+                    }
+                });
+            }
+
+            // Collect ingredients_details
+            data.ingredients_details = {};
+            if (currentSchema && currentSchema.ingredients_details) {
+                Object.keys(currentSchema.ingredients_details).forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    if (field && field.value) {
+                        if (currentSchema.ingredients_details[fieldName].type === 'boolean') {
+                            data.ingredients_details[fieldName] = field.value === 'true';
+                        } else {
+                            data.ingredients_details[fieldName] = field.value;
+                        }
+                    }
+                });
+            }
+
+            // Collect summary
+            data.summary = {
+                benefits: document.getElementById('benefits').value.split('\n').filter(b => b.trim()),
+                ingredients: document.getElementById('ingredients').value.split('\n').filter(i => i.trim()),
+                users: document.getElementById('users').value
+            };
+
+            return data;
+        }
+
+        function generatePreviewHTML(data) {
+            return `
+                <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
+                    <h4 class="text-2xl font-bold mb-2">${data.name}</h4>
+                    <p class="text-white/80 mb-4">${data.brand} - ${data.origin.country}</p>
+                    <div class="text-3xl font-bold mb-6">${data.price.toLocaleString('vi-VN')}₫</div>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h5 class="font-semibold mb-2">Thành phần chính:</h5>
+                            ${Object.entries(data.declared_dose).map(([key, value]) => 
+                                `<p class="text-sm">${getFieldLabel(key)}: ${value} ${currentSchema.declared_dose[key]?.unit || ''}</p>`
+                            ).join('')}
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-2">Chi tiết:</h5>
+                            ${Object.entries(data.ingredients_details).map(([key, value]) => 
+                                `<p class="text-sm">${getFieldLabel(key)}: ${value}</p>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    
+                    ${data.summary.benefits.length > 0 ? `
+                        <div class="mb-4">
+                            <h5 class="font-semibold mb-2">Công dụng:</h5>
+                            <ul class="text-sm list-disc list-inside space-y-1">
+                                ${data.summary.benefits.map(b => `<li>${b}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function saveProduct() {
+            const data = collectFormData();
+            currentData[currentCategory].push(data);
+            
+            alert('✅ Đã lưu sản phẩm thành công!');
+            document.getElementById('smartProductForm').reset();
+            
+            // Clear validation classes
+            document.querySelectorAll('.validation-error, .validation-success').forEach(el => {
+                el.classList.remove('validation-error', 'validation-success');
+            });
+            
+            document.getElementById('validationResults').classList.add('hidden');
+        }
+
+        function exportSchema() {
+            const dataStr = JSON.stringify(schemas, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'product-schemas.json';
+            link.click();
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(currentData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `products-data-${new Date().toISOString().slice(0,10)}.json`;
+            link.click();
+        }
+
+        function importData(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        currentData = importedData;
+                        alert('✅ Đã nhập dữ liệu thành công!');
+                    } catch (error) {
+                        alert('❌ File JSON không hợp lệ!');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+    </script>
+</body>
+</html>

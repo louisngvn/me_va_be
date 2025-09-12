@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV/Excel to JSON Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
+            <h1 class="text-3xl font-bold text-white mb-6">📊 CSV/Excel ➜ JSON Converter</h1>
+            
+            <!-- File Upload -->
+            <div class="mb-6">
+                <label class="block text-white font-medium mb-2">Upload CSV/Excel file:</label>
+                <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            </div>
+
+            <!-- Category Selection -->
+            <div class="mb-6">
+                <label class="block text-white font-medium mb-2">Danh mục:</label>
+                <select id="categorySelect" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white">
+                    <option value="xuong_rang">Xương, Răng & Chiều cao</option>
+                    <option value="nao_bo">Não bộ & Thị lực</option>
+                    <option value="de_khang">Đề kháng & Tiêu hóa</option>
+                    <option value="me_va_be">Phụ nữ & Thai kỳ</option>
+                </select>
+            </div>
+
+            <!-- Preview Area -->
+            <div id="previewArea" class="mb-6 hidden">
+                <h3 class="text-xl font-semibold text-white mb-4">📋 Dữ liệu đã đọc:</h3>
+                <div id="previewTable" class="bg-black/20 rounded-xl p-4 overflow-x-auto">
+                    <!-- Table will be inserted here -->
+                </div>
+            </div>
+
+            <!-- JSON Output -->
+            <div id="jsonOutput" class="mb-6 hidden">
+                <h3 class="text-xl font-semibold text-white mb-4">📄 JSON Output:</h3>
+                <textarea id="jsonTextarea" class="w-full h-64 px-4 py-3 bg-black/20 border border-white/20 rounded-xl text-white font-mono text-sm" readonly></textarea>
+                <div class="flex space-x-4 mt-4">
+                    <button id="copyJson" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors">
+                        📋 Copy JSON
+                    </button>
+                    <button id="downloadJson" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors">
+                        💾 Download JSON
+                    </button>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-6 text-white">
+                <h4 class="font-semibold mb-2">📝 Hướng dẫn sử dụng:</h4>
+                <ol class="list-decimal list-inside space-y-1 text-sm">
+                    <li>Tạo file Excel/CSV với các cột: name, brand, price, origin_country, form, ingredients, benefits, users</li>
+                    <li>Thêm các cột dinh dưỡng tùy theo danh mục (d3_iu, k2_mcg cho Xương Răng; dha_mg, epa_mg cho Não bộ...)</li>
+                    <li>Upload file và chọn danh mục phù hợp</li>
+                    <li>Copy JSON output và paste vào code website</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const categorySelect = document.getElementById('categorySelect');
+        const previewArea = document.getElementById('previewArea');
+        const previewTable = document.getElementById('previewTable');
+        const jsonOutput = document.getElementById('jsonOutput');
+        const jsonTextarea = document.getElementById('jsonTextarea');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const csv = e.target.result;
+                    const parsed = Papa.parse(csv, {
+                        header: true,
+                        skipEmptyLines: true
+                    });
+                    
+                    processData(parsed.data);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function processData(data) {
+            // Show preview
+            showPreview(data);
+            
+            // Convert to JSON format
+            const category = categorySelect.value;
+            const jsonData = convertToProductFormat(data, category);
+            
+            // Show JSON output
+            jsonTextarea.value = JSON.stringify(jsonData, null, 2);
+            jsonOutput.classList.remove('hidden');
+        }
+
+        function showPreview(data) {
+            if (data.length === 0) return;
+            
+            const headers = Object.keys(data[0]);
+            const tableHTML = `
+                <table class="min-w-full text-white text-sm">
+                    <thead>
+                        <tr class="bg-white/10">
+                            ${headers.map(h => `<th class="px-3 py-2 text-left">${h}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.slice(0, 5).map(row => `
+                            <tr class="border-b border-white/10">
+                                ${headers.map(h => `<td class="px-3 py-2">${row[h] || ''}</td>`).join('')}
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                ${data.length > 5 ? `<p class="text-white/60 mt-2 text-center">... và ${data.length - 5} dòng khác</p>` : ''}
+            `;
+            
+            previewTable.innerHTML = tableHTML;
+            previewArea.classList.remove('hidden');
+        }
+
+        function convertToProductFormat(data, category) {
+            return data.map((row, index) => {
+                const baseProduct = {
+                    id: Date.now() + index,
+                    category: category,
+                    name: row.name || '',
+                    brand: row.brand || '',
+                    price: parseInt(row.price) || 0,
+                    image: `https://placehold.co/300x300/667eea/white?text=${encodeURIComponent(row.name || 'Product')}`,
+                    origin: {
+                        country: row.origin_country || 'Việt Nam',
+                        continent: 'Châu Á'
+                    },
+                    form: row.form || 'tablets',
+                    declared_dose: getDeclaredDose(row, category),
+                    rating: parseFloat(row.rating) || 4.5,
+                    reviews: parseInt(row.reviews) || Math.floor(Math.random() * 200) + 50,
+                    product_url: row.product_url || '#',
+                    summary: {
+                        benefits: (row.benefits || '').split('|').filter(b => b.trim()),
+                        ingredients: (row.ingredients || '').split('|').filter(i => i.trim()),
+                        users: row.users || ''
+                    }
+                };
+                
+                return baseProduct;
+            });
+        }
+
+        function getDeclaredDose(row, category) {
+            const dose = {
+                unit_count: parseInt(row.unit_count) || 1,
+                unit_name: row.unit_name || 'viên'
+            };
+            
+            switch(category) {
+                case 'xuong_rang':
+                    dose.d3_iu = parseFloat(row.d3_iu) || 0;
+                    dose.k2_mcg = parseFloat(row.k2_mcg) || 0;
+                    break;
+                case 'nao_bo':
+                    dose.dha_mg = parseFloat(row.dha_mg) || 0;
+                    dose.epa_mg = parseFloat(row.epa_mg) || 0;
+                    dose.omega3_total = parseFloat(row.omega3_total) || 0;
+                    break;
+                case 'de_khang':
+                    dose.vitamin_c_mg = parseFloat(row.vitamin_c_mg) || 0;
+                    dose.zinc_mg = parseFloat(row.zinc_mg) || 0;
+                    dose.probiotics_cfu = parseFloat(row.probiotics_cfu) || 0;
+                    break;
+                case 'me_va_be':
+                    dose.iron_mg = parseFloat(row.iron_mg) || 0;
+                    dose.folic_acid_mcg = parseFloat(row.folic_acid_mcg) || 0;
+                    dose.dha_mg = parseFloat(row.dha_mg) || 0;
+                    break;
+            }
+            
+            return dose;
+        }
+
+        // Copy JSON
+        document.getElementById('copyJson').addEventListener('click', function() {
+            jsonTextarea.select();
+            document.execCommand('copy');
+            
+            this.textContent = '✅ Đã copy!';
+            setTimeout(() => {
+                this.textContent = '📋 Copy JSON';
+            }, 2000);
+        });
+
+        // Download JSON
+        document.getElementById('downloadJson').addEventListener('click', function() {
+            const category = categorySelect.value;
+            const dataStr = jsonTextarea.value;
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `products-${category}-${new Date().toISOString().slice(0,10)}.json`;
+            link.click();
+        });
+    </script>
+</body>
+</html>
