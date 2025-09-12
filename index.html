@@ -225,7 +225,7 @@
                     <a href="index.html" class="hover:text-white transition-colors text-amber-200">Xương & Răng</a>
                     <a href="nao-bo.html" class="hover:text-white transition-colors">Não bộ & Thị lực</a>
                     <a href="de-khang.html" class="hover:text-white transition-colors">Đề kháng & Tiêu hóa</a>
-                    <a href="me-va-be.html" class="hover:text-white transition-colors">Mẹ & Bé</a>
+                    <a href="me-va-be.html" class="hover:text-white transition-colors">Phụ nữ & Thai kỳ</a>
                     <div class="relative" id="compare-menu-container">
                         <button id="compare-btn" class="px-4 py-2 bg-gradient-to-r from-amber-600 to-yellow-700 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center space-x-2 opacity-50" disabled>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -312,7 +312,7 @@
                 </div>
                 <span class="font-semibold text-white/50 text-center">Sắp ra mắt</span>
             </div>
-            <!-- Card 4: Mẹ & Bé -->
+            <!-- Card 4: Phụ nữ & Thai kỳ -->
             <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
                  <div class="text-center">
                     <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
@@ -320,7 +320,7 @@
                           <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.321h5.365c.414 0 .584.536.283.766l-4.34 3.16a.563.563 0 0 0-.182.635l1.63 5.85c.128.463-.386.848-.794.536l-4.82-3.522a.563.563 0 0 0-.666 0l-4.82 3.522c-.408.312-.922-.073-.794-.536l1.63-5.85a.563.563 0 0 0-.182-.635l-4.34-3.16c-.301-.23-.131-.766.283-.766h5.365a.563.563 0 0 0 .475-.321L11.48 3.5Z" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Sức khỏe Phụ nữ & Thai kỳ</h3>
+                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Phụ nữ & Thai kỳ</h3>
                     <p class="text-sm text-white/70 mb-4">Sắt, Axit Folic, và các vitamin cho mẹ bầu & sau sinh.</p>
                 </div>
                 <span class="font-semibold text-white/50 text-center">Sắp ra mắt</span>
@@ -505,6 +505,21 @@
         document.addEventListener('DOMContentLoaded', function() {
             
             const app = {
+                // Affiliate URL mapping system for monetization
+                affiliateUrls: {
+                    // Format: productId: 'affiliate_url'
+                    // Example: 1: 'https://shopee.vn/product/123?affiliate=xyz',
+                    // Add affiliate URLs here for each product
+                    1: 'https://shopee.vn/lineabon-k2-d3?affiliate=example', // LineaBon K2+D3
+                    2: 'https://tiki.vn/bioamicus-d3k2?affiliate=example', // BioAmicus
+                    // Add more affiliate URLs as needed
+                },
+
+                // Get affiliate URL for a product (falls back to product_url if no affiliate URL)
+                getAffiliateUrl: function(productId, fallbackUrl) {
+                    return this.affiliateUrls[productId] || fallbackUrl;
+                },
+
                 products: [
                     {
                         id: 1, category: 'xuong_rang', name: 'LineaBon K2+D3', brand: 'ErgoPharm', image: 'https://placehold.co/300x300/667eea/white?text=LineaBon', price: 295000,
@@ -962,8 +977,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex gap-2 mt-3">
-                                                <a href="${product.product_url}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm">
-                                                    Nơi bán
+                                                <a href="${this.getAffiliateUrl(product.id, product.product_url)}" target="_blank" class="flex-1 block text-center px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm">
+                                                    💰 Mua ngay
                                                 </a>
                                                 <button class="flex-1 block text-center px-4 py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 text-sm flip-trigger">
                                                     Chi tiết
