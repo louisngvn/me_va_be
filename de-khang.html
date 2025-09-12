@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vi Chất Cho Mẹ và Bé - Sức đề kháng & Tiêu hóa</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="So sánh 20+ sản phẩm Vitamin C, Kẽm, Probiotics cho tăng cường sức đề kháng và tiêu hóa trẻ em tại Việt Nam. Tìm sản phẩm phù hợp với bộ lọc thông minh.">
+    <meta name="keywords" content="vitamin C, kẽm, probiotics, sức đề kháng trẻ em, tiêu hóa, hệ miễn dịch, vitamin tổng hợp">
+    
+    <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ec4899 0%, #f43f5e 25%, #ef4444 50%, #dc2626 75%, #b91c1c 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header-glass {
+            background-color: rgba(239, 68, 68, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #f43f5e 0%, #ef4444 50%, #dc2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover:hover .flip-card-front {
+             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.5); }
+        
+        /* Product card selected state */
+        .product-card.selected .flip-card-front {
+            border: 2px solid #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* Line clamp utility */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Style cho accordion filter */
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #f3f4f6; /* text-gray-100 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        details > summary::after {
+            content: '›';
+            transform: rotate(90deg);
+            transition: transform 0.2s;
+            font-size: 1.5em;
+        }
+        details[open] > summary::after {
+            transform: rotate(-90deg);
+        }
+        .comparison-bar {
+            transition: width 0.5s ease-in-out;
+        }
+
+        .underline-reveal {
+            position: relative;
+            display: inline-block;
+            color: #FFF8E1;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        .underline-reveal::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -8px;
+            left: 0;
+            background-color: #FFE0E6;
+            transform: scaleX(0);
+            animation: sweep-underline 3s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        @keyframes sweep-underline {
+            0% { transform: scaleX(0); transform-origin: left; }
+            45% { transform: scaleX(1); transform-origin: left; }
+            55% { transform: scaleX(1); transform-origin: right; }
+            100% { transform: scaleX(0); transform-origin: right; }
+        }
+
+        /* --- FLIP CARD STYLES --- */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 520px; /* Fixed height for consistency */
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.is-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 1.5rem; /* rounded-3xl */
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .flip-card-back h4 {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #FFE0E6;
+        }
+        .flip-card-back ul {
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 0.9rem;
+            color: white;
+            opacity: 0.9;
+            flex-grow: 1;
+        }
+        .flip-card-back ul li {
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        .flip-card-back ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #34D399; /* emerald-400 */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header with Glass Effect -->
+    <header class="header-glass sticky top-0 z-40 border-b border-white/20">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-red-600 to-pink-700 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold text-white">
+                        Vi Chất Cho Mẹ và Bé
+                    </h1>
+                </div>
+                <nav class="hidden md:flex space-x-6 text-white/80 font-medium items-center">
+                    <a href="index.html" class="hover:text-white transition-colors">Xương & Răng</a>
+                    <a href="nao-bo.html" class="hover:text-white transition-colors">Não bộ & Thị lực</a>
+                    <a href="de-khang.html" class="hover:text-white transition-colors text-pink-200">Đề kháng & Tiêu hóa</a>
+                    <a href="me-va-be.html" class="hover:text-white transition-colors">Mẹ & Bé</a>
+                    <div class="relative" id="compare-menu-container">
+                        <button id="compare-btn" class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-700 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center space-x-2 opacity-50" disabled>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            <span>So sánh (<span id="compare-count">0</span>)</span>
+                        </button>
+                        <div id="compare-dropdown" class="hidden absolute top-full mt-2 w-56 rounded-xl glass-effect text-white p-2 z-50">
+                            <a href="#" data-compare-type="dosage" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh liều dùng</a>
+                            <a href="#" data-compare-type="cost" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh chi phí/ngày</a>
+                            <a href="#" data-compare-type="vitamin_c" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh hàm lượng Vitamin C</a>
+                            <a href="#" data-compare-type="zinc" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh hàm lượng Kẽm</a>
+                        </div>
+                    </div>
+                    <a href="expert.html" class="hover:text-white transition-colors">Chuyên gia</a>
+                </nav>
+                <button class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="container mx-auto px-4 text-center">
+            <div class="floating-animation">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    <span class="text-white/90">Tăng cường sức đề kháng,</span><br>
+                    <span class="underline-reveal">tiêu hóa khỏe mạnh</span>
+                </h2>
+                <p class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-8 leading-relaxed">
+                    Tìm sản phẩm Vitamin C, Kẽm, Probiotics tốt nhất để tăng cường hệ miễn dịch và hỗ trợ tiêu hóa cho bé.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-gradient-to-r from-red-600 to-pink-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                        Xem Sản Phẩm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Categories Section -->
+    <section id="product-categories" class="container mx-auto px-4 md:px-8 -mt-16 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Card 1: Xương, Răng -->
+            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
+                <div class="text-center">
+                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Xương, Răng & Chiều cao</h3>
+                    <p class="text-sm text-white/70 mb-4">Vitamin D3, K2, Canxi và các khoáng chất thiết yếu.</p>
+                </div>
+                <a href="index.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
+            </div>
+            <!-- Card 2: Não bộ -->
+            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
+                <div class="text-center">
+                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Phát triển Não bộ & Thị lực</h3>
+                    <p class="text-sm text-white/70 mb-4">DHA, Omega-3, và các dưỡng chất cho trí thông minh.</p>
+                </div>
+                <a href="nao-bo.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
+            </div>
+            <!-- Card 3: Đề kháng (Active) -->
+            <div class="glass-effect p-6 rounded-3xl text-white card-hover border-2 border-rose-400 shadow-lg flex flex-col justify-between">
+                <div class="text-center">
+                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-rose-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Tăng cường Sức đề kháng & Tiêu hóa</h3>
+                    <p class="text-sm text-white/70 mb-4">Vitamin C, Kẽm, Probiotics và vitamin tổng hợp.</p>
+                </div>
+                <a href="#products" class="font-semibold text-rose-300 hover:text-white text-center">Xem chi tiết ↓</a>
+            </div>
+            <!-- Card 4: Mẹ & Bé -->
+            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
+                <div class="text-center">
+                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-pink-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.321h5.365c.414 0 .584.536.283.766l-4.34 3.16a.563.563 0 0 0-.182.635l1.63 5.85c.128.463-.386.848-.794.536l-4.82-3.522a.563.563 0 0 0-.666 0l-4.82 3.522c-.408.312-.922-.073-.794-.536l1.63-5.85a.563.563 0 0 0-.182-.635l-4.34-3.16c-.301-.23-.131-.766.283-.766h5.365a.563.563 0 0 0 .475-.321L11.48 3.5Z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Sức khỏe Phụ nữ & Thai kỳ</h3>
+                    <p class="text-sm text-white/70 mb-4">Sắt, Axit Folic, và các vitamin cho mẹ bầu & sau sinh.</p>
+                </div>
+                <a href="me-va-be.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4 md:p-8 mt-16">
+        
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Enhanced Filter Sidebar -->
+            <aside class="w-full lg:w-1/4">
+                <div class="glass-effect p-6 rounded-3xl sticky top-24 fade-in">
+                    <h3 class="font-bold text-2xl mb-6 text-white flex items-center">
+                        <svg class="w-6 h-6 mr-3 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                        </svg>
+                        Bộ Lọc Thông Minh
+                    </h3>
+                    
+                    <!-- Vitamin C Content Filter -->
+                    <div class="mb-4 filter-group" data-filter-key="vitamin_c_content">
+                        <details class="text-white/90" open>
+                            <summary>Hàm lượng Vitamin C</summary>
+                            <div class="space-y-2 pt-2 pl-4">
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="<50" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>Dưới 50mg/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="50-100" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>50-100mg/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="100-200" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>100-200mg/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value=">200" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>Trên 200mg/Liều</span>
+                                </label>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Zinc Content Filter -->
+                    <div class="mb-4 filter-group" data-filter-key="zinc_content">
+                        <details class="text-white/90" open>
+                            <summary>Hàm lượng Kẽm</summary>
+                            <div class="space-y-2 pt-2 pl-4">
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="<5" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>Dưới 5mg/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="5-10" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>5-10mg/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="10-15" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>10-15mg/Liều</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value=">15" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>Trên 15mg/Liều</span>
+                                </label>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Probiotics Filter -->
+                    <div class="mb-4 filter-group" data-filter-key="has_probiotics">
+                        <details class="text-white/90" open>
+                            <summary>Chứa Probiotics</summary>
+                            <div class="space-y-2 pt-2 pl-4">
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="radio" name="probiotics_filter" value="all" class="text-rose-500 focus:ring-rose-500" checked>
+                                    <span>Tất cả</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="radio" name="probiotics_filter" value="true" class="text-rose-500 focus:ring-rose-500">
+                                    <span>Có Probiotics</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="radio" name="probiotics_filter" value="false" class="text-rose-500 focus:ring-rose-500">
+                                    <span>Không có Probiotics</span>
+                                </label>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Age Group Filter -->
+                    <div class="mb-4 filter-group" data-filter-key="age_group">
+                        <details class="text-white/90" open>
+                            <summary>Nhóm tuổi phù hợp</summary>
+                            <div class="space-y-2 pt-2 pl-4">
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="0-1" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>0-1 tuổi</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="1-3" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>1-3 tuổi</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="3-12" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>3-12 tuổi</span>
+                                </label>
+                                <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                    <input type="checkbox" value="12+" class="rounded text-rose-500 focus:ring-rose-500">
+                                    <span>Trên 12 tuổi</span>
+                                </label>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Origin Filter -->
+                    <div class="mb-4 filter-group" data-filter-key="country">
+                        <details class="text-white/90">
+                            <summary>Xuất Xứ</summary>
+                            <div class="space-y-2 pt-2" id="origin-filter">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Clear Filters Button -->
+                    <button id="clear-filters" class="w-full mt-4 px-4 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                        Xóa Bộ Lọc
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Products Grid -->
+            <main class="w-full lg:w-3/4" id="products">
+                <h2 class="text-4xl font-bold text-white text-center mb-8">
+                    Sản phẩm Tăng cường Sức đề kháng & Tiêu hóa
+                </h2>
+                <!-- Search and Sort -->
+                <div class="glass-effect p-6 rounded-3xl mb-8 fade-in">
+                    <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                        <div class="relative flex-1 max-w-md w-full">
+                            <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." 
+                                   class="w-full px-4 py-3 pl-12 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+                            <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <select id="sort-select" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+                                <option value="name">Sắp xếp theo tên</option>
+                                <option value="price_low">Giá thấp đến cao</option>
+                                <option value="price_high">Giá cao đến thấp</option>
+                                <option value="rating">Đánh giá cao nhất</option>
+                                <option value="vitamin_c_high">Hàm lượng Vitamin C cao nhất</option>
+                            </select>
+                            <div id="product-count" class="text-white/80 font-medium"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Products will be inserted here by JavaScript -->
+                </div>
+
+                <!-- No Results -->
+                <div id="no-results" class="hidden text-center py-16">
+                    <div class="glass-effect p-12 rounded-3xl">
+                        <svg class="mx-auto h-16 w-16 text-white/60 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <h3 class="text-2xl font-bold text-white mb-2">Không tìm thấy sản phẩm</h3>
+                        <p class="text-white/70">Vui lòng thử lại với bộ lọc khác hoặc từ khóa tìm kiếm khác.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div id="comparison-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="glass-effect max-w-6xl w-full rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white flex items-center">
+                    <svg class="w-6 h-6 mr-3 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    So Sánh Sản Phẩm
+                </h3>
+                <button id="comparison-close" class="text-white/60 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="comparison-content" class="comparison-table">
+                <!-- Comparison table will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification glass-effect p-4 rounded-xl text-white">
+        <div class="flex items-center space-x-3">
+            <svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span id="notification-text">Đã thêm vào danh sách so sánh</span>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const app = {
+                products: [
+                    {
+                        id: 201, category: 'de_khang', name: 'Sambucol Black Elderberry Kids', brand: 'Sambucol', image: 'https://placehold.co/300x300/ec4899/white?text=Sambucol+Kids', price: 380000,
+                        volume_ml: 120, total_doses_per_bottle: 24, origin: {country: 'Israel', continent: 'Châu Á'}, form: 'syrup',
+                        declared_dose: { unit_count: 5, unit_name: 'ml', vitamin_c_mg: 50, zinc_mg: 0, probiotics_cfu: 0 },
+                        dosage_recommendation: { 'tu_1_den_3_tuoi': { min: 2.5, max: 5, unit: 'ml' }, 'tu_3_den_12_tuoi': { min: 5, max: 10, unit: 'ml' } },
+                        ingredients_details: { has_probiotics: false, elderberry: true, natural_flavor: 'Raspberry' },
+                        rating: 4.7, reviews: 156, product_url: 'https://sambucol.vn/',
+                        summary: {
+                            benefits: [
+                                'Tăng cường hệ miễn dịch tự nhiên với chiết xuất quả Elderberry đen.',
+                                'Giàu Vitamin C và chất chống oxi hóa anthocyanin.',
+                                'Giúp giảm thời gian và mức độ nghiêm trọng của cảm lạnh.',
+                                'Vị raspberry tự nhiên, trẻ thích uống.'
+                            ],
+                            ingredients: [
+                                'Chiết xuất quả Elderberry đen (Sambucus nigra)',
+                                'Vitamin C 50mg',
+                                'Glucose syrup',
+                                'Hương raspberry tự nhiên'
+                            ],
+                            users: 'Trẻ từ 1-12 tuổi.'
+                        }
+                    },
+                    {
+                        id: 202, category: 'de_khang', name: 'Kirkland Signature Children\'s Chewable Vitamin C', brand: 'Kirkland', image: 'https://placehold.co/300x300/f43f5e/white?text=Kirkland+Vit+C', price: 450000,
+                        volume_ml: 0, total_doses_per_bottle: 110, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'chewable',
+                        declared_dose: { unit_count: 1, unit_name: 'viên', vitamin_c_mg: 250, zinc_mg: 0, probiotics_cfu: 0 },
+                        dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 2, unit: 'viên' } },
+                        ingredients_details: { has_probiotics: false, elderberry: false, natural_flavor: 'Orange' },
+                        rating: 4.5, reviews: 203, product_url: 'https://costco.vn/',
+                        summary: {
+                            benefits: [
+                                'Vitamin C liều cao 250mg giúp tăng cường miễn dịch.',
+                                'Viên nhai vị cam ngon, dễ sử dụng.',
+                                'Hỗ trợ sản sinh collagen, tốt cho da và răng.',
+                                'Chất lượng Kirkland đáng tin cậy.'
+                            ],
+                            ingredients: [
+                                'Vitamin C (Ascorbic Acid) 250mg',
+                                'Sorbitol, Mannitol',
+                                'Hương cam tự nhiên',
+                                'Stevia leaf extract'
+                            ],
+                            users: 'Trẻ từ 3-12 tuổi có thể nhai được.'
+                        }
+                    },
+                    {
+                        id: 203, category: 'de_khang', name: 'Zincovit Syrup for Kids', brand: 'Apex Laboratories', image: 'https://placehold.co/300x300/ef4444/white?text=Zincovit+Kids', price: 320000,
+                        volume_ml: 200, total_doses_per_bottle: 40, origin: {country: 'Ấn Độ', continent: 'Châu Á'}, form: 'syrup',
+                        declared_dose: { unit_count: 5, unit_name: 'ml', vitamin_c_mg: 40, zinc_mg: 10, probiotics_cfu: 0 },
+                        dosage_recommendation: { 'tu_1_den_3_tuoi': { min: 2.5, max: 5, unit: 'ml' }, 'tu_3_den_12_tuoi': { min: 5, max: 10, unit: 'ml' } },
+                        ingredients_details: { has_probiotics: false, multivitamin: true, natural_flavor: 'Mixed fruit' },
+                        rating: 4.3, reviews: 128, product_url: 'https://apex-pharma.vn/',
+                        summary: {
+                            benefits: [
+                                'Kết hợp Vitamin C và Kẽm tăng cường miễn dịch.',
+                                'Bổ sung vitamin nhóm B hỗ trợ tăng trưởng.',
+                                'Kích thích ăn ngon, tăng cân khỏe mạnh.',
+                                'Giúp trẻ phục hồi nhanh sau ốm.'
+                            ],
+                            ingredients: [
+                                'Vitamin C 40mg',
+                                'Kẽm gluconate 10mg',
+                                'Vitamin B1, B2, B6',
+                                'Lysine, Iron'
+                            ],
+                            users: 'Trẻ từ 1-12 tuổi, đặc biệt trẻ biếng ăn.'
+                        }
+                    },
+                    {
+                        id: 204, category: 'de_khang', name: 'BioGaia Protectis Drops', brand: 'BioGaia', image: 'https://placehold.co/300x300/dc2626/white?text=BioGaia+Drops', price: 580000,
+                        volume_ml: 5, total_doses_per_bottle: 100, origin: {country: 'Thụy Điển', continent: 'Châu Âu'}, form: 'drops',
+                        declared_dose: { unit_count: 5, unit_name: 'giọt', vitamin_c_mg: 0, zinc_mg: 0, probiotics_cfu: 100000000 },
+                        dosage_recommendation: { 'duoi_1_tuoi': { min: 5, max: 5, unit: 'giọt' }, 'tu_1_den_3_tuoi': { min: 5, max: 10, unit: 'giọt' } },
+                        ingredients_details: { has_probiotics: true, lactobacillus_reuteri: true, natural_flavor: 'Neutral' },
+                        rating: 4.8, reviews: 267, product_url: 'https://biogaia.vn/',
+                        summary: {
+                            benefits: [
+                                'Probiotics Lactobacillus reuteri Protectis được nghiên cứu lâm sàng.',
+                                'Cân bằng hệ vi sinh đường ruột, giảm đau bụng.',
+                                'Tăng cường hệ miễn dịch từ ruột.',
+                                'An toàn cho trẻ sơ sinh từ ngày đầu đời.'
+                            ],
+                            ingredients: [
+                                'Lactobacillus reuteri Protectis 100 triệu CFU',
+                                'Dầu hướng dương',
+                                'Không chứa đường, lactose',
+                                'Không màu, không mùi'
+                            ],
+                            users: 'Trẻ sơ sinh và trẻ nhỏ đến 3 tuổi.'
+                        }
+                    },
+                    {
+                        id: 205, category: 'de_khang', name: 'Garden of Life Dr. Formulated Probiotics Kids', brand: 'Garden of Life', image: 'https://placehold.co/300x300/b91c1c/white?text=Garden+Probiotics', price: 680000,
+                        volume_ml: 0, total_doses_per_bottle: 30, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'chewable',
+                        declared_dose: { unit_count: 1, unit_name: 'viên', vitamin_c_mg: 30, zinc_mg: 0, probiotics_cfu: 5000000000 },
+                        dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 2, unit: 'viên' } },
+                        ingredients_details: { has_probiotics: true, multi_strain: true, natural_flavor: 'Cherry' },
+                        rating: 4.6, reviews: 189, product_url: 'https://gardenoflife.com/',
+                        summary: {
+                            benefits: [
+                                '14 chủng probiotics đa dạng 5 tỷ CFU.',
+                                'Hỗ trợ tiêu hóa và hấp thu dinh dưỡng tốt hơn.',
+                                'Tăng cường hệ miễn dịch toàn diện.',
+                                'Viên nhai vị cherry tự nhiên thơm ngon.'
+                            ],
+                            ingredients: [
+                                '14 chủng Probiotics 5 tỷ CFU',
+                                'Vitamin C 30mg',
+                                'Prebiotic fiber',
+                                'Hương cherry hữu cơ'
+                            ],
+                            users: 'Trẻ từ 3-12 tuổi.'
+                        }
+                    },
+                    {
+                        id: 206, category: 'de_khang', name: 'Nature\'s Way Zinc Lozenges for Kids', brand: 'Nature\'s Way', image: 'https://placehold.co/300x300/fda4af/white?text=Natures+Zinc', price: 350000,
+                        volume_ml: 0, total_doses_per_bottle: 60, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'lozenges',
+                        declared_dose: { unit_count: 1, unit_name: 'viên', vitamin_c_mg: 60, zinc_mg: 5, probiotics_cfu: 0 },
+                        dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 2, unit: 'viên' } },
+                        ingredients_details: { has_probiotics: false, elderberry: true, natural_flavor: 'Elderberry' },
+                        rating: 4.4, reviews: 112, product_url: 'https://naturesway.com/',
+                        summary: {
+                            benefits: [
+                                'Kết hợp Kẽm và Vitamin C tăng cường miễn dịch.',
+                                'Viên ngậm tan trong miệng, hấp thu nhanh.',
+                                'Chứa chiết xuất Elderberry tự nhiên.',
+                                'Hỗ trợ khi trẻ có dấu hiệu cảm lạnh.'
+                            ],
+                            ingredients: [
+                                'Kẽm gluconate 5mg',
+                                'Vitamin C 60mg',
+                                'Chiết xuất Elderberry',
+                                'Hương tự nhiên'
+                            ],
+                            users: 'Trẻ từ 3-12 tuổi khi có triệu chứng cảm lạnh.'
+                        }
+                    },
+                    {
+                        id: 207, category: 'de_khang', name: 'Culturelle Kids Probiotics Chewables', brand: 'Culturelle', image: 'https://placehold.co/300x300/f97316/white?text=Culturelle+Kids', price: 620000,
+                        volume_ml: 0, total_doses_per_bottle: 30, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'chewable',
+                        declared_dose: { unit_count: 1, unit_name: 'viên', vitamin_c_mg: 0, zinc_mg: 0, probiotics_cfu: 10000000000 },
+                        dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 1, unit: 'viên' } },
+                        ingredients_details: { has_probiotics: true, lactobacillus_gg: true, natural_flavor: 'Berry' },
+                        rating: 4.7, reviews: 225, product_url: 'https://culturelle.com/',
+                        summary: {
+                            benefits: [
+                                'Probiotics Lactobacillus GG được nghiên cứu nhiều nhất thế giới.',
+                                '10 tỷ CFU hỗ trợ cân bằng hệ vi sinh ruột.',
+                                'Giảm tiêu chảy do kháng sinh và cảm lạnh.',
+                                'Tăng cường hệ miễn dịch từ đường ruột.'
+                            ],
+                            ingredients: [
+                                'Lactobacillus rhamnosus GG 10 tỷ CFU',
+                                'Inulin (prebiotic)',
+                                'Hương berry tự nhiên',
+                                'Không đường, không gluten'
+                            ],
+                            users: 'Trẻ từ 3-12 tuổi, đặc biệt khi dùng kháng sinh.'
+                        }
+                    },
+                    {
+                        id: 208, category: 'de_khang', name: 'Immune Support Gummies for Kids', brand: 'SmartyPants', image: 'https://placehold.co/300x300/fb923c/white?text=SmartyPants', price: 520000,
+                        volume_ml: 0, total_doses_per_bottle: 60, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'gummies',
+                        declared_dose: { unit_count: 2, unit_name: 'viên', vitamin_c_mg: 90, zinc_mg: 8, probiotics_cfu: 0 },
+                        dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 2, max: 4, unit: 'viên' } },
+                        ingredients_details: { has_probiotics: false, vitamin_d3: true, natural_flavor: 'Mixed berry' },
+                        rating: 4.5, reviews: 178, product_url: 'https://smartypantsvitamins.com/',
+                        summary: {
+                            benefits: [
+                                'Kẹo dẻo vị mixed berry ngon như kẹo.',
+                                'Kết hợp Vitamin C, Kẽm và Vitamin D3.',
+                                'Hỗ trợ toàn diện hệ miễn dịch.',
+                                'Không chất tạo màu nhân tạo.'
+                            ],
+                            ingredients: [
+                                'Vitamin C 90mg',
+                                'Kẽm 8mg',
+                                'Vitamin D3 600 IU',
+                                'Vitamin E 15 IU'
+                            ],
+                            users: 'Trẻ từ 3-12 tuổi thích ăn kẹo.'
+                        }
+                    }
+                ],
+
+                selectedProducts: [],
+                
+                init: function() {
+                    this.initializeFilters();
+                    this.renderProducts(this.products.filter(p => p.category === 'de_khang'));
+                    this.setupEventListeners();
+                    this.updateProductCount(this.products.filter(p => p.category === 'de_khang').length);
+                },
+
+                initializeFilters: function() {
+                    const originFilter = document.getElementById('origin-filter');
+                    const originsByContinent = this.products.reduce((acc, p) => {
+                        if (!acc[p.origin.continent]) {
+                            acc[p.origin.continent] = new Set();
+                        }
+                        acc[p.origin.continent].add(p.origin.country);
+                        return acc;
+                    }, {});
+
+                    originFilter.innerHTML = Object.keys(originsByContinent).sort().map(continent => `
+                        <details class="text-white/90">
+                            <summary>${continent}</summary>
+                            <div class="space-y-2 pt-2 pl-4">
+                                ${[...originsByContinent[continent]].sort().map(country => `
+                                    <label class="flex items-center space-x-3 cursor-pointer text-white/80 hover:text-white transition-colors font-normal">
+                                        <input type="checkbox" value="${country}" class="rounded text-rose-500 focus:ring-rose-500">
+                                        <span>${country}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </details>
+                    `).join('');
+                },
+                
+                setupEventListeners: function() {
+                    document.getElementById('search-input').addEventListener('input', () => this.applyFilters());
+                    document.getElementById('sort-select').addEventListener('change', () => this.applyFilters());
+                    document.querySelectorAll('.filter-group input').forEach(input => {
+                        input.addEventListener('change', () => this.applyFilters());
+                    });
+                    document.getElementById('clear-filters').addEventListener('click', () => this.clearAllFilters());
+                    
+                    const compareMenu = document.getElementById('compare-menu-container');
+                    if (compareMenu) {
+                        compareMenu.addEventListener('click', (e) => {
+                            const compareBtn = e.target.closest('#compare-btn');
+                            const dropdown = document.getElementById('compare-dropdown');
+                            if(compareBtn && dropdown) {
+                                dropdown.classList.toggle('hidden');
+                            }
+                            if(e.target.dataset.compareType) {
+                                e.preventDefault();
+                                this.showComparison(e.target.dataset.compareType);
+                                if (dropdown) dropdown.classList.add('hidden');
+                            }
+                        });
+                    }
+
+                    const comparisonClose = document.getElementById('comparison-close');
+                    if(comparisonClose) {
+                        comparisonClose.addEventListener('click', () => {
+                            document.getElementById('comparison-modal').classList.add('hidden');
+                        });
+                    }
+
+                    const productGrid = document.getElementById('product-grid');
+                    if(productGrid){
+                        productGrid.addEventListener('click', (e) => {
+                            const flipTrigger = e.target.closest('.flip-trigger');
+                            if (flipTrigger) {
+                                const card = flipTrigger.closest('.flip-card');
+                                if (card) card.classList.toggle('is-flipped');
+                            }
+                            
+                            const compareToggle = e.target.closest('.compare-toggle');
+                            if (compareToggle) {
+                                const productId = parseInt(compareToggle.dataset.productId);
+                                this.toggleProductSelection(productId);
+                            }
+                        });
+                    }
+                },
+
+                applyFilters: function() {
+                    const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+                    const sortBy = document.getElementById('sort-select').value;
+                    
+                    let filteredProducts = this.products.filter(p => p.category === 'de_khang');
+                    
+                    // Apply search filter
+                    if (searchTerm) {
+                        filteredProducts = filteredProducts.filter(p => 
+                            p.name.toLowerCase().includes(searchTerm) ||
+                            p.brand.toLowerCase().includes(searchTerm) ||
+                            p.origin.country.toLowerCase().includes(searchTerm)
+                        );
+                    }
+
+                    // Apply Vitamin C content filter
+                    const vitCFilters = Array.from(document.querySelectorAll('[data-filter-key="vitamin_c_content"] input:checked')).map(input => input.value);
+                    if (vitCFilters.length > 0) {
+                        filteredProducts = filteredProducts.filter(p => {
+                            const vitC = p.declared_dose.vitamin_c_mg;
+                            return vitCFilters.some(filter => {
+                                if (filter === '<50') return vitC < 50;
+                                if (filter === '50-100') return vitC >= 50 && vitC <= 100;
+                                if (filter === '100-200') return vitC >= 100 && vitC <= 200;
+                                if (filter === '>200') return vitC > 200;
+                                return false;
+                            });
+                        });
+                    }
+
+                    // Apply Zinc content filter
+                    const zincFilters = Array.from(document.querySelectorAll('[data-filter-key="zinc_content"] input:checked')).map(input => input.value);
+                    if (zincFilters.length > 0) {
+                        filteredProducts = filteredProducts.filter(p => {
+                            const zinc = p.declared_dose.zinc_mg;
+                            return zincFilters.some(filter => {
+                                if (filter === '<5') return zinc < 5;
+                                if (filter === '5-10') return zinc >= 5 && zinc <= 10;
+                                if (filter === '10-15') return zinc >= 10 && zinc <= 15;
+                                if (filter === '>15') return zinc > 15;
+                                return false;
+                            });
+                        });
+                    }
+
+                    // Apply probiotics filter
+                    const probioticsFilter = document.querySelector('input[name="probiotics_filter"]:checked')?.value;
+                    if (probioticsFilter && probioticsFilter !== 'all') {
+                        const hasProbiotics = probioticsFilter === 'true';
+                        filteredProducts = filteredProducts.filter(p => p.ingredients_details.has_probiotics === hasProbiotics);
+                    }
+
+                    // Apply origin filter
+                    const originFilters = Array.from(document.querySelectorAll('[data-filter-key="country"] input:checked')).map(input => input.value);
+                    if (originFilters.length > 0) {
+                        filteredProducts = filteredProducts.filter(p => 
+                            originFilters.includes(p.origin.country)
+                        );
+                    }
+
+                    // Apply sorting
+                    this.sortProducts(filteredProducts, sortBy);
+                    
+                    this.renderProducts(filteredProducts);
+                    this.updateProductCount(filteredProducts.length);
+                },
+
+                sortProducts: function(products, sortBy) {
+                    switch(sortBy) {
+                        case 'name':
+                            products.sort((a, b) => a.name.localeCompare(b.name));
+                            break;
+                        case 'price_low':
+                            products.sort((a, b) => a.price - b.price);
+                            break;
+                        case 'price_high':
+                            products.sort((a, b) => b.price - a.price);
+                            break;
+                        case 'rating':
+                            products.sort((a, b) => b.rating - a.rating);
+                            break;
+                        case 'vitamin_c_high':
+                            products.sort((a, b) => b.declared_dose.vitamin_c_mg - a.declared_dose.vitamin_c_mg);
+                            break;
+                    }
+                },
+
+                renderProducts: function(products) {
+                    const productGrid = document.getElementById('product-grid');
+                    const noResults = document.getElementById('no-results');
+                    
+                    if (products.length === 0) {
+                        productGrid.classList.add('hidden');
+                        noResults.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    productGrid.classList.remove('hidden');
+                    noResults.classList.add('hidden');
+                    
+                    productGrid.innerHTML = products.map(product => `
+                        <div class="glass-effect rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 card-hover product-card ${this.selectedProducts.includes(product.id) ? 'selected' : ''}" data-product-id="${product.id}">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front glass-effect">
+                                        <div class="p-6">
+                                            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-2xl mb-4">
+                                            <h3 class="text-xl font-bold text-white mb-2 line-clamp-2">${product.name}</h3>
+                                            <p class="text-rose-200 text-sm mb-3">${product.brand} - ${product.origin.country}</p>
+                                            
+                                            <div class="space-y-2 mb-4">
+                                                ${product.declared_dose.vitamin_c_mg > 0 ? `
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-white/70 text-sm">Vitamin C:</span>
+                                                    <span class="text-rose-200 font-semibold">${product.declared_dose.vitamin_c_mg}mg</span>
+                                                </div>
+                                                ` : ''}
+                                                ${product.declared_dose.zinc_mg > 0 ? `
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-white/70 text-sm">Kẽm:</span>
+                                                    <span class="text-rose-200 font-semibold">${product.declared_dose.zinc_mg}mg</span>
+                                                </div>
+                                                ` : ''}
+                                                ${product.declared_dose.probiotics_cfu > 0 ? `
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-white/70 text-sm">Probiotics:</span>
+                                                    <span class="text-rose-200 font-semibold">${(product.declared_dose.probiotics_cfu / 1000000000).toFixed(1)}B CFU</span>
+                                                </div>
+                                                ` : ''}
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-white/70 text-sm">Dạng:</span>
+                                                    <span class="text-rose-200 font-semibold">${this.getFormText(product.form)}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="flex items-center space-x-1">
+                                                    ${Array.from({length: 5}, (_, i) => `
+                                                        <svg class="w-4 h-4 ${i < Math.floor(product.rating) ? 'text-yellow-400' : 'text-gray-400'}" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                                        </svg>
+                                                    `).join('')}
+                                                    <span class="text-white/70 text-sm ml-1">${product.rating} (${product.reviews})</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="text-center mb-4">
+                                                <span class="text-2xl font-bold text-white">${product.price.toLocaleString('vi-VN')}₫</span>
+                                                <p class="text-white/60 text-sm">${product.total_doses_per_bottle} liều</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="px-6 pb-6 space-y-3">
+                                            <button class="flip-trigger w-full px-4 py-2 bg-white/20 text-white rounded-xl hover:bg-white/30 transition-colors">
+                                                Xem Chi Tiết
+                                            </button>
+                                            <div class="grid grid-cols-2 gap-3">
+                                                <button class="compare-toggle px-4 py-2 ${this.selectedProducts.includes(product.id) ? 'bg-emerald-600 text-white' : 'bg-white/10 text-white/80'} rounded-xl hover:bg-emerald-600 hover:text-white transition-all" data-product-id="${product.id}">
+                                                    ${this.selectedProducts.includes(product.id) ? 'Đã chọn ✓' : 'So sánh'}
+                                                </button>
+                                                <a href="${product.product_url}" target="_blank" class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-700 text-white rounded-xl hover:shadow-lg transition-all text-center">
+                                                    Mua ngay
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flip-card-back glass-effect">
+                                        <button class="flip-trigger absolute top-4 right-4 text-white/60 hover:text-white z-10">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                        
+                                        <h4>Công dụng chính:</h4>
+                                        <ul class="mb-4">
+                                            ${product.summary.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                                        </ul>
+                                        
+                                        <h4>Thành phần:</h4>
+                                        <ul class="mb-4">
+                                            ${product.summary.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                                        </ul>
+                                        
+                                        <h4>Đối tượng sử dụng:</h4>
+                                        <p class="text-white/90 text-sm">${product.summary.users}</p>
+                                        
+                                        <div class="mt-4 pt-4 border-t border-white/20">
+                                            <div class="grid grid-cols-2 gap-3">
+                                                <button class="compare-toggle px-4 py-2 ${this.selectedProducts.includes(product.id) ? 'bg-emerald-600 text-white' : 'bg-white/10 text-white/80'} rounded-xl hover:bg-emerald-600 hover:text-white transition-all text-sm" data-product-id="${product.id}">
+                                                    ${this.selectedProducts.includes(product.id) ? 'Đã chọn ✓' : 'So sánh'}
+                                                </button>
+                                                <a href="${product.product_url}" target="_blank" class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-700 text-white rounded-xl hover:shadow-lg transition-all text-center text-sm">
+                                                    Mua ngay
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                },
+
+                getFormText: function(form) {
+                    const formTexts = {
+                        'drops': 'Dung dịch nhỏ giọt',
+                        'capsules': 'Viên nang',
+                        'chewable': 'Viên nhai',
+                        'syrup': 'Siro',
+                        'gummies': 'Kẹo dẻo',
+                        'lozenges': 'Viên ngậm'
+                    };
+                    return formTexts[form] || form;
+                },
+
+                toggleProductSelection: function(productId) {
+                    const index = this.selectedProducts.indexOf(productId);
+                    
+                    if (index === -1) {
+                        if (this.selectedProducts.length < 4) {
+                            this.selectedProducts.push(productId);
+                            this.showNotification('Đã thêm vào danh sách so sánh');
+                        } else {
+                            this.showNotification('Chỉ có thể so sánh tối đa 4 sản phẩm');
+                            return;
+                        }
+                    } else {
+                        this.selectedProducts.splice(index, 1);
+                        this.showNotification('Đã xóa khỏi danh sách so sánh');
+                    }
+                    
+                    this.updateCompareButton();
+                    this.updateProductCards();
+                },
+
+                updateCompareButton: function() {
+                    const compareBtn = document.getElementById('compare-btn');
+                    const compareCount = document.getElementById('compare-count');
+                    
+                    if (compareBtn && compareCount) {
+                        compareCount.textContent = this.selectedProducts.length;
+                        
+                        if (this.selectedProducts.length >= 2) {
+                            compareBtn.disabled = false;
+                            compareBtn.classList.remove('opacity-50');
+                        } else {
+                            compareBtn.disabled = true;
+                            compareBtn.classList.add('opacity-50');
+                        }
+                    }
+                },
+
+                updateProductCards: function() {
+                    const productCards = document.querySelectorAll('.product-card');
+                    productCards.forEach(card => {
+                        const productId = parseInt(card.dataset.productId);
+                        const compareButtons = card.querySelectorAll('.compare-toggle');
+                        
+                        if (this.selectedProducts.includes(productId)) {
+                            card.classList.add('selected');
+                            compareButtons.forEach(btn => {
+                                btn.classList.remove('bg-white/10', 'text-white/80');
+                                btn.classList.add('bg-emerald-600', 'text-white');
+                                btn.textContent = 'Đã chọn ✓';
+                            });
+                        } else {
+                            card.classList.remove('selected');
+                            compareButtons.forEach(btn => {
+                                btn.classList.remove('bg-emerald-600', 'text-white');
+                                btn.classList.add('bg-white/10', 'text-white/80');
+                                btn.textContent = 'So sánh';
+                            });
+                        }
+                    });
+                },
+
+                showNotification: function(message) {
+                    const notification = document.getElementById('notification');
+                    const notificationText = document.getElementById('notification-text');
+                    
+                    if (notification && notificationText) {
+                        notificationText.textContent = message;
+                        notification.classList.add('show');
+                        
+                        setTimeout(() => {
+                            notification.classList.remove('show');
+                        }, 3000);
+                    }
+                },
+
+                showComparison: function(type) {
+                    if (this.selectedProducts.length < 2) {
+                        this.showNotification('Vui lòng chọn ít nhất 2 sản phẩm để so sánh');
+                        return;
+                    }
+
+                    const modal = document.getElementById('comparison-modal');
+                    const content = document.getElementById('comparison-content');
+                    
+                    if (modal && content) {
+                        content.innerHTML = this.generateComparisonContent(type);
+                        modal.classList.remove('hidden');
+                    }
+                },
+
+                generateComparisonContent: function(type) {
+                    const selectedProductsData = this.products.filter(p => this.selectedProducts.includes(p.id));
+                    
+                    if (type === 'dosage') {
+                        return this.generateDosageComparison(selectedProductsData);
+                    } else if (type === 'cost') {
+                        return this.generateCostComparison(selectedProductsData);
+                    } else if (type === 'vitamin_c') {
+                        return this.generateVitaminCComparison(selectedProductsData);
+                    } else if (type === 'zinc') {
+                        return this.generateZincComparison(selectedProductsData);
+                    }
+                },
+
+                generateDosageComparison: function(products) {
+                    const ageGroups = [
+                        { key: 'tu_1_den_3_tuoi', name: '1-3 tuổi' },
+                        { key: 'tu_3_den_12_tuoi', name: '3-12 tuổi' }
+                    ];
+
+                    return `
+                        <div class="overflow-x-auto">
+                            <h4 class="text-xl font-bold text-white mb-4">So sánh liều dùng khuyến nghị theo nhóm tuổi</h4>
+                            ${ageGroups.map(group => `
+                                <div class="mb-6">
+                                    <h5 class="text-lg font-semibold text-rose-200 mb-3">${group.name}</h5>
+                                    <div class="space-y-2">
+                                        ${products.map(product => {
+                                            const dosage = product.dosage_recommendation[group.key];
+                                            if (!dosage) return '';
+                                            
+                                            const avgDosage = (dosage.min + dosage.max) / 2;
+                                            const maxValue = Math.max(...products.map(p => {
+                                                const d = p.dosage_recommendation[group.key];
+                                                return d ? (d.min + d.max) / 2 : 0;
+                                            }));
+                                            const percentage = (avgDosage / maxValue) * 100;
+                                            
+                                            return `
+                                                <div class="flex items-center space-x-4">
+                                                    <div class="w-40 text-white text-sm">${product.name}</div>
+                                                    <div class="flex-1 bg-white/20 rounded-full h-6 relative">
+                                                        <div class="comparison-bar bg-rose-500 h-full rounded-full transition-all duration-1000" style="width: ${percentage}%"></div>
+                                                        <span class="absolute inset-0 flex items-center justify-center text-white text-xs font-medium">
+                                                            ${dosage.min}-${dosage.max} ${dosage.unit}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                },
+
+                generateCostComparison: function(products) {
+                    return `
+                        <div class="overflow-x-auto">
+                            <h4 class="text-xl font-bold text-white mb-4">So sánh chi phí mỗi ngày</h4>
+                            <div class="space-y-3">
+                                ${products.map(product => {
+                                    const costPerDose = product.price / product.total_doses_per_bottle;
+                                    const costPerDay = costPerDose;
+                                    const maxCost = Math.max(...products.map(p => p.price / p.total_doses_per_bottle));
+                                    const percentage = (costPerDay / maxCost) * 100;
+                                    
+                                    return `
+                                        <div class="flex items-center space-x-4">
+                                            <div class="w-48 text-white text-sm">${product.name}</div>
+                                            <div class="flex-1 bg-white/20 rounded-full h-8 relative">
+                                                <div class="comparison-bar bg-gradient-to-r from-green-500 to-red-500 h-full rounded-full" style="width: ${percentage}%"></div>
+                                                <span class="absolute inset-0 flex items-center justify-center text-white text-sm font-medium">
+                                                    ${Math.round(costPerDay).toLocaleString('vi-VN')}₫/ngày
+                                                </span>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                },
+
+                generateVitaminCComparison: function(products) {
+                    return `
+                        <div class="overflow-x-auto">
+                            <h4 class="text-xl font-bold text-white mb-4">So sánh hàm lượng Vitamin C mỗi liều</h4>
+                            <div class="space-y-3">
+                                ${products.map(product => {
+                                    const vitCAmount = product.declared_dose.vitamin_c_mg;
+                                    const maxVitC = Math.max(...products.map(p => p.declared_dose.vitamin_c_mg));
+                                    const percentage = maxVitC > 0 ? (vitCAmount / maxVitC) * 100 : 0;
+                                    
+                                    return `
+                                        <div class="flex items-center space-x-4">
+                                            <div class="w-48 text-white text-sm">${product.name}</div>
+                                            <div class="flex-1 bg-white/20 rounded-full h-8 relative">
+                                                <div class="comparison-bar bg-gradient-to-r from-orange-500 to-red-500 h-full rounded-full" style="width: ${percentage}%"></div>
+                                                <span class="absolute inset-0 flex items-center justify-center text-white text-sm font-medium">
+                                                    ${vitCAmount}mg Vitamin C
+                                                </span>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                },
+
+                generateZincComparison: function(products) {
+                    return `
+                        <div class="overflow-x-auto">
+                            <h4 class="text-xl font-bold text-white mb-4">So sánh hàm lượng Kẽm mỗi liều</h4>
+                            <div class="space-y-3">
+                                ${products.map(product => {
+                                    const zincAmount = product.declared_dose.zinc_mg;
+                                    const maxZinc = Math.max(...products.map(p => p.declared_dose.zinc_mg));
+                                    const percentage = maxZinc > 0 ? (zincAmount / maxZinc) * 100 : 0;
+                                    
+                                    return `
+                                        <div class="flex items-center space-x-4">
+                                            <div class="w-48 text-white text-sm">${product.name}</div>
+                                            <div class="flex-1 bg-white/20 rounded-full h-8 relative">
+                                                <div class="comparison-bar bg-gradient-to-r from-blue-500 to-purple-500 h-full rounded-full" style="width: ${percentage}%"></div>
+                                                <span class="absolute inset-0 flex items-center justify-center text-white text-sm font-medium">
+                                                    ${zincAmount}mg Kẽm
+                                                </span>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                },
+
+                updateProductCount: function(count) {
+                    const productCountEl = document.getElementById('product-count');
+                    if (productCountEl) {
+                        productCountEl.textContent = `${count} sản phẩm`;
+                    }
+                },
+
+                clearAllFilters: function() {
+                    // Clear search
+                    document.getElementById('search-input').value = '';
+                    
+                    // Clear all checkboxes
+                    document.querySelectorAll('.filter-group input[type="checkbox"]').forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                    
+                    // Reset radio buttons
+                    document.querySelectorAll('.filter-group input[type="radio"][value="all"]').forEach(radio => {
+                        radio.checked = true;
+                    });
+                    
+                    // Reset sort
+                    document.getElementById('sort-select').value = 'name';
+                    
+                    // Re-apply filters
+                    this.applyFilters();
+                    
+                    this.showNotification('Đã xóa tất cả bộ lọc');
+                }
+            };
+
+            app.init();
+        });
+    </script>
+    
+</body>
+</html>
