@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Sản Phẩm - Vi Chất Cho Mẹ và Bé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-600 to-indigo-800 min-h-screen p-8">
+    
+    <div class="container mx-auto">
+        <h1 class="text-4xl font-bold text-white text-center mb-8">
+            🧠 Test Sản Phẩm Não Bộ & Thị Lực
+        </h1>
+        
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Products will be inserted here -->
+        </div>
+        
+        <div id="error-message" class="hidden mt-8 p-4 bg-red-500 text-white rounded-lg">
+            <h2 class="font-bold">❌ Lỗi JavaScript:</h2>
+            <div id="error-details"></div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🚀 Script bắt đầu chạy...');
+        
+        try {
+            // Test data đơn giản
+            const products = [
+                {
+                    id: 101,
+                    name: 'Nordic Naturals Baby DHA',
+                    brand: 'Nordic Naturals',
+                    price: 520000,
+                    image: 'https://placehold.co/300x300/3b82f6/white?text=Nordic+Baby+DHA',
+                    product_url: 'https://nordicnaturals.vn/',
+                    dha_mg: 37,
+                    omega3_total: 480
+                },
+                {
+                    id: 108,
+                    name: 'BioAmicus DHA',
+                    brand: 'BioAmicus',
+                    price: 385000,
+                    image: 'https://placehold.co/300x300/3b82f6/white?text=BioAmicus+DHA',
+                    product_url: 'https://bioamicus.vn/bioamicus-dha',
+                    dha_mg: 100,
+                    omega3_total: 140
+                }
+            ];
+            
+            console.log('📦 Có ' + products.length + ' sản phẩm');
+            
+            // Render products
+            const grid = document.getElementById('product-grid');
+            
+            if (!grid) {
+                throw new Error('Không tìm thấy element product-grid');
+            }
+            
+            grid.innerHTML = products.map(product => `
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-white">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="font-bold text-lg mb-2">${product.name}</h3>
+                    <p class="text-blue-200 mb-2">${product.brand}</p>
+                    <div class="mb-4">
+                        <p class="text-sm">DHA: ${product.dha_mg}mg</p>
+                        <p class="text-sm">Omega-3: ${product.omega3_total}mg</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold">${product.price.toLocaleString('vi-VN')}đ</span>
+                        <a href="${product.product_url}" target="_blank" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm font-semibold">
+                            Xem SP
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            
+            console.log('✅ Render sản phẩm thành công!');
+            
+        } catch (error) {
+            console.error('❌ Lỗi:', error);
+            
+            // Show error on page
+            document.getElementById('error-message').classList.remove('hidden');
+            document.getElementById('error-details').innerHTML = `
+                <p><strong>Message:</strong> ${error.message}</p>
+                <p><strong>Stack:</strong> ${error.stack}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

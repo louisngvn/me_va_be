@@ -70,6 +70,20 @@
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.5); }
         
+        /* Dropdown menu styles */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
         /* Product card selected state */
         .product-card.selected .flip-card-front {
             border: 2px solid #10b981;
@@ -224,10 +238,73 @@
                     </h1>
                 </div>
                 <nav class="hidden md:flex space-x-6 text-white/80 font-medium items-center">
-                    <a href="index.html" class="hover:text-white transition-colors">Xương & Răng</a>
-                    <a href="nao-bo.html" class="hover:text-white transition-colors">Não bộ & Thị lực</a>
-                    <a href="de-khang.html" class="hover:text-white transition-colors text-pink-200">Đề kháng & Tiêu hóa</a>
-                    <a href="me-va-be.html" class="hover:text-white transition-colors">Phụ nữ & Thai kỳ</a>
+                    <a href="index.html" class="hover:text-white transition-colors">Trang chủ</a>
+                    
+                    <!-- Dropdown Menu for Products -->
+                    <div class="relative dropdown">
+                        <button class="hover:text-white transition-colors flex items-center space-x-1">
+                            <span>Sản phẩm</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 rounded-xl bg-gray-900/95 backdrop-blur-lg border border-white/20 text-white p-3 shadow-xl z-50">
+                            <a href="xuong-rang.html" class="block px-4 py-3 text-sm hover:bg-white/20 rounded-lg transition-colors">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-amber-500/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Xương & Răng</div>
+                                        <div class="text-xs text-white/60">Vitamin D3, K2, Canxi</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="nao-bo.html" class="block px-4 py-3 text-sm hover:bg-white/20 rounded-lg transition-colors">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Não bộ & Thị lực</div>
+                                        <div class="text-xs text-white/60">DHA, Omega-3</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="de-khang.html" class="block px-4 py-3 text-sm hover:bg-white/20 rounded-lg transition-colors bg-rose-500/20">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-rose-500/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-rose-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Đề kháng & Tiêu hóa</div>
+                                        <div class="text-xs text-white/60">Vitamin C, Kẽm, Probiotics</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="me-va-be.html" class="block px-4 py-3 text-sm hover:bg-white/20 rounded-lg transition-colors">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Phụ nữ & Thai kỳ</div>
+                                        <div class="text-xs text-white/60">Sắt, Axit Folic</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <a href="expert.html" class="hover:text-white transition-colors">Chuyên gia</a>
                     <div class="relative" id="compare-menu-container">
                         <button id="compare-btn" class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-700 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center space-x-2 opacity-50" disabled>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -235,14 +312,13 @@
                             </svg>
                             <span>So sánh (<span id="compare-count">0</span>)</span>
                         </button>
-                        <div id="compare-dropdown" class="hidden absolute top-full mt-2 w-56 rounded-xl glass-effect text-white p-2 z-50">
-                            <a href="#" data-compare-type="dosage" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh liều dùng</a>
-                            <a href="#" data-compare-type="cost" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh chi phí/ngày</a>
-                            <a href="#" data-compare-type="vitamin_c" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh hàm lượng Vitamin C</a>
-                            <a href="#" data-compare-type="zinc" class="block px-4 py-2 text-sm hover:bg-white/10 rounded-lg">So sánh hàm lượng Kẽm</a>
+                        <div id="compare-dropdown" class="hidden absolute top-full mt-2 w-56 rounded-xl bg-gray-900/95 backdrop-blur-lg border border-white/20 text-white p-2 z-50">
+                            <a href="#" data-compare-type="dosage" class="block px-4 py-2 text-sm hover:bg-white/20 rounded-lg">So sánh liều dùng</a>
+                            <a href="#" data-compare-type="cost" class="block px-4 py-2 text-sm hover:bg-white/20 rounded-lg">So sánh chi phí/ngày</a>
+                            <a href="#" data-compare-type="vitamin_c" class="block px-4 py-2 text-sm hover:bg-white/20 rounded-lg">So sánh hàm lượng Vitamin C</a>
+                            <a href="#" data-compare-type="zinc" class="block px-4 py-2 text-sm hover:bg-white/20 rounded-lg">So sánh hàm lượng Kẽm</a>
                         </div>
                     </div>
-                    <a href="expert.html" class="hover:text-white transition-colors">Chuyên gia</a>
                 </nav>
                 <button class="md:hidden text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -273,63 +349,7 @@
         </div>
     </section>
 
-    <!-- Product Categories Section -->
-    <section id="product-categories" class="container mx-auto px-4 md:px-8 -mt-16 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Card 1: Xương, Răng -->
-            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
-                <div class="text-center">
-                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Xương, Răng & Chiều cao</h3>
-                    <p class="text-sm text-white/70 mb-4">Vitamin D3, K2, Canxi và các khoáng chất thiết yếu.</p>
-                </div>
-                <a href="index.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
-            </div>
-            <!-- Card 2: Não bộ -->
-            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
-                <div class="text-center">
-                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Phát triển Não bộ & Thị lực</h3>
-                    <p class="text-sm text-white/70 mb-4">DHA, Omega-3, và các dưỡng chất cho trí thông minh.</p>
-                </div>
-                <a href="nao-bo.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
-            </div>
-            <!-- Card 3: Đề kháng (Active) -->
-            <div class="glass-effect p-6 rounded-3xl text-white card-hover border-2 border-rose-400 shadow-lg flex flex-col justify-between">
-                <div class="text-center">
-                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-rose-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Tăng cường Sức đề kháng & Tiêu hóa</h3>
-                    <p class="text-sm text-white/70 mb-4">Vitamin C, Kẽm, Probiotics và vitamin tổng hợp.</p>
-                </div>
-                <a href="#products" class="font-semibold text-rose-300 hover:text-white text-center">Xem chi tiết ↓</a>
-            </div>
-            <!-- Card 4: Phụ nữ & Thai kỳ -->
-            <div class="glass-effect p-6 rounded-3xl text-white card-hover opacity-70 flex flex-col justify-between">
-                <div class="text-center">
-                    <div class="mx-auto w-16 h-16 mb-4 bg-white/20 rounded-full flex items-center justify-center">
-                        <svg class="w-8 h-8 text-pink-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.321h5.365c.414 0 .584.536.283.766l-4.34 3.16a.563.563 0 0 0-.182.635l1.63 5.85c.128.463-.386.848-.794.536l-4.82-3.522a.563.563 0 0 0-.666 0l-4.82 3.522c-.408.312-.922-.073-.794-.536l1.63-5.85a.563.563 0 0 0-.182-.635l-4.34-3.16c-.301-.23-.131-.766.283-.766h5.365a.563.563 0 0 0 .475-.321L11.48 3.5Z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Hỗ trợ Sức khỏe Phụ nữ & Thai kỳ</h3>
-                    <p class="text-sm text-white/70 mb-4">Sắt, Axit Folic, và các vitamin cho mẹ bầu & sau sinh.</p>
-                </div>
-                <a href="me-va-be.html" class="font-semibold text-emerald-300 hover:text-white text-center">Xem chi tiết ↓</a>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Main Content -->
     <div class="container mx-auto p-4 md:p-8 mt-16">
@@ -580,7 +600,7 @@
                         }
                     },
                     {
-                        id: 202, category: 'de_khang', name: 'Kirkland Signature Children\'s Chewable Vitamin C', brand: 'Kirkland', image: 'https://placehold.co/300x300/f43f5e/white?text=Kirkland+Vit+C', price: 450000,
+                        id: 202, category: 'de_khang', name: "Kirkland Signature Children's Chewable Vitamin C", brand: 'Kirkland', image: 'https://placehold.co/300x300/f43f5e/white?text=Kirkland+Vit+C', price: 450000,
                         volume_ml: 0, total_doses_per_bottle: 110, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'chewable',
                         declared_dose: { unit_count: 1, unit_name: 'viên', vitamin_c_mg: 250, zinc_mg: 0, probiotics_cfu: 0 },
                         dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 2, unit: 'viên' } },
@@ -672,7 +692,7 @@
                         }
                     },
                     {
-                        id: 206, category: 'de_khang', name: 'Nature\'s Way Zinc Lozenges for Kids', brand: 'Nature\'s Way', image: 'https://placehold.co/300x300/fda4af/white?text=Natures+Zinc', price: 350000,
+                        id: 206, category: 'de_khang', name: "Nature's Way Zinc Lozenges for Kids", brand: "Nature's Way", image: 'https://placehold.co/300x300/fda4af/white?text=Natures+Zinc', price: 350000,
                         volume_ml: 0, total_doses_per_bottle: 60, origin: {country: 'Mỹ', continent: 'Châu Mỹ'}, form: 'lozenges',
                         declared_dose: { unit_count: 1, unit_name: 'viên', vitamin_c_mg: 60, zinc_mg: 5, probiotics_cfu: 0 },
                         dosage_recommendation: { 'tu_3_den_12_tuoi': { min: 1, max: 2, unit: 'viên' } },
@@ -1306,6 +1326,7 @@
             };
 
             app.init();
+            */
         });
     </script>
     
